@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   WOW: any
   myItems: any = []
   itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
+  userName: string | undefined
   constructor(private req: RequestService) {}
 
   ngOnInit(): void {
@@ -24,13 +25,24 @@ export class AppComponent implements OnInit {
   }
 
   test(): void {
-    const itemId = this.WOW.participants[9].stats.item3
+    const {item0, item1, item2, item3, item4, item5, item6} = this.WOW.participants[9].stats
+    const {summonerName} = this.WOW.participantIdentities[9].player
+    this.userName = summonerName
+
+    const myItems = [item0, item1, item2, item3, item4, item5, item6]
+
     this.req.getItems().then(items => {
       const allItems: any = items
 
       if (allItems) {
-        this.myItems.unshift(allItems.data[itemId])
-        this.myItems[0].image = this.itemImageUrl + allItems.data[itemId].image.full
+        for (const id of myItems) {
+          if (id === 0) {
+            continue
+          }
+          this.myItems.unshift(allItems.data[id])
+
+          this.myItems[0].image = this.itemImageUrl + allItems.data[id].image.full
+        }
       }
 
     })
