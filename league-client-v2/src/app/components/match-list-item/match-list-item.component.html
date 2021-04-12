@@ -1,0 +1,9 @@
+<p>hello</p>
+<div *ngIf="myItems && myItems.length > 0">
+  <h1 *ngIf="userName">Player: {{userName}}</h1>
+  <!-- <h2>Match ID: {{match.gameId}} </h2> -->
+  <div *ngFor="let item of myItems">
+    <p>{{item?.name}}</p>
+    <img *ngIf="item?.image" src="{{item.image}}" alt="">
+  </div>
+</div>

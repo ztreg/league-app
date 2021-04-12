@@ -1,7 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MatchListItemComponent } from './components/match-list-item/match-list-item.component';
+import { HomeComponent } from './pages/home/home.component';
+import { MatchesComponent } from './pages/matches/matches.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'matches',
+    component: MatchesComponent
+  },
+  {
+    path: 'matches/:id',
+    component: MatchListItemComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
