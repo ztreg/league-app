@@ -9,20 +9,25 @@ import { MatchesComponent } from './pages/matches/matches.component';
 import { MatchListComponent } from './components/match-list/match-list.component';
 import { MatchListItemComponent } from './components/match-list-item/match-list-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MaterialModules } from './materal-modules';
+import { HeaderComponent } from './components/Layout/header/header.component';
+import { FollowingComponent } from './pages/following/following.component'
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MatchesComponent,
     MatchListComponent,
-    MatchListItemComponent
+    MatchListItemComponent,
+    HeaderComponent,
+    FollowingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModules
   ],
   providers: [],
   bootstrap: [AppComponent]

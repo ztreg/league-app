@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-match-list',
@@ -6,11 +7,15 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./match-list.component.scss']
 })
 export class MatchListComponent implements OnInit {
-  @Input() allMatches: any = []
-  constructor(private ref: ChangeDetectorRef) { }
+  allMatches: any = []
+  constructor(private ref: ChangeDetectorRef, private store: StoreService) { }
 
   ngOnInit(): void {
-    console.log(this.allMatches);
+    this.store.myMatches$.subscribe(matches => {
+      this.allMatches = matches
+      console.log(this.allMatches);
+      
+    })
     this.ref.detectChanges()
   }
 
