@@ -18,7 +18,9 @@ export class MatchListItemComponent implements OnInit {
   constructor(private req: RequestService) {}
 
   ngOnInit(): void {
-    this.req.getMatchDetails(this.matchId).then(res2 => {
+    console.log(this.match.gameId);
+    
+    this.req.getMatchDetails(this.match.gameId).then(res2 => {
       console.log(res2)
       this.WOW = res2
       this.test()
