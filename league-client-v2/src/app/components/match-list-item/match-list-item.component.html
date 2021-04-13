@@ -1,17 +1,26 @@
 
 <div *ngIf="itemData.length > 0" class="match-table"> 
-  <table style="width:100%" >
-    <tr *ngIf="playedChampion">
-      <th>Champion:</th>
+  <table >
+    <tr *ngIf="loaded && myStats">
+      <th>Overview:</th>
+      <td *ngIf="myStats.win">Victory</td>
+      <td *ngIf="!myStats.win">Defeat</td>
       <td>{{playedChampion.name}}</td>
+      <td> <img src="{{playedChampion.imageURL}}" alt=""> </td>
+      <td [routerLink]="['/matches', match.gameId]">View Match <mat-icon>arrow_forward</mat-icon> </td>
     </tr>
-    <tr>
+    <tr *ngIf="myStats">
       <th>Stats:</th>
-      <td>555 77 854</td>
+      <td>Kills: {{myStats.kills}}</td>
+      <td>Deaths: {{myStats.deaths}}</td>
+      <td>Asssists: {{myStats.assists}}</td>
+      <td>Dmg: {{myStats.totalDamageDealtToChampions}}</td>
+      <td>Gold: {{myStats.goldEarned}}</td>
+      <td >Lvl: {{myStats.champLevel}}</td>
     </tr>
     <tr>
       <th>Items:</th>
-      <td *ngFor="let item of itemData"><img *ngIf="item?.image" src="{{item.image}}" alt=""></td>
+      <td *ngFor="let item of itemData"><img *ngIf="item?.image" src="{{item.image}}" alt="icon of item"></td>
       <!-- <td></td> -->
     </tr>
   </table>

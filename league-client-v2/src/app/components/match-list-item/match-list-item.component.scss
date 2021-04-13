@@ -4,8 +4,13 @@ table, th, td {
   background-color: black;
   color: white;
 }
+table {
+  width: 850px;
+  margin: 0 auto;
+}
+
 th {
-  padding: 5px;
+  padding: 15px;
   text-align: left;
 }
 td {
@@ -17,5 +22,5 @@ td {
 }
 
 .match-table {
-  margin: 20px;
+  padding: 20px;
 }

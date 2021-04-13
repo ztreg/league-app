@@ -11,7 +11,8 @@ import { MatchListItemComponent } from './components/match-list-item/match-list-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModules } from './materal-modules';
 import { HeaderComponent } from './components/Layout/header/header.component';
-import { FollowingComponent } from './pages/following/following.component'
+import { FollowingComponent } from './pages/following/following.component';
+import { MatchDetailsComponent } from './pages/match-details/match-details.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,8 @@ import { FollowingComponent } from './pages/following/following.component'
     MatchListComponent,
     MatchListItemComponent,
     HeaderComponent,
-    FollowingComponent
+    FollowingComponent,
+    MatchDetailsComponent
   ],
   imports: [
     BrowserModule,

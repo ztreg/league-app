@@ -13,10 +13,7 @@ export class MatchListComponent implements OnInit {
   ngOnInit(): void {
     this.store.myMatches$.subscribe(matches => {
       this.allMatches = matches
-      console.log(this.allMatches);
-      
     })
-    this.ref.detectChanges()
   }
 
 }
