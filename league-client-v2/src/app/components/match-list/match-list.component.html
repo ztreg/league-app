@@ -1,9 +1,8 @@
 <div *ngIf="allMatches.length > 0">
 
+  <h1>Latest matches</h1>
   <div *ngFor="let match of allMatches">
-    <p>yo</p>
     <app-match-list-item [match]="match"></app-match-list-item>
-
   </div>
 
 </div>

@@ -4,7 +4,7 @@
   </button>
   <a routerLink="/matches" routerLinkActive="active" class="linkBtn"><span> Home</span></a>
   <span class="example-spacer"></span>
-  <h3>ZTREG</h3>
+  <h3 *ngIf="currentUser$ | async as currentUser">{{currentUser.username}}</h3>
   <span class="example-spacer"></span>
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon routerLink="/following" routerLinkActive="active">group</mat-icon>

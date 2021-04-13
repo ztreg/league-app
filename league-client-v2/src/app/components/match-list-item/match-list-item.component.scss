@@ -1,0 +1,21 @@
+table, th, td {
+  border: 1px solid blue;
+  border-collapse: collapse;
+  background-color: black;
+  color: white;
+}
+th {
+  padding: 5px;
+  text-align: left;
+}
+td {
+  text-align: center;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.match-table {
+  margin: 20px;
+}

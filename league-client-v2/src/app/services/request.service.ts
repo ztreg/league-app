@@ -12,6 +12,9 @@ export class RequestService {
   allMatches = 'lol/match/v4/matchlists/by-account'
   itemsURL = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/item.json'
   itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
+
+  championsURL = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/champion.json'
+
   constructor(private http: HttpClient) { }
 
   getAllMatches(accountId: string, startIndex: number, endIndex: number): Promise<HttpResponse<any>> {
@@ -29,5 +32,9 @@ export class RequestService {
 
   getItemImage(imageId: string): Promise<HttpResponse<any>> {
     return this.http.get<HttpResponse<any>>(`${this.itemImageUrl}${imageId}`).toPromise()
+  }
+
+  getAllChampions(): Promise<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(this.championsURL).toPromise()
   }
 }

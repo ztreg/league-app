@@ -16,4 +16,11 @@ export class RequestUtilities {
       
     })
   }
+
+  getAllChampions(): void {
+    this.req.getAllChampions().then(champs => {
+      const {data}: any = champs
+      this.storeService.updateAllChampions(data)
+    })
+  }
 }

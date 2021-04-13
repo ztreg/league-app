@@ -1,33 +1,18 @@
-<div class="mat-elevation-z8" *ngIf="itemData && itemData.length > 0">
-  <table mat-table [dataSource]="dataSource">
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-
-    Weight Column
-    <ng-container matColumnDef="items">
-      <th mat-header-cell *matHeaderCellDef> Items </th>
-      <td mat-cell *matCellDef="let element"> {{element.items}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="imageURL">
-      <th mat-header-cell *matHeaderCellDef> imageURL </th>
-      <td mat-cell *matCellDef="let element"> <img [src]="element.imageURL" alt="" srcset="">  </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<div *ngIf="itemData.length > 0" class="match-table"> 
+  <table style="width:100%" >
+    <tr *ngIf="playedChampion">
+      <th>Champion:</th>
+      <td>{{playedChampion.name}}</td>
+    </tr>
+    <tr>
+      <th>Stats:</th>
+      <td>555 77 854</td>
+    </tr>
+    <tr>
+      <th>Items:</th>
+      <td *ngFor="let item of itemData"><img *ngIf="item?.image" src="{{item.image}}" alt=""></td>
+      <!-- <td></td> -->
+    </tr>
   </table>
-
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
