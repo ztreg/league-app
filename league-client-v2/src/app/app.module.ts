@@ -14,7 +14,8 @@ import { HeaderComponent } from './components/Layout/header/header.component';
 import { FollowingComponent } from './pages/following/following.component';
 import { MatchDetailsComponent } from './pages/match-details/match-details.component';
 import { MatchFullDetailsComponent } from './components/match-full-details/match-full-details.component';
-import { MatchFullDetailsHeaderComponent } from './components/match-full-details-header/match-full-details-header.component'
+import { MatchFullDetailsHeaderComponent } from './components/match-full-details-header/match-full-details-header.component';
+import { MatchCardComponent } from './components/match-card/match-card.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { MatchFullDetailsHeaderComponent } from './components/match-full-details
     FollowingComponent,
     MatchDetailsComponent,
     MatchFullDetailsComponent,
-    MatchFullDetailsHeaderComponent
+    MatchFullDetailsHeaderComponent,
+    MatchCardComponent
   ],
   imports: [
     BrowserModule,
