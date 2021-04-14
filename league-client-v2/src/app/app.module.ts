@@ -12,7 +12,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModules } from './materal-modules';
 import { HeaderComponent } from './components/Layout/header/header.component';
 import { FollowingComponent } from './pages/following/following.component';
-import { MatchDetailsComponent } from './pages/match-details/match-details.component'
+import { MatchDetailsComponent } from './pages/match-details/match-details.component';
+import { MatchFullDetailsComponent } from './components/match-full-details/match-full-details.component';
+import { MatchFullDetailsHeaderComponent } from './components/match-full-details-header/match-full-details-header.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,9 @@ import { MatchDetailsComponent } from './pages/match-details/match-details.compo
     MatchListItemComponent,
     HeaderComponent,
     FollowingComponent,
-    MatchDetailsComponent
+    MatchDetailsComponent,
+    MatchFullDetailsComponent,
+    MatchFullDetailsHeaderComponent
   ],
   imports: [
     BrowserModule,

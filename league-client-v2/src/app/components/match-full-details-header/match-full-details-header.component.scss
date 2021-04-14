@@ -1,0 +1,15 @@
+.match-header {
+  display: flex;
+  justify-content: space-around;
+  .match-side {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .bans {
+    padding: 5px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+}

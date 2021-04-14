@@ -1,1 +1,4 @@
-<p>match-details works!</p>
+<div *ngIf="match && matchOverview">
+  <app-match-full-details-header [matchOverview]="matchOverview"></app-match-full-details-header>
+  <app-match-full-details [match]="match"></app-match-full-details>
+</div>

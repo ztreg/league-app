@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http'
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-b99d2937-7feb-4bc6-8422-9a8f626a31d9'
+  queryToken = 'api_key=RGAPI-740d59d5-0aa1-452c-b167-83a9ecae881c'
   accountId = 'UJhJTXVRisEi4S2ASXmhUmDEYhWJIBfPSmMbQdhAfbM'
   matches = 'lol/match/v4/matches'
 

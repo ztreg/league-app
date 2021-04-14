@@ -1,27 +1,41 @@
 
-<div *ngIf="itemData.length > 0" class="match-table"> 
-  <table >
-    <tr *ngIf="loaded && myStats">
-      <th>Overview:</th>
-      <td *ngIf="myStats.win">Victory</td>
-      <td *ngIf="!myStats.win">Defeat</td>
-      <td>{{playedChampion.name}}</td>
-      <td> <img src="{{playedChampion.imageURL}}" alt=""> </td>
-      <td [routerLink]="['/matches', match.gameId]">View Match <mat-icon>arrow_forward</mat-icon> </td>
-    </tr>
-    <tr *ngIf="myStats">
-      <th>Stats:</th>
-      <td>Kills: {{myStats.kills}}</td>
-      <td>Deaths: {{myStats.deaths}}</td>
-      <td>Asssists: {{myStats.assists}}</td>
-      <td>Dmg: {{myStats.totalDamageDealtToChampions}}</td>
-      <td>Gold: {{myStats.goldEarned}}</td>
-      <td >Lvl: {{myStats.champLevel}}</td>
-    </tr>
-    <tr>
-      <th>Items:</th>
-      <td *ngFor="let item of itemData"><img *ngIf="item?.image" src="{{item.image}}" alt="icon of item"></td>
-      <!-- <td></td> -->
-    </tr>
-  </table>
+<div class="match-table" >
+  <div *ngIf="itemData.length > 0" > 
+    <table [ngClass]="{'victory': myStats.win}">
+      <tr *ngIf="loaded && myStats">
+        <th>Overview:</th>
+        <td *ngIf="myStats.win">Victory</td>
+        <td *ngIf="!myStats.win">Defeat</td>
+        <!-- <td>{{playedChampion.name}}</td> -->
+        <td> <img src="{{playedChampion.imageURL}}" alt=""> </td>
+        <td>{{myStats.kda}}</td>
+        <td [routerLink]="['/matches', match.gameId]">View Match <mat-icon>arrow_forward</mat-icon> </td>
+      </tr>
+      <div *ngIf="!expand">
+          More details: <mat-icon (click)="expandItem()">arrow_downward</mat-icon>
+      </div>
+   
+      <tr *ngIf="myStats && expand">
+        <th>Stats:</th>
+        <td>K: {{myStats.kills}}</td>
+        <td>D: {{myStats.deaths}}</td>
+        <td>A: {{myStats.assists}}</td>
+        <td>Dmg: {{myStats.totalDamageDealtToChampions}}</td>
+        <td>Gold: {{myStats.goldEarned}}</td>
+        <td >Lvl: {{myStats.champLevel}}</td>
+      </tr>
+      <tr *ngIf="myStats && expand">
+        <th>Items:</th>
+          <td *ngFor="let item of itemData">
+            <img *ngIf="item?.image" src="{{item.image}}" alt="icon of item">
+          </td>
+        <!-- <td></td> -->
+      </tr>
+  
+      <div *ngIf="expand">
+        Minimize: <mat-icon (click)="expandItem()">arrow_upward</mat-icon>
+      </div>
+  
+    </table>
+  </div>
 </div>

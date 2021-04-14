@@ -23,4 +23,6 @@ export class RequestUtilities {
       this.storeService.updateAllChampions(data)
     })
   }
+
+  
 }

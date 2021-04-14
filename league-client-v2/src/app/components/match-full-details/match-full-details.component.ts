@@ -1,13 +1,20 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { StoreService } from 'src/app/services/store.service';
 
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+}
+
+
 @Component({
-  selector: 'app-match-list-item',
-  templateUrl: './match-list-item.component.html',
-  styleUrls: ['./match-list-item.component.scss']
+  selector: 'app-match-full-details',
+  templateUrl: './match-full-details.component.html',
+  styleUrls: ['./match-full-details.component.scss']
 })
-export class MatchListItemComponent implements OnInit {
+export class MatchFullDetailsComponent implements OnInit {
   @Input() match: any
   itemData: any = []
 
@@ -24,6 +31,8 @@ export class MatchListItemComponent implements OnInit {
   playedChampion: any
   myStats: any = {}
 
+  players: any = []
+
   constructor(
     private req: RequestService, 
     private store: StoreService, 
@@ -35,10 +44,14 @@ export class MatchListItemComponent implements OnInit {
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
       
       this.gameData = res2
+      // console.log(this.gameData);
       
+      
+
       const currentUserAccountId = this.req.accountId
       
       for(let participant of this.gameData.participantIdentities) {
+        this.players.push(participant.player.summonerName)
         if(participant.player.accountId === currentUserAccountId) {
           this.myPartId = participant.participantId
           this.store.updateCurrentUser(participant.player)
@@ -53,7 +66,7 @@ export class MatchListItemComponent implements OnInit {
     this.myStats = myStats
     this.myStats.kda = (myStats.kills + myStats.assists) / myStats.deaths
     this.myStats.kda = this.myStats.kda.toFixed(2)
-    console.log(myStats);
+    // console.log(myStats);
     
     
     const {item0, item1, item2, item3, item4, item5, item6} = myStats

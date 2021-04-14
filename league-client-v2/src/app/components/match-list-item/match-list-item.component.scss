@@ -1,5 +1,5 @@
 table, th, td {
-  border: 1px solid blue;
+  // border: 1px solid blue;
   border-collapse: collapse;
   background-color: black;
   color: white;
@@ -23,4 +23,12 @@ td {
 
 .match-table {
   padding: 20px;
+  // :hover, :not(:nth-child) {
+  //   transform: scale(1.05);
+  // }
+}
+
+.victory {
+  // padding: 10px;
+  border: 10px solid red;
 }
