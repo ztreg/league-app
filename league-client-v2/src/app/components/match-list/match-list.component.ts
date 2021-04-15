@@ -8,6 +8,7 @@ import { StoreService } from 'src/app/services/store.service';
 })
 export class MatchListComponent implements OnInit {
   allMatches: any = []
+
   constructor(private ref: ChangeDetectorRef, private store: StoreService) { }
 
   ngOnInit(): void {

@@ -33,6 +33,8 @@ export class MatchListItemComponent implements OnInit {
   ngOnInit(): void {
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
       this.gameData = res2
+      console.log(this.gameData);
+      
       const currentUserAccountId = this.req.accountId
 
       for (const participant of this.gameData.participantIdentities) {

@@ -10,6 +10,8 @@ export class RequestUtilities {
 
   getUserMatches(currentUserAccountId: string): any {
     this.req.getAllMatches(currentUserAccountId, 0, 10).then(data => {
+      console.log(data);
+      
       const fullMatchesData: any = data
       const { matches } = fullMatchesData
       this.storeService.updateMyMatches(matches)

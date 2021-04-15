@@ -74,29 +74,16 @@ export class MatchFullDetailsComponent implements OnInit {
         this.store.updateCurrentUser(participantIdentity.player)
       }
 
+      const { imageURL } = this.getSpecificChampion(participantINFO.championId)
+      const player: Player = {
+        name: participantIdentity.player.summonerName,
+        championURL: imageURL,
+        stats: participantINFO.stats,
+        items: allITEMS
+      }
       if (participantIdentity.participantId <= 5) {
-        const { imageURL } = this.getSpecificChampion(participantINFO.championId)
-        const player: Player = {
-          name: participantIdentity.player.summonerName,
-          championURL: imageURL,
-          stats: participantINFO.stats,
-          items: allITEMS
-        }
-
-        console.log(allITEMS)
-
         this.teamOne.Players.push(player)
-
       } else {
-        const { imageURL } = this.getSpecificChampion(participantINFO.championId)
-        const player: Player = {
-          name: participantIdentity.player.summonerName,
-          championURL: imageURL,
-          stats: this.gameData.participants[i].stats,
-          items: allITEMS
-        }
-        console.log(player)
-
         this.teamTwo.Players.push(player)
       }
     }

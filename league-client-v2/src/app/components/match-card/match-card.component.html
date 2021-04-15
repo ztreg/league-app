@@ -12,7 +12,7 @@
     <div class="row-item">
       {{player.stats.kills}} | {{player.stats.deaths}} | {{player.stats.assists}}
     </div>
-    <div class="row-item" *ngFor="let item of player.items">
+    <div class="row-item-item" *ngFor="let item of player.items">
       <img class="avatar-item" src="{{item.itemURL}}" alt="" srcset="">
     </div>
   </mat-card-content>
