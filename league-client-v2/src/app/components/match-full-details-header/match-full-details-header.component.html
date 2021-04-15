@@ -1,6 +1,6 @@
 <div class="match-header" *ngIf="loaded">
+  Bans: 
   <div class="match-side">
-    Bans: 
     <div *ngFor="let ban of bannedChampions1" class="bans">
       <img src="{{ban.imageURL}}" alt="">
     </div>
@@ -8,8 +8,9 @@
   <div>
     {{matchOverview.gameDuration}} min
   </div>
+  Bans: 
   <div class="match-side">
-    Bans: <div *ngFor="let ban of bannedChampions2" class="bans">
+   <div *ngFor="let ban of bannedChampions2" class="bans">
       <img src="{{ban.imageURL}}" alt="">
     </div>
   </div>

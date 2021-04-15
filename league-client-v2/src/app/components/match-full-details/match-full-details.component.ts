@@ -1,17 +1,21 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { RequestService } from 'src/app/services/request.service';
-import { StoreService } from 'src/app/services/store.service';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
+import { RequestService } from 'src/app/services/request.service'
+import { StoreService } from 'src/app/services/store.service'
 
 export interface Player {
-  name?: string;
-  championURL?: string;
+  name: string
+  championURL: string
+  stats: object
+  items: Item[]
 }
 
 export interface Players {
   Players: Player[]
 }
 
-
+export interface Item {
+  itemURL: string
+}
 @Component({
   selector: 'app-match-full-details',
   templateUrl: './match-full-details.component.html',
@@ -32,15 +36,15 @@ export class MatchFullDetailsComponent implements OnInit {
 
   myItems: any = []
   playedChampion: any
-  myStats: any = {}
+  myStats: any
 
   teamOne: any = []
   teamTwo: any = []
 
 
   constructor(
-    private req: RequestService, 
-    private store: StoreService, 
+    private req: RequestService,
+    private store: StoreService,
     private ref: ChangeDetectorRef
   ) {}
 
@@ -48,11 +52,8 @@ export class MatchFullDetailsComponent implements OnInit {
     this.teamOne.Players = []
     this.teamTwo.Players = []
 
-
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
-      
       this.gameData = res2
-      console.log(this.gameData);
 
       this.getTeamData()
     })
@@ -60,27 +61,41 @@ export class MatchFullDetailsComponent implements OnInit {
 
   getTeamData(): void {
     const currentUserAccountId = this.req.accountId
-    
-    for(let i = 0; i < this.gameData.participantIdentities.length; i++) {
-      const participant = this.gameData.participantIdentities[i]
-      if(participant.player.accountId === currentUserAccountId) {
-        this.myPartId = participant.participantId
-        this.store.updateCurrentUser(participant.player)
+
+    for (let i = 0; i < this.gameData.participantIdentities.length; i++) {
+      const participantIdentity = this.gameData.participantIdentities[i]
+      const participantINFO = this.gameData.participants[i]
+      const {item0, item1, item2, item3, item4, item5, item6} = participantINFO.stats
+      const playerItems = [item0, item1, item2, item3, item4, item5, item6]
+      const allITEMS = this.getItems(playerItems)
+
+      if (participantIdentity.player.accountId === currentUserAccountId) {
+        this.myPartId = participantIdentity.participantId
+        this.store.updateCurrentUser(participantIdentity.player)
       }
-      if(participant.participantId <= 5) {
-        const { imageURL } = this.getSpecificChampion(this.gameData.participants[i].championId)
+
+      if (participantIdentity.participantId <= 5) {
+        const { imageURL } = this.getSpecificChampion(participantINFO.championId)
         const player: Player = {
-          name: participant.player.summonerName,
-          championURL: imageURL
+          name: participantIdentity.player.summonerName,
+          championURL: imageURL,
+          stats: participantINFO.stats,
+          items: allITEMS
         }
 
+        console.log(allITEMS)
+
         this.teamOne.Players.push(player)
+
       } else {
-        const { imageURL } = this.getSpecificChampion(this.gameData.participants[i].championId)
+        const { imageURL } = this.getSpecificChampion(participantINFO.championId)
         const player: Player = {
-          name: participant.player.summonerName,
-          championURL: imageURL 
+          name: participantIdentity.player.summonerName,
+          championURL: imageURL,
+          stats: this.gameData.participants[i].stats,
+          items: allITEMS
         }
+        console.log(player)
 
         this.teamTwo.Players.push(player)
       }
@@ -88,48 +103,43 @@ export class MatchFullDetailsComponent implements OnInit {
 
   }
 
-  getSpecificChampion(championId: string): any {
-    let test:any = {}
-
-    this.store.allChampions$.subscribe(champions => {
-      const championsArray: any = Object.entries(champions)
-      for(const [key, item] of championsArray) {
-        if(championId == item.key) {
-          test.imageURL = `${this.championImageUrl}${item.image.full}`
-          this.loaded = true          
-        }
-      }
-    })
-    
-    return test
-  }
-
-  getItems(): void {
-    const myStats = this.gameData.participants[this.myPartId - 1].stats
-    this.myStats = myStats
-    this.myStats.kda = (myStats.kills + myStats.assists) / myStats.deaths
-    this.myStats.kda = this.myStats.kda.toFixed(2)
-    
-    const {item0, item1, item2, item3, item4, item5, item6} = myStats
-    const {championId} = this.gameData.participants[this.myPartId - 1]
-
-    const myItems = [item0, item1, item2, item3, item4, item5, item6]
+  getItems(itemsArray: any []): Item[] {
+    const itemsURL: Item[] = []
     this.req.getItems().then(items => {
+
       const allItems: any = items
 
       if (allItems) {
-        for (const id of myItems) {
+        for (const id of itemsArray) {
           if (id === 0) {
             continue
           }
-          this.myItems.unshift(allItems.data[id])
-          this.itemData.unshift(allItems.data[id])
-          this.myItems[0].image = this.itemImageUrl + allItems.data[id].image.full
-          this.itemData[0].imageURL = this.myItems[0].image
+          const itemURL = allItems.data[id]
+          itemsURL.unshift(itemURL)
+          itemsURL[0].itemURL = this.itemImageUrl + allItems.data[id].image.full
         }
       }
     })
+    return itemsURL
   }
+
+  getSpecificChampion(championId: string): any {
+    const test: any = {}
+
+    this.store.allChampions$.subscribe(champions => {
+      const championsArray: any = Object.entries(champions)
+      for (const [key, item] of championsArray) {
+        if (championId.toString() === item.key) {
+          test.imageURL = `${this.championImageUrl}${item.image.full}`
+          this.loaded = true
+        }
+      }
+    })
+
+    return test
+  }
+
+
 
   expandItem(): void {
     this.expand = !this.expand

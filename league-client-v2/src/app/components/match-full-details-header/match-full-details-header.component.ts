@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { StoreService } from 'src/app/services/store.service';
+import { Component, Input, OnInit } from '@angular/core'
+import { StoreService } from 'src/app/services/store.service'
 
 @Component({
   selector: 'app-match-full-details-header',
@@ -22,23 +22,23 @@ export class MatchFullDetailsHeaderComponent implements OnInit {
   }
 
   loopTeamBans(): void {
-    for(let ban1 of this.matchOverview.teams[0].bans) {
+    for (const ban1 of this.matchOverview.teams[0].bans) {
       this.bannedChampions1.unshift(this.getSpecificChampion(ban1.championId))
     }
-    for(let ban2 of this.matchOverview.teams[1].bans) {
+    for (const ban2 of this.matchOverview.teams[1].bans) {
       this.bannedChampions2.unshift(this.getSpecificChampion(ban2.championId))
     }
   }
 
   getSpecificChampion(championId: string): any {
-    let test:any = {}
+    const test: any = {}
 
     this.store.allChampions$.subscribe(champions => {
       const championsArray: any = Object.entries(champions)
-      for(const [key, item] of championsArray) {
-        if(championId == item.key) {
+      for (const [key, item] of championsArray) {
+        if (championId.toString() === item.key) {
           test.imageURL = `${this.championImageUrl}${item.image.full}`
-          this.loaded = true          
+          this.loaded = true
         }
       }
     })

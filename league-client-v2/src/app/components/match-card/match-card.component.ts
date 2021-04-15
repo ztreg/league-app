@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-match-card',
@@ -10,10 +10,10 @@ export class MatchCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    if(this.teamData) {
-      console.log(this.teamData);
+    if (this.teamData) {
+      console.log(this.teamData)
     } else {
-      console.log('no data');
+      console.log('no data')
     }
   }
 }

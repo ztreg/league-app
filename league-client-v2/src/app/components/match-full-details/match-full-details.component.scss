@@ -1,16 +1,16 @@
 
 .card-container {
-  width: 1200px;
+  padding: 20px;
+  width: 1300px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   align-self: center;
   .example-card {
-    // max-width: 400px;
-    width: 35%;
+    width: 45%;
   }
   .middle {
-    width: 15%;
+    width: 2%;
     margin: 0 auto;
     text-align: center;
   }

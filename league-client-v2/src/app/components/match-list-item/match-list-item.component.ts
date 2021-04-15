@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { RequestService } from 'src/app/services/request.service';
-import { StoreService } from 'src/app/services/store.service';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
+import { RequestService } from 'src/app/services/request.service'
+import { StoreService } from 'src/app/services/store.service'
 
 @Component({
   selector: 'app-match-list-item',
@@ -25,21 +25,18 @@ export class MatchListItemComponent implements OnInit {
   myStats: any = {}
 
   constructor(
-    private req: RequestService, 
-    private store: StoreService, 
+    private req: RequestService,
+    private store: StoreService,
     private ref: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    console.log('yo');
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
-      
       this.gameData = res2
-      
       const currentUserAccountId = this.req.accountId
-      
-      for(let participant of this.gameData.participantIdentities) {
-        if(participant.player.accountId === currentUserAccountId) {
+
+      for (const participant of this.gameData.participantIdentities) {
+        if (participant.player.accountId === currentUserAccountId) {
           this.myPartId = participant.participantId
           this.store.updateCurrentUser(participant.player)
         }
@@ -53,7 +50,7 @@ export class MatchListItemComponent implements OnInit {
     this.myStats = myStats
     this.myStats.kda = (myStats.kills + myStats.assists) / myStats.deaths
     this.myStats.kda = this.myStats.kda.toFixed(2)
-    
+
     const {item0, item1, item2, item3, item4, item5, item6} = myStats
     const {championId} = this.gameData.participants[this.myPartId - 1]
 
@@ -81,11 +78,11 @@ export class MatchListItemComponent implements OnInit {
     this.ref.detectChanges()
     this.store.allChampions$.subscribe(champions => {
       const championsArray: any = Object.entries(champions)
-      for(const [key, item] of championsArray) {
-        if(championId == item.key) {
+      for (const [key, item] of championsArray) {
+        if (championId == item.key) {
           this.playedChampion = item
           this.playedChampion.imageURL = `${this.championImageUrl}${item.image.full}`
-          this.loaded = true          
+          this.loaded = true
         }
       }
     })
