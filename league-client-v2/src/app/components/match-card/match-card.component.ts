@@ -10,8 +10,10 @@ export class MatchCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.teamData);
-    
+    if(this.teamData) {
+      console.log(this.teamData);
+    } else {
+      console.log('no data');
+    }
   }
-
 }

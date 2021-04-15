@@ -2,10 +2,13 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
 import { StoreService } from 'src/app/services/store.service';
 
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
+export interface Player {
+  name?: string;
+  championURL?: string;
+}
+
+export interface Players {
+  Players: Player[]
 }
 
 
@@ -31,8 +34,9 @@ export class MatchFullDetailsComponent implements OnInit {
   playedChampion: any
   myStats: any = {}
 
-  teamOne: any = {}
-  teamTwo: any = {}
+  teamOne: any = []
+  teamTwo: any = []
+
 
   constructor(
     private req: RequestService, 
@@ -41,34 +45,66 @@ export class MatchFullDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.teamOne.players = []
-    this.teamOne.champions = []
-    this.teamTwo.champions = []
-    this.teamTwo.players = []
+    this.teamOne.Players = []
+    this.teamTwo.Players = []
 
 
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
       
       this.gameData = res2
       console.log(this.gameData);
-      const currentUserAccountId = this.req.accountId
-      
-      for(let participant of this.gameData.participantIdentities) {
-        if(participant.participantId <= 5) {
-          this.teamOne.players.push(participant.player.summonerName)
-        } else {
-          this.teamTwo.players.push(participant.player.summonerName)
-        }
-        if(participant.player.accountId === currentUserAccountId) {
-          this.myPartId = participant.participantId
-          this.store.updateCurrentUser(participant.player)
-        }
-      }
-      this.getItemsData()
+
+      this.getTeamData()
     })
   }
 
-  getItemsData(): void {
+  getTeamData(): void {
+    const currentUserAccountId = this.req.accountId
+    
+    for(let i = 0; i < this.gameData.participantIdentities.length; i++) {
+      const participant = this.gameData.participantIdentities[i]
+      if(participant.player.accountId === currentUserAccountId) {
+        this.myPartId = participant.participantId
+        this.store.updateCurrentUser(participant.player)
+      }
+      if(participant.participantId <= 5) {
+        const { imageURL } = this.getSpecificChampion(this.gameData.participants[i].championId)
+        const player: Player = {
+          name: participant.player.summonerName,
+          championURL: imageURL
+        }
+
+        this.teamOne.Players.push(player)
+      } else {
+        const { imageURL } = this.getSpecificChampion(this.gameData.participants[i].championId)
+        const player: Player = {
+          name: participant.player.summonerName,
+          championURL: imageURL 
+        }
+
+        this.teamTwo.Players.push(player)
+      }
+    }
+
+  }
+
+  getSpecificChampion(championId: string): any {
+    let test:any = {}
+
+    this.store.allChampions$.subscribe(champions => {
+      const championsArray: any = Object.entries(champions)
+      for(const [key, item] of championsArray) {
+        if(championId == item.key) {
+          test.imageURL = `${this.championImageUrl}${item.image.full}`
+          this.loaded = true          
+        }
+      }
+    })
+    
+    return test
+  }
+
+  getItems(): void {
     const myStats = this.gameData.participants[this.myPartId - 1].stats
     this.myStats = myStats
     this.myStats.kda = (myStats.kills + myStats.assists) / myStats.deaths
@@ -93,29 +129,6 @@ export class MatchFullDetailsComponent implements OnInit {
         }
       }
     })
-
-    for(let participant of this.gameData.participants) {
-      if(participant.participantId <= 5) {
-        this.teamOne.champions.push(this.getSpecificChampion(participant.championId))
-      } else {
-        this.teamTwo.champions.push(this.getSpecificChampion(participant.championId))
-      }
-    }
-  }
-
-  getSpecificChampion(championId: string): any {
-    let test:any = {}
-
-    this.store.allChampions$.subscribe(champions => {
-      const championsArray: any = Object.entries(champions)
-      for(const [key, item] of championsArray) {
-        if(championId == item.key) {
-          test.imageURL = `${this.championImageUrl}${item.image.full}`
-          this.loaded = true          
-        }
-      }
-    })
-    return test
   }
 
   expandItem(): void {

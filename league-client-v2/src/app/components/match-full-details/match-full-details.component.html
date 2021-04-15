@@ -1,10 +1,10 @@
 <div class="card-container">
-  <div class="example-card">
+  <div class="example-card" *ngIf="teamOne">
     <app-match-card [teamData]="teamOne"></app-match-card>
   </div>
   <div class="middle">VS</div>
 
-  <div class="example-card">
+  <div class="example-card"  *ngIf="teamTwo">
     <app-match-card [teamData]="teamTwo"></app-match-card>
   </div>
 

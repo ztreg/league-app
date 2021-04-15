@@ -8,7 +8,9 @@ import { StoreService } from 'src/app/services/store.service';
 })
 export class MatchFullDetailsHeaderComponent implements OnInit {
   @Input() matchOverview: any
+
   constructor(private store: StoreService) { }
+
   championImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
   bannedChampions1: any = []
   bannedChampions2: any = []

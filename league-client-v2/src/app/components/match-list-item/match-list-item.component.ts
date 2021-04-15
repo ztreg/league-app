@@ -53,8 +53,6 @@ export class MatchListItemComponent implements OnInit {
     this.myStats = myStats
     this.myStats.kda = (myStats.kills + myStats.assists) / myStats.deaths
     this.myStats.kda = this.myStats.kda.toFixed(2)
-    console.log(myStats);
-    
     
     const {item0, item1, item2, item3, item4, item5, item6} = myStats
     const {championId} = this.gameData.participants[this.myPartId - 1]
