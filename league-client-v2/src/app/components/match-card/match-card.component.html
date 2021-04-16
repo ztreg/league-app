@@ -5,10 +5,9 @@
     <mat-card-subtitle></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content *ngFor="let player of teamData.Players" class="row">
-    <div class="row-item ">
-    {{player.name}}
-    </div>
-      <img class="row-item" src="{{player.championURL}}" alt="" class="avatar">
+    <div class="row-item"> {{player.timeline.lane}}</div>
+    <div class="row-item "> {{player.name}}</div>
+    <img class="row-item" src="{{player.championURL}}" alt="" class="avatar">
     <div class="row-item">
       {{player.stats.kills}} | {{player.stats.deaths}} | {{player.stats.assists}}
     </div>

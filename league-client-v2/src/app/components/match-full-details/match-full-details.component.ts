@@ -1,26 +1,14 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
+import { Item, Player } from 'src/app/types/Player'
 
-export interface Player {
-  name: string
-  championURL: string
-  stats: object
-  items: Item[]
-}
-
-export interface Players {
-  Players: Player[]
-}
-
-export interface Item {
-  itemURL: string
-}
 @Component({
   selector: 'app-match-full-details',
   templateUrl: './match-full-details.component.html',
   styleUrls: ['./match-full-details.component.scss']
 })
+
 export class MatchFullDetailsComponent implements OnInit {
   @Input() match: any
   itemData: any = []
@@ -40,7 +28,6 @@ export class MatchFullDetailsComponent implements OnInit {
 
   teamOne: any = []
   teamTwo: any = []
-
 
   constructor(
     private req: RequestService,
@@ -65,6 +52,7 @@ export class MatchFullDetailsComponent implements OnInit {
     for (let i = 0; i < this.gameData.participantIdentities.length; i++) {
       const participantIdentity = this.gameData.participantIdentities[i]
       const participantINFO = this.gameData.participants[i]
+      const {role, lane} = participantINFO.timeline
       const {item0, item1, item2, item3, item4, item5, item6} = participantINFO.stats
       const playerItems = [item0, item1, item2, item3, item4, item5, item6]
       const allITEMS = this.getItems(playerItems)
@@ -79,7 +67,8 @@ export class MatchFullDetailsComponent implements OnInit {
         name: participantIdentity.player.summonerName,
         championURL: imageURL,
         stats: participantINFO.stats,
-        items: allITEMS
+        items: allITEMS,
+        timeline: { lane, role }
       }
       if (participantIdentity.participantId <= 5) {
         this.teamOne.Players.push(player)
@@ -93,9 +82,7 @@ export class MatchFullDetailsComponent implements OnInit {
   getItems(itemsArray: any []): Item[] {
     const itemsURL: Item[] = []
     this.req.getItems().then(items => {
-
       const allItems: any = items
-
       if (allItems) {
         for (const id of itemsArray) {
           if (id === 0) {
@@ -122,11 +109,8 @@ export class MatchFullDetailsComponent implements OnInit {
         }
       }
     })
-
     return test
   }
-
-
 
   expandItem(): void {
     this.expand = !this.expand

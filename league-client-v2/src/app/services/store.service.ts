@@ -5,14 +5,15 @@ import { ReplaySubject } from 'rxjs';
   providedIn: 'root'
 })
 export class StoreService {
-
   private readonly _currentUser = new ReplaySubject<any>(1)
   private readonly _myMatches = new ReplaySubject<any>(1)
   private readonly _allChampions = new ReplaySubject<any>(1)
+  private readonly _allSummoners = new ReplaySubject<any>(1)
 
   readonly currentUser$ = this._currentUser.asObservable()
   readonly myMatches$ = this._myMatches.asObservable()
   readonly allChampions$ = this._allChampions.asObservable()
+  readonly allSummoners$ = this._allSummoners.asObservable()
 
   private set currentUser(val: any) {
     this._currentUser.next(val)
@@ -26,6 +27,10 @@ export class StoreService {
     this._allChampions.next(val)
   }
 
+  private set allSummoners(val: any) {
+    this._allSummoners.next(val)
+  }
+
   updateCurrentUser(val: any): void {
     this.currentUser = val
   }
@@ -34,8 +39,12 @@ export class StoreService {
     this.myMatches = val
   }
 
-  updateAllChampions(val: any) {
+  updateAllChampions(val: any): void {
     this.allChampions = val
+  }
+
+  updateAllSummoners(val: any): void {
+    this.allSummoners = val
   }
 
   constructor() { }

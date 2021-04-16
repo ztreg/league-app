@@ -21,6 +21,7 @@ export class MatchDetailsComponent implements OnInit {
   matchID: string | null | undefined
   match: any
   matchOverview: any
+
   ngOnInit(): void {
     this.getPathParams()
     this.getMatchDetails()
@@ -31,11 +32,9 @@ export class MatchDetailsComponent implements OnInit {
   }
 
   getMatchDetails(): void {
-    // console.log(this.matchID);
-    
     this.req.getMatchDetails(this.matchID || '').then(res => {
       this.match = res
-      // console.log(this.match);
+      console.log(this.match)
       const {teams, gameDuration, gameVersion} = this.match
       this.matchOverview = { teams, gameDuration, gameVersion }
     })

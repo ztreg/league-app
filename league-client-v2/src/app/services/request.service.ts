@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http'
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-ae8d9085-8100-4c7a-89ba-ba5f0e92f44a'
+  queryToken = 'api_key=RGAPI-532d9ac8-faff-44fd-aeb7-d5a770863302'
   accountId = 'UJhJTXVRisEi4S2ASXmhUmDEYhWJIBfPSmMbQdhAfbM'
   matches = 'lol/match/v4/matches'
 
@@ -14,6 +14,8 @@ export class RequestService {
   itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
 
   championsURL = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/champion.json'
+
+  summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/summoner.json'
 
   constructor(private http: HttpClient) { }
 
@@ -36,5 +38,9 @@ export class RequestService {
 
   getAllChampions(): Promise<HttpResponse<any>> {
     return this.http.get<HttpResponse<any>>(this.championsURL).toPromise()
+  }
+
+  getAllSummoners(): Promise<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(this.summonersURL).toPromise()
   }
 }
