@@ -6,7 +6,10 @@
         <th>Overview:</th>
         <td *ngIf="myStats.win">Victory</td>
         <td *ngIf="!myStats.win">Defeat</td>
-        <!-- <td>{{playedChampion.name}}</td> -->
+        <td>
+          <img src="{{mySummoners.summonersURL1}}" alt="">
+          <img src="{{mySummoners.summonersURL2}}" alt="">
+        </td>
         <td> <img src="{{playedChampion.imageURL}}" alt=""> </td>
         <td>{{myStats.kda}}</td>
         <td [routerLink]="['/matches', match.gameId]">View Match <mat-icon>arrow_forward</mat-icon> </td>
@@ -27,7 +30,7 @@
       <tr *ngIf="myStats && expand && itemData">
         <th>Items:</th>
           <td *ngFor="let item of itemData">
-            <img *ngIf="item?.image" src="{{item.imageURL}}" alt="icon of item">
+            <img *ngIf="item?.imageURL" src="{{item.imageURL}}" alt="icon of item">
           </td>
         <!-- <td></td> -->
       </tr>

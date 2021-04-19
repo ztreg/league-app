@@ -16,6 +16,7 @@ export class MatchListItemComponent implements OnInit {
   expand = false
   itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
   championImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
+  summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
 
   loaded = false
   myPartId = 0
@@ -23,6 +24,7 @@ export class MatchListItemComponent implements OnInit {
   myItems: any = []
   playedChampion: any
   myStats: any = {}
+  mySummoners: any = {}
 
   constructor(
     private req: RequestService,
@@ -48,6 +50,7 @@ export class MatchListItemComponent implements OnInit {
   }
 
   getItemsData(): void {
+    const me = this.gameData.participants[this.myPartId - 1]
     const myStats = this.gameData.participants[this.myPartId - 1].stats
     this.myStats = myStats
     this.myStats.kda = (myStats.kills + myStats.assists) / myStats.deaths
@@ -57,6 +60,8 @@ export class MatchListItemComponent implements OnInit {
     const {championId} = this.gameData.participants[this.myPartId - 1]
 
     const myItems = [item0, item1, item2, item3, item4, item5, item6]
+    this.mySummoners = this.getSummoners(me.spell1Id, me.spell2Id)
+    console.log(this.mySummoners)
 
     this.store.allItems$.pipe(take(1)).subscribe(allItems => {
       if (allItems) {
@@ -87,6 +92,22 @@ export class MatchListItemComponent implements OnInit {
         }
       }
     })
+  }
+
+  getSummoners(summoner1Id: string, summoner2Id: string): any {
+    const summonerData: any = {}
+    this.store.allSummoners$.subscribe(summoners => {
+      const summonersArray: any = Object.entries(summoners)
+      for (const [key, item] of summonersArray) {
+        if (summoner1Id.toString() === item.key) {
+          summonerData.summonersURL1 = `${this.summonersURL}${item.image.full}`
+        }
+        if (summoner2Id.toString() === item.key) {
+          summonerData.summonersURL2 = `${this.summonersURL}${item.image.full}`
+        }
+      }
+    })
+    return summonerData
   }
 
   expandItem(): void {

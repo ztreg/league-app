@@ -14,6 +14,7 @@ export class RequestUtilities {
 
   getUserMatches(currentUserAccountId: string): void {
     this.checkIfStoreAsData()
+    console.log('CHECKING IF HAS MATCHES')
 
     if (!this.hasMatches) {
       this.req.getAllMatches(currentUserAccountId, 0, 10).then(data => {
@@ -79,10 +80,14 @@ export class RequestUtilities {
       }
     })
     this.storeService.myMatches$.subscribe(res => {
+      console.log('HELLO')
+
       if (res) {
+        console.log('WE HAVE MATCHES WOO')
         this.hasMatches = true
       }
       else {
+        console.log('WE dont HAVE MATCHES WOO')
         this.hasMatches = false
       }
     })

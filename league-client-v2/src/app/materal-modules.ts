@@ -6,11 +6,12 @@ import { MatInputModule } from '@angular/material/input'
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table'
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatCardModule } from '@angular/material/card'
+import { MatGridListModule } from '@angular/material/grid-list'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
 @NgModule({
   exports: [
     MatAutocompleteModule,
@@ -25,7 +26,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatPaginatorModule,
     MatToolbarModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatProgressBarModule
   ]
 })
 export class MaterialModules { }
