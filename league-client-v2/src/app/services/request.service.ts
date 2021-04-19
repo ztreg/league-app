@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { HttpClient, HttpResponse } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-532d9ac8-faff-44fd-aeb7-d5a770863302'
+  queryToken = 'api_key=RGAPI-9ab34cbb-c287-4ebf-844c-68f013e02917'
   accountId = 'UJhJTXVRisEi4S2ASXmhUmDEYhWJIBfPSmMbQdhAfbM'
   matches = 'lol/match/v4/matches'
 
@@ -21,10 +21,13 @@ export class RequestService {
 
   getAllMatches(accountId: string, startIndex: number, endIndex: number): Promise<HttpResponse<any>> {
     const indexQuery = `?endIndex=${endIndex}&beginIndex=${startIndex}`
+    console.log('getting da matched LUL')
+
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.allMatches}/${accountId}${indexQuery}&${this.queryToken}`).toPromise()
   }
 
   getMatchDetails(matchId: string): Promise<HttpResponse<any>> {
+    console.log('getting da match details LUL')
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.matches}/${matchId}?${this.queryToken}`).toPromise()
   }
 

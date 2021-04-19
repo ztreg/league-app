@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RequestService } from 'src/app/services/request.service';
-import { RequestUtilities } from 'src/app/services/requestUtils';
-import { StoreService } from 'src/app/services/store.service';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { RequestService } from 'src/app/services/request.service'
+import { RequestUtilities } from 'src/app/services/requestUtils'
+import { StoreService } from 'src/app/services/store.service'
 
 @Component({
   selector: 'app-match-details',
@@ -12,7 +12,7 @@ import { StoreService } from 'src/app/services/store.service';
 export class MatchDetailsComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private store: StoreService,
     private utils: RequestUtilities,
     private req: RequestService
@@ -28,7 +28,7 @@ export class MatchDetailsComponent implements OnInit {
   }
 
   getPathParams(): void {
-    this.matchID = this.route.snapshot.paramMap.get('id');
+    this.matchID = this.route.snapshot.paramMap.get('id')
   }
 
   getMatchDetails(): void {

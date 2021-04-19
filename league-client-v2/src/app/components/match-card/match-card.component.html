@@ -4,23 +4,23 @@
     <mat-card-title>Team Stats</mat-card-title>
     <mat-card-subtitle></mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content *ngFor="let player of teamData.Players" class="row">
-    <div class="row-item"> {{player.timeline.lane}}</div>
-    <div class="row-item "> {{player.name}}</div>
-    <img class="row-item" src="{{player.championURL}}" alt="" class="avatar">
-    <div class="row-item">
-      {{player.stats.kills}} | {{player.stats.deaths}} | {{player.stats.assists}}
+  <mat-card-content *ngFor="let player of teamData.Players" class="fullPlayerData">
+    <div class="row">
+      <img class="row-item" src="{{player.championURL}}" alt="" class="avatar">
+
+      <div class="row-item-item" *ngFor="let item of player.items">
+        <img class="avatar-item" src="{{item.itemURL}}" alt="" srcset="">
+      </div>
     </div>
-    <div class="row-item-item" *ngFor="let item of player.items">
-      <img class="avatar-item" src="{{item.itemURL}}" alt="" srcset="">
+    <div class="row">
+      <div class="row-item "> {{player.name}}</div>
+      <div class="row-item"> {{player.timeline.lane}}</div>
+      <div class="row-item">
+        {{player.stats.kills}} | {{player.stats.deaths}} | {{player.stats.assists}}
+      </div>
     </div>
-  </mat-card-content>
-  <mat-card-content>
-    <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-      bred for hunting.
-    </p>
+
+
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>LIKE</button>
