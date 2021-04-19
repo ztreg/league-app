@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { ReplaySubject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +9,13 @@ export class StoreService {
   private readonly _myMatches = new ReplaySubject<any>(1)
   private readonly _allChampions = new ReplaySubject<any>(1)
   private readonly _allSummoners = new ReplaySubject<any>(1)
+  private readonly _allItems = new ReplaySubject<any>(1)
 
   readonly currentUser$ = this._currentUser.asObservable()
   readonly myMatches$ = this._myMatches.asObservable()
   readonly allChampions$ = this._allChampions.asObservable()
   readonly allSummoners$ = this._allSummoners.asObservable()
+  readonly allItems$ = this._allItems.asObservable()
 
   private set currentUser(val: any) {
     this._currentUser.next(val)
@@ -29,6 +31,10 @@ export class StoreService {
 
   private set allSummoners(val: any) {
     this._allSummoners.next(val)
+  }
+
+  private set allItems(val: any) {
+    this._allItems.next(val)
   }
 
   updateCurrentUser(val: any): void {
@@ -47,5 +53,8 @@ export class StoreService {
     this.allSummoners = val
   }
 
+  updateAllItems(val: any): void {
+    this.allItems = val
+  }
   constructor() { }
 }

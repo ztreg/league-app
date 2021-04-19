@@ -24,10 +24,10 @@
         <td>Gold: {{myStats.goldEarned}}</td>
         <td >Lvl: {{myStats.champLevel}}</td>
       </tr>
-      <tr *ngIf="myStats && expand">
+      <tr *ngIf="myStats && expand && itemData">
         <th>Items:</th>
           <td *ngFor="let item of itemData">
-            <img *ngIf="item?.image" src="{{item.image}}" alt="icon of item">
+            <img *ngIf="item?.image" src="{{item.imageURL}}" alt="icon of item">
           </td>
         <!-- <td></td> -->
       </tr>

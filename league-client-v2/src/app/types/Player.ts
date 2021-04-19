@@ -4,12 +4,17 @@ export interface Player {
     stats: object
     items: Item[]
     timeline: Timeline
+    summoners: Summoners
 }
 
 export interface Players {
   Players: Player[]
 }
 
+export interface Summoners {
+  summonersURL1: string
+  summonersURL2: string
+}
 export interface Item {
   itemURL: string
 }

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
-
+import { take } from 'rxjs/operators'
 @Component({
   selector: 'app-match-list-item',
   templateUrl: './match-list-item.component.html',
@@ -33,7 +33,7 @@ export class MatchListItemComponent implements OnInit {
   ngOnInit(): void {
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
       this.gameData = res2
-      console.log('from componento')
+      console.log(this.gameData)
 
       const currentUserAccountId = this.req.accountId
 
@@ -57,18 +57,17 @@ export class MatchListItemComponent implements OnInit {
     const {championId} = this.gameData.participants[this.myPartId - 1]
 
     const myItems = [item0, item1, item2, item3, item4, item5, item6]
-    this.req.getItems().then(items => {
-      const allItems: any = items
 
+    this.store.allItems$.pipe(take(1)).subscribe(allItems => {
       if (allItems) {
         for (const id of myItems) {
           if (id === 0) {
             continue
           }
-          this.myItems.unshift(allItems.data[id])
-          this.itemData.unshift(allItems.data[id])
-          this.myItems[0].image = this.itemImageUrl + allItems.data[id].image.full
-          this.itemData[0].imageURL = this.myItems[0].image
+          if (allItems[id]) {
+            this.itemData.unshift(allItems[id])
+            this.itemData[0].imageURL = this.itemImageUrl + allItems[id].image.full
+          }
         }
       }
     })

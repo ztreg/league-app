@@ -17,6 +17,7 @@ export class AppComponent implements OnInit{
       this.currentUserAccountId = res.accountId
     })
     this.utils.checkIfStoreAsData()
+    this.utils.getAllItemsData()
     this.utils.getAllChampions()
     this.utils.getAllSummoners()
     this.utils.getUserMatches(this.currentUserAccountId)

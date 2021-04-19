@@ -7,11 +7,13 @@
   <mat-card-content *ngFor="let player of teamData.Players" class="fullPlayerData">
     <div class="row">
       <img class="row-item" src="{{player.championURL}}" alt="" class="avatar">
-
+      <img class="avatar-item" src="{{player.summoners.summonersURL1}}" alt="" srcset="">
+      <img class="avatar-item" src="{{player.summoners.summonersURL2}}" alt="" srcset="">
       <div class="row-item-item" *ngFor="let item of player.items">
         <img class="avatar-item" src="{{item.itemURL}}" alt="" srcset="">
       </div>
     </div>
+
     <div class="row">
       <div class="row-item "> {{player.name}}</div>
       <div class="row-item"> {{player.timeline.lane}}</div>

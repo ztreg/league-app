@@ -10,10 +10,10 @@ export class RequestUtilities {
   hasChamps: boolean | undefined
   hasSummonerIcons: boolean | undefined
   hasMatches: boolean | undefined
+  hasItemsData: boolean | undefined
 
   getUserMatches(currentUserAccountId: string): void {
     this.checkIfStoreAsData()
-    console.log(this.hasMatches)
 
     if (!this.hasMatches) {
       this.req.getAllMatches(currentUserAccountId, 0, 10).then(data => {
@@ -27,7 +27,7 @@ export class RequestUtilities {
 
   getAllChampions(): void {
     this.checkIfStoreAsData()
-    console.log(this.hasMatches)
+
     if (!this.hasChamps) {
       this.req.getAllChampions().then(champs => {
         const {data}: any = champs
@@ -40,9 +40,23 @@ export class RequestUtilities {
     this.checkIfStoreAsData()
 
     if (!this.hasSummonerIcons) {
+      console.log('OH APPERNTLY WE DID NOT HAVE THE SSSSSSSUMS AVALIABLE XD HAHA')
+
       this.req.getAllSummoners().then(summoners => {
         const {data}: any = summoners
         this.storeService.updateAllSummoners(data)
+      })
+    }
+  }
+
+  getAllItemsData(): void {
+    this.checkIfStoreAsData()
+
+    if (!this.hasItemsData) {
+      console.log('OH APPERNTLY WE DID NOT HAVE THE IIIIIIIITEMS AVALIABLE XD HAHA')
+      this.req.getItems().then(items => {
+        const {data}: any = items
+        this.storeService.updateAllItems(data)
       })
     }
   }
@@ -52,7 +66,6 @@ export class RequestUtilities {
 
     this.storeService.allChampions$.subscribe(res => {
       if (res) {
-        console.log('CHAMPS:', res)
         this.hasChamps = true
       } else {
         this.hasChamps = false
@@ -60,7 +73,6 @@ export class RequestUtilities {
     })
     this.storeService.allSummoners$.subscribe(res => {
       if (res) {
-        console.log('summoners:', res)
         this.hasSummonerIcons = true
       } else {
         this.hasSummonerIcons = false
@@ -68,11 +80,18 @@ export class RequestUtilities {
     })
     this.storeService.myMatches$.subscribe(res => {
       if (res) {
-        console.log('matches:', res)
         this.hasMatches = true
       }
       else {
         this.hasMatches = false
+      }
+    })
+    this.storeService.allItems$.subscribe(res => {
+      if (res) {
+        this.hasItemsData = true
+      }
+      else {
+        this.hasItemsData = false
       }
     })
   }

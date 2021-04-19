@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
 import { Item, Player } from 'src/app/types/Player'
+import { take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-match-full-details',
@@ -18,6 +19,7 @@ export class MatchFullDetailsComponent implements OnInit {
   expand = false
   itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
   championImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
+  summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
 
   loaded = false
   myPartId = 0
@@ -38,7 +40,6 @@ export class MatchFullDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.teamOne.Players = []
     this.teamTwo.Players = []
-
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
       this.gameData = res2
 
@@ -55,7 +56,7 @@ export class MatchFullDetailsComponent implements OnInit {
       const {role, lane} = participantINFO.timeline
       const {item0, item1, item2, item3, item4, item5, item6} = participantINFO.stats
       const playerItems = [item0, item1, item2, item3, item4, item5, item6]
-      const allITEMS = this.getItems(playerItems)
+      const items = this.getItems(playerItems)
 
       if (participantIdentity.player.accountId === currentUserAccountId) {
         this.myPartId = participantIdentity.participantId
@@ -63,12 +64,15 @@ export class MatchFullDetailsComponent implements OnInit {
       }
 
       const { imageURL } = this.getSpecificChampion(participantINFO.championId)
+      const { summonersURL1, summonersURL2 } = this.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
+
       const player: Player = {
         name: participantIdentity.player.summonerName,
         championURL: imageURL,
         stats: participantINFO.stats,
-        items: allITEMS,
-        timeline: { lane, role }
+        items,
+        timeline: { lane, role },
+        summoners: { summonersURL1, summonersURL2 }
       }
       if (participantIdentity.participantId <= 5) {
         this.teamOne.Players.push(player)
@@ -80,17 +84,17 @@ export class MatchFullDetailsComponent implements OnInit {
   }
 
   getItems(itemsArray: any []): Item[] {
+
     const itemsURL: Item[] = []
-    this.req.getItems().then(items => {
-      const allItems: any = items
+    this.store.allItems$.pipe(take(1)).subscribe(allItems => {
       if (allItems) {
         for (const id of itemsArray) {
           if (id === 0) {
             continue
           }
-          const itemURL = allItems.data[id]
+          const itemURL = allItems[id]
           itemsURL.unshift(itemURL)
-          itemsURL[0].itemURL = this.itemImageUrl + allItems.data[id].image.full
+          itemsURL[0].itemURL = this.itemImageUrl + allItems[id].image.full
         }
       }
     })
@@ -110,6 +114,24 @@ export class MatchFullDetailsComponent implements OnInit {
       }
     })
     return test
+  }
+
+  getSummoners(summoner1Id: string, summoner2Id: string): any {
+    const summonerData: any = {}
+    this.store.allSummoners$.subscribe(summoners => {
+      const summonersArray: any = Object.entries(summoners)
+      for (const [key, item] of summonersArray) {
+        if (summoner1Id.toString() === item.key) {
+          summonerData.summonersURL1 = `${this.summonersURL}${item.image.full}`
+          this.loaded = true
+        }
+        if (summoner2Id.toString() === item.key) {
+          summonerData.summonersURL2 = `${this.summonersURL}${item.image.full}`
+          this.loaded = true
+        }
+      }
+    })
+    return summonerData
   }
 
   expandItem(): void {
