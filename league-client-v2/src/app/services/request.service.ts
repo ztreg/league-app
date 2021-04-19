@@ -27,7 +27,7 @@ export class RequestService {
   }
 
   getMatchDetails(matchId: string): Promise<HttpResponse<any>> {
-    console.log('getting da match details LUL')
+    console.log('REQ: getting da match details LUL')
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.matches}/${matchId}?${this.queryToken}`).toPromise()
   }
 

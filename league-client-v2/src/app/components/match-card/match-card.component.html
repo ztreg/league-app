@@ -1,24 +1,23 @@
-<mat-card class="example-card" *ngIf="teamData && teamData.Players">
+<mat-card class="example-card" *ngIf="sortedTeam && sortedTeam.Players">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>Team Stats</mat-card-title>
     <mat-card-subtitle></mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content *ngFor="let player of teamData.Players" class="fullPlayerData">
+  <mat-card-content *ngFor="let player of sortedTeam.Players" class="fullPlayerData">
     <div class="row">
-      <img class="row-item" src="{{player.championURL}}" alt="" class="avatar">
-      <img class="avatar-item" src="{{player.summoners.summonersURL1}}" alt="" srcset="">
-      <img class="avatar-item" src="{{player.summoners.summonersURL2}}" alt="" srcset="">
-      <div class="row-item-item" *ngFor="let item of player.items">
-        <img class="avatar-item" src="{{item.itemURL}}" alt="" srcset="">
-      </div>
+      <div class="row-item"> {{player.timeline.lane}} <br>{{player.name}}</div>
+        <img class="row-item" src="{{player.championURL}}" alt="" class="avatar">
+        <img class="avatar-item" src="{{player.summoners.summonersURL1}}" alt="" srcset="">
+        <img class="avatar-item" src="{{player.summoners.summonersURL2}}" alt="" srcset="">
     </div>
 
     <div class="row">
-      <div class="row-item "> {{player.name}}</div>
-      <div class="row-item"> {{player.timeline.lane}}</div>
       <div class="row-item">
         {{player.stats.kills}} | {{player.stats.deaths}} | {{player.stats.assists}}
+      </div>
+      <div class="row-item-item" *ngFor="let item of player.items">
+        <img class="avatar-item" *ngIf="item?.itemURL" src="{{item.itemURL}}" alt="" srcset="">
       </div>
     </div>
 

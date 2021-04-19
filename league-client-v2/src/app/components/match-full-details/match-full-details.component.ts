@@ -38,22 +38,37 @@ export class MatchFullDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('LOAD')
+    this.teamOne = []
+    this.teamTwo = []
     this.teamOne.Players = []
     this.teamTwo.Players = []
-    this.req.getMatchDetails(this.match.gameId).then(res2 => {
-      this.gameData = res2
 
-      this.getTeamData()
-    })
+    if (!this.match) {
+      console.log('no matchdata, getting it')
+      this.req.getMatchDetails(this.match.gameId).then(res2 => {
+        this.gameData = res2
+      })
+    } else {
+      this.gameData = this.match
+    }
+    this.getTeamData()
+
   }
 
   getTeamData(): void {
     const currentUserAccountId = this.req.accountId
+    const teamOnePlayers: any = []
+    const teamTwoPlayers: any = []
+
+    console.log('players:', teamOnePlayers)
 
     for (let i = 0; i < this.gameData.participantIdentities.length; i++) {
       const participantIdentity = this.gameData.participantIdentities[i]
       const participantINFO = this.gameData.participants[i]
+
       const {role, lane} = participantINFO.timeline
+
       const {item0, item1, item2, item3, item4, item5, item6} = participantINFO.stats
       const playerItems = [item0, item1, item2, item3, item4, item5, item6]
       const items = this.getItems(playerItems)
@@ -66,7 +81,7 @@ export class MatchFullDetailsComponent implements OnInit {
       const { imageURL } = this.getSpecificChampion(participantINFO.championId)
       const { summonersURL1, summonersURL2 } = this.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
 
-      const player: Player = {
+      const playerToAdd: Player = {
         name: participantIdentity.player.summonerName,
         championURL: imageURL,
         stats: participantINFO.stats,
@@ -74,12 +89,16 @@ export class MatchFullDetailsComponent implements OnInit {
         timeline: { lane, role },
         summoners: { summonersURL1, summonersURL2 }
       }
+      console.log('-------------------------------')
+
       if (participantIdentity.participantId <= 5) {
-        this.teamOne.Players.push(player)
-      } else {
-        this.teamTwo.Players.push(player)
+        teamOnePlayers.push(playerToAdd)
+      } else if (participantIdentity.participantId > 5) {
+        teamTwoPlayers.push(playerToAdd)
       }
     }
+    this.teamOne.Players = teamOnePlayers
+    this.teamTwo.Players = teamTwoPlayers
 
   }
 
@@ -98,6 +117,7 @@ export class MatchFullDetailsComponent implements OnInit {
         }
       }
     })
+    itemsURL.reverse()
     return itemsURL
   }
 

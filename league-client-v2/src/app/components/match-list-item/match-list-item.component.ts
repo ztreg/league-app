@@ -35,8 +35,6 @@ export class MatchListItemComponent implements OnInit {
   ngOnInit(): void {
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
       this.gameData = res2
-      console.log(this.gameData)
-
       const currentUserAccountId = this.req.accountId
 
       for (const participant of this.gameData.participantIdentities) {
@@ -57,11 +55,10 @@ export class MatchListItemComponent implements OnInit {
     this.myStats.kda = this.myStats.kda.toFixed(2)
 
     const {item0, item1, item2, item3, item4, item5, item6} = myStats
-    const {championId} = this.gameData.participants[this.myPartId - 1]
+    const {championId} = me
 
     const myItems = [item0, item1, item2, item3, item4, item5, item6]
     this.mySummoners = this.getSummoners(me.spell1Id, me.spell2Id)
-    console.log(this.mySummoners)
 
     this.store.allItems$.pipe(take(1)).subscribe(allItems => {
       if (allItems) {
