@@ -15,7 +15,8 @@ import { FollowingComponent } from './pages/following/following.component';
 import { MatchDetailsComponent } from './pages/match-details/match-details.component';
 import { MatchFullDetailsComponent } from './components/match-full-details/match-full-details.component';
 import { MatchFullDetailsHeaderComponent } from './components/match-full-details-header/match-full-details-header.component';
-import { MatchCardComponent } from './components/match-card/match-card.component'
+import { MatchCardComponent } from './components/match-card/match-card.component';
+import { UserComponent } from './pages/user/user.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { MatchCardComponent } from './components/match-card/match-card.component
     MatchDetailsComponent,
     MatchFullDetailsComponent,
     MatchFullDetailsHeaderComponent,
-    MatchCardComponent
+    MatchCardComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

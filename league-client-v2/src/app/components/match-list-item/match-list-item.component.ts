@@ -34,11 +34,8 @@ export class MatchListItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.match);
-    
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
-      
-      
+
       this.gameData = res2
       this.store.currentUser$.subscribe(res => {
         this.currentUserAccountId = res.accountId

@@ -20,13 +20,10 @@ export class RequestService {
 
   getAllMatches(accountId: string, startIndex: number, endIndex: number): Promise<HttpResponse<any>> {
     const indexQuery = `?endIndex=${endIndex}&beginIndex=${startIndex}`
-    console.log('REQ: getting ALL matches LUL')
-
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.allMatches}/${accountId}${indexQuery}&${this.queryToken}`).toPromise()
   }
 
   getMatchDetails(matchId: string): Promise<HttpResponse<any>> {
-    console.log('REQ: getting da match details LUL')
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.matches}/${matchId}?${this.queryToken}`).toPromise()
   }
 
