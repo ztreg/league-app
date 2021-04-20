@@ -4,14 +4,13 @@ import usersRouter from './routes/userRoute';
 
 const app: Application = express()
 
-const add = (a: number, b: number):number => a + b; 
-
 app.get('/', (req: Request, res: Response) => {
-  console.log(add(3, 2));
-  
   res.send('Hello')
 });
 
-app.use('/api/users', usersRouter)
+app.use(express.json());
+app.use('/users', usersRouter)
 
-app.listen(3000, () => console.log('Server running'));
+const PORT = 3000
+
+app.listen(PORT, () => console.log('Server running on port ' + PORT));

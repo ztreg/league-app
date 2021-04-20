@@ -1,11 +1,13 @@
 import {Application, Request, Response, NextFunction} from 'express'
-
+import { addUserModel, getUsersModel }  from '../models/usermodel';
 
 export const getUsers = async (req: Request, res: Response) => {
-  res.status(200).json({'xd': 'xd'});
+  const users = await getUsersModel(req, res)
+  res.status(200).json(users);
 }
 
 export const addUser = async (req: Request, res: Response) => {
-  res.status(201).json({'Item added:': req})
+  const addedUser = await addUserModel(req.body, res)
+  res.status(201).json(addedUser)
 }
   

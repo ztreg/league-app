@@ -3,7 +3,7 @@ import { Router } from 'express';
 
 const usersRouter = Router();
 
-usersRouter.get('/', getUsers);
 usersRouter.post('/', addUser)
+usersRouter.get('/', getUsers);
 
 export default usersRouter;
