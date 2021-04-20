@@ -12,17 +12,15 @@ export class RequestUtilities {
   hasMatches: boolean | undefined
   hasItemsData: boolean | undefined
 
-  getUserMatches(currentUserAccountId: string): void {
-    this.checkIfStoreAsData()
-
-    if (!this.hasMatches) {
-      this.req.getAllMatches(currentUserAccountId, 0, 10).then(data => {
+  getUserMatches(currentUserAccountId: string, start: number, end: number): void {
+      this.req.getAllMatches(currentUserAccountId, start, end).then(data => {
+        console.log(data);
+        
         const fullMatchesData: any = data
         const { matches } = fullMatchesData
         this.storeService.updateMyMatches(matches)
         this.hasMatches = true
       })
-    }
   }
 
   getAllChampions(): void {

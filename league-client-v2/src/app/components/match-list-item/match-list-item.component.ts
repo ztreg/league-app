@@ -18,6 +18,7 @@ export class MatchListItemComponent implements OnInit {
   championImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
   summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
 
+  currentUserAccountId!: string
   loaded = false
   myPartId = 0
 
@@ -33,12 +34,18 @@ export class MatchListItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.match);
+    
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
+      
+      
       this.gameData = res2
-      const currentUserAccountId = this.req.accountId
+      this.store.currentUser$.subscribe(res => {
+        this.currentUserAccountId = res.accountId
+      })
 
       for (const participant of this.gameData.participantIdentities) {
-        if (participant.player.accountId === currentUserAccountId) {
+        if (participant.player.accountId ===  this.currentUserAccountId) {
           this.myPartId = participant.participantId
           this.store.updateCurrentUser(participant.player)
         }

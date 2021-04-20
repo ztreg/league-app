@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
     this.store.currentUser$.subscribe(res => {
       this.currentUserAccountId = res.accountId
     })
-    this.utils.getUserMatches(this.currentUserAccountId)
+   
     this.utils.getAllItemsData()
     this.utils.getAllChampions()
     this.utils.getAllSummoners()

@@ -31,6 +31,8 @@ export class MatchFullDetailsComponent implements OnInit {
   teamOne: any = []
   teamTwo: any = []
 
+  currentUserAccountId!: string
+
   constructor(
     private req: RequestService,
     private store: StoreService,
@@ -52,12 +54,16 @@ export class MatchFullDetailsComponent implements OnInit {
     } else {
       this.gameData = this.match
     }
+    console.log(this.gameData);
+    
     this.getTeamData()
 
   }
 
   getTeamData(): void {
-    const currentUserAccountId = this.req.accountId
+    this.store.currentUser$.subscribe(res => {
+      this.currentUserAccountId = res.accountId
+    })
     const teamOnePlayers: any = []
     const teamTwoPlayers: any = []
 
@@ -73,7 +79,7 @@ export class MatchFullDetailsComponent implements OnInit {
       const playerItems = [item0, item1, item2, item3, item4, item5, item6]
       const items = this.getItems(playerItems)
 
-      if (participantIdentity.player.accountId === currentUserAccountId) {
+      if (participantIdentity.player.accountId === this.currentUserAccountId) {
         this.myPartId = participantIdentity.participantId
         this.store.updateCurrentUser(participantIdentity.player)
       }

@@ -1,7 +1,7 @@
 
 <div class="match-table" >
   <div *ngIf="itemData.length > 0" > 
-    <table [ngClass]="{'victory': myStats.win}">
+    <table [ngClass]="{'victory': myStats.win, 'defeat': !myStats.win}">
       <tr *ngIf="loaded && myStats">
         <th>Overview:</th>
         <td *ngIf="myStats.win">Victory</td>

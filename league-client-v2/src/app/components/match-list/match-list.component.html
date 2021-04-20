@@ -6,3 +6,11 @@
   </div>
 
 </div>
+<div *ngIf="allMatches.length > 0" class="paginator">
+  <div class="pag-items">
+    <mat-icon *ngIf="!start" (click)="getPagMatches(false)"> arrow_back </mat-icon>
+    Page: {{page}}
+    <mat-icon (click)="getPagMatches(true)">arrow_forward</mat-icon>
+  </div>
+
+</div>
