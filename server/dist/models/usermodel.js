@@ -9,15 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addUser = exports.getUsers = void 0;
-const usermodel_1 = require("../models/usermodel");
-const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield usermodel_1.getUsersModel(req, res);
-    res.status(200).json(users);
+exports.addUserModel = exports.getUsersModel = void 0;
+const getUsersModel = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.status(200).json({ 'xd': 'xd' });
 });
-exports.getUsers = getUsers;
-const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const addedUser = yield usermodel_1.addUserModel(req.body, res);
-    res.status(201).json(addedUser);
+exports.getUsersModel = getUsersModel;
+const addUserModel = (user, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.status(201).json({ 'Item added:': user });
 });
-exports.addUser = addUser;
+exports.addUserModel = addUserModel;
