@@ -8,6 +8,7 @@ import { RequestUtilities } from 'src/app/services/requestUtils';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
+  @Input() page!: string
   user: any = {
     summonerName: '',
     password: ''
@@ -28,4 +29,8 @@ export class FormComponent implements OnInit {
     this.utils.signUp(this.user)
   }
 
+  loginForm(event: Event): void {
+    event.preventDefault()
+    this.utils.login(this.user)
+  }
 }

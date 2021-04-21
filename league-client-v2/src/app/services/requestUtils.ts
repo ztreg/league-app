@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core'
 import { RequestService } from './request.service'
 import { StoreService } from './store.service'
 
+/**
+ * This file serves as my "Controller" if you follow the MVC structure
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -60,13 +63,19 @@ export class RequestUtilities {
   }
 
   async signUp(userObject: any): Promise<void> {
-    // const {summonerName} = userObject
-    // console.log(summonerName);
-    
-    // const summonerInfo = await this.req.getUserInfoByName(summonerName)
-    const result = await this.req.signUp(userObject)
-    console.log(result);
-  
+    const {summonerName} = userObject
+    const summonerInfo = await this.req.getUserInfoByName(summonerName)
+    if(summonerInfo) {
+      const result = await this.req.signUp(userObject)
+      console.log(result);
+    } else {
+      console.log('user doest exist exist');
+    }
+  }
+
+  async login(userObject: any): Promise<any> {
+    const res = await this.req.login(userObject)
+    console.log(res);
     
   }
 

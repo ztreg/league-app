@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { MatchListItemComponent } from './components/match-list-item/match-list-item.component'
 import { FollowingComponent } from './pages/following/following.component'
 import { HomeComponent } from './pages/home/home.component'
+import { LoginComponent } from './pages/login/login.component'
 import { MatchDetailsComponent } from './pages/match-details/match-details.component'
 import { MatchesComponent } from './pages/matches/matches.component'
 import { SignupComponent } from './pages/signup/signup.component'
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ]
 

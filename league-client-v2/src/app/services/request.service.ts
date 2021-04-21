@@ -48,7 +48,11 @@ export class RequestService {
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByNameURL}/${summonerName}?${this.queryToken}`).toPromise()
   }
 
-  signUp(userObject: any): any {
+  signUp(userObject: any): Promise<any> {
     return this.http.post<HttpResponse<any>>('http://localhost:3000/users', userObject).toPromise()
+  }
+
+  login(userObject: any): Promise<any> {
+    return this.http.post<HttpResponse<any>>('http://localhost:3000/login', userObject).toPromise()
   }
 }
