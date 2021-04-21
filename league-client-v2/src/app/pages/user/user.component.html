@@ -1,5 +1,8 @@
 <div *ngIf="currentUser$ | async as currentUser">
   <h1>Summoner-name: {{currentUser.summonerName}}</h1>
   <h2>AccountID: {{currentUser.accountId}}</h2>
-
+  <h2>ProfileIconID: {{currentUser.profileIconId}}</h2>
+  <h2>puuid: {{currentUser.puuid}}</h2>
+  <h3>Time since account update:{{ currentUser.revisionDate | date }}  </h3>
+  <h3>Summonerlevel {{currentUser.summonerLevel}}</h3>
 </div>

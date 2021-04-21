@@ -5,8 +5,6 @@ import jsonwebtoken from 'jsonwebtoken'
 const secret = process.env.SECRET
 
 function createToken (payload: any) {
-  // console.log(payload);
-  
   if(secret) {
     return jsonwebtoken.sign(payload, secret, {expiresIn : '1h'})
   }
@@ -15,10 +13,8 @@ function createToken (payload: any) {
 export const loginModel = async (loginObject: any) => {
   try {
     const user: any = await getSingleUserModel(loginObject.summonerName)
-    
     if(user) {
-        const checkedPassword = loginObject.password === user.password
-        // const checkedPassword = bcrypt.compareSync(loginObject.password, user.password)
+        const checkedPassword = bcrypt.compareSync(loginObject.password, user.password)
         if(checkedPassword) {
             let token = createToken({userId: user._id, summonerName: user.summonerName})
             return {token: token, summonerName: user.summonerName, id: user._id.toString()}

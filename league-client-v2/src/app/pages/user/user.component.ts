@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
   currentUser$ = this.store.currentUser$
 
   ngOnInit(): void {
+
   }
 
 }

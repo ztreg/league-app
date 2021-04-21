@@ -16,6 +16,7 @@ export class RequestService {
   summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/summoner.json'
 
   userByNameURL = 'lol/summoner/v4/summoners/by-name'
+  localURL = 'http://localhost:3000'
 
   constructor(private http: HttpClient) { }
 
@@ -49,10 +50,10 @@ export class RequestService {
   }
 
   signUp(userObject: any): Promise<any> {
-    return this.http.post<HttpResponse<any>>('http://localhost:3000/users', userObject).toPromise()
+    return this.http.post<HttpResponse<any>>(`${this.localURL}/users`, userObject).toPromise()
   }
 
   login(userObject: any): Promise<any> {
-    return this.http.post<HttpResponse<any>>('http://localhost:3000/auth/login', userObject).toPromise()
+    return this.http.post<HttpResponse<any>>(`${this.localURL}/auth/login`, userObject).toPromise()
   }
 }

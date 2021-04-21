@@ -1,27 +1,28 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
-import { MatchesComponent } from './pages/matches/matches.component';
-import { MatchListComponent } from './components/match-list/match-list.component';
-import { MatchListItemComponent } from './components/match-list-item/match-list-item.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModules } from './materal-modules';
-import { HeaderComponent } from './components/Layout/header/header.component';
-import { FollowingComponent } from './pages/following/following.component';
-import { MatchDetailsComponent } from './pages/match-details/match-details.component';
-import { MatchFullDetailsComponent } from './components/match-full-details/match-full-details.component';
-import { MatchFullDetailsHeaderComponent } from './components/match-full-details-header/match-full-details-header.component';
-import { MatchCardComponent } from './components/match-card/match-card.component';
-import { UserComponent } from './pages/user/user.component';
-import { SignupComponent } from './pages/signup/signup.component';
-import { FormComponent } from './components/form/form.component';
-import { InputComponent } from './components/input/input.component';
-import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './pages/login/login.component';
+import { AppRoutingModule } from './app-routing.module'
+import { AppComponent } from './app.component'
+import { HomeComponent } from './pages/home/home.component'
+import { MatchesComponent } from './pages/matches/matches.component'
+import { MatchListComponent } from './components/match-list/match-list.component'
+import { MatchListItemComponent } from './components/match-list-item/match-list-item.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MaterialModules } from './materal-modules'
+import { HeaderComponent } from './components/Layout/header/header.component'
+import { FollowingComponent } from './pages/following/following.component'
+import { MatchDetailsComponent } from './pages/match-details/match-details.component'
+import { MatchFullDetailsComponent } from './components/match-full-details/match-full-details.component'
+import { MatchFullDetailsHeaderComponent } from './components/match-full-details-header/match-full-details-header.component'
+import { MatchCardComponent } from './components/match-card/match-card.component'
+import { UserComponent } from './pages/user/user.component'
+import { SignupComponent } from './pages/signup/signup.component'
+import { FormComponent } from './components/form/form.component'
+import { InputComponent } from './components/input/input.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { LoginComponent } from './pages/login/login.component'
+import { DatePipe } from '@angular/common'
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,9 +48,10 @@ import { LoginComponent } from './pages/login/login.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MaterialModules,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

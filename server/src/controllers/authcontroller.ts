@@ -2,12 +2,8 @@ import {Application, Request, Response, NextFunction} from 'express'
 import {loginModel} from '../models/authmodel'
 
 export const loginController = async (req: Request, res: Response) => {
-  console.log(req.body);
-  
   try {
     const response = await loginModel(req.body)
-    console.log(response);
-    
     if(response.token) {
         console.log(response)
         res.status(200).json(response)

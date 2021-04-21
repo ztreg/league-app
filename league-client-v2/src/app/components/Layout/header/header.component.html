@@ -4,18 +4,20 @@
   </button>
   <a routerLink="/matches" routerLinkActive="active" class="linkBtn"><span> Home</span></a>
   <span class="example-spacer"></span>
-  <h3 *ngIf="currentUser$ | async as currentUser">{{currentUser.summonerName}}</h3>
+  <h3 *ngIf="(currentUser$ | async) as currentUser">{{currentUser.name}}</h3>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/following" routerLinkActive="active">
-   Following <mat-icon >group</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon" routerLink="/profile" routerLinkActive="active">
-    Account<mat-icon >account_circle</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"  routerLink="/login" routerLinkActive="active">
+  <button *ngIf="(currentUser$ | async)" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/following" routerLinkActive="active">
+    Following <mat-icon >group</mat-icon>
+   </button>
+   <button class="header-summoner-icon" *ngIf="(currentUser$ | async) as currentUser"  mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon" routerLink="/profile" routerLinkActive="active">
+     <img src="{{currentUser.profileIconId}}" alt="" srcset="">
+    <p>Profile</p> 
+   </button>
+  <button *ngIf="!(currentUser$ | async)" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"  routerLink="/login" routerLinkActive="active">
     Login<mat-icon >login</mat-icon>
   </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"  routerLink="/signup" routerLinkActive="active">
+  <button *ngIf="!(currentUser$ | async)" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"  routerLink="/signup" routerLinkActive="active">
    SignUp <mat-icon>login</mat-icon>
   </button>
+
 </mat-toolbar>

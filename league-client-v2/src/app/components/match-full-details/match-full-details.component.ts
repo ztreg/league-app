@@ -54,8 +54,8 @@ export class MatchFullDetailsComponent implements OnInit {
     } else {
       this.gameData = this.match
     }
-    console.log(this.gameData);
-    
+    console.log(this.gameData)
+
     this.getTeamData()
 
   }
@@ -81,7 +81,7 @@ export class MatchFullDetailsComponent implements OnInit {
 
       if (participantIdentity.player.accountId === this.currentUserAccountId) {
         this.myPartId = participantIdentity.participantId
-        this.store.updateCurrentUser(participantIdentity.player)
+        // this.store.updateCurrentUser(participantIdentity.player)
       }
 
       const { imageURL } = this.getSpecificChampion(participantINFO.championId)

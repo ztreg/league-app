@@ -44,7 +44,7 @@ export class MatchListItemComponent implements OnInit {
       for (const participant of this.gameData.participantIdentities) {
         if (participant.player.accountId ===  this.currentUserAccountId) {
           this.myPartId = participant.participantId
-          this.store.updateCurrentUser(participant.player)
+          // this.store.updateCurrentUser(participant.player)
         }
       }
       this.getItemsData()
