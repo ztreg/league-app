@@ -1,0 +1,16 @@
+.add-user-form {
+  input[type=text] {
+      &:focus, &:active{
+          background-color: inherit !important;
+      }
+  }
+  input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+  // margin: 0;
+  padding: 20px;
+  display: block;
+  width: 500px;
+  margin: 0 auto;
+}
+

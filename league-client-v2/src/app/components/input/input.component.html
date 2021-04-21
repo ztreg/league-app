@@ -1,0 +1,4 @@
+<div class="form-header"><strong>{{header}}</strong></div>
+<mat-form-field class="input" *ngIf="name && placeholder && type ">
+  <input [type]="type" (ngModelChange)="emitInputVal($event)" [(ngModel)]="val" [name]="name" class="form-input" matInput [placeholder]="placeholder" required/>
+</mat-form-field>

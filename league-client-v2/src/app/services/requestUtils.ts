@@ -38,7 +38,7 @@ export class RequestUtilities {
     this.checkIfStoreAsData()
 
     if (!this.hasSummonerIcons) {
-      console.log('OH APPERNTLY WE DID NOT HAVE THE SSSSSSSUMS AVALIABLE XD HAHA')
+      console.log('getting sums data')
 
       this.req.getAllSummoners().then(summoners => {
         const {data}: any = summoners
@@ -51,13 +51,25 @@ export class RequestUtilities {
     this.checkIfStoreAsData()
 
     if (!this.hasItemsData) {
-      console.log('OH APPERNTLY WE DID NOT HAVE THE IIIIIIIITEMS AVALIABLE XD HAHA')
+      console.log('getting items data')
       this.req.getItems().then(items => {
         const {data}: any = items
         this.storeService.updateAllItems(data)
       })
     }
   }
+
+  async signUp(userObject: any): Promise<void> {
+    // const {summonerName} = userObject
+    // console.log(summonerName);
+    
+    // const summonerInfo = await this.req.getUserInfoByName(summonerName)
+    const result = await this.req.signUp(userObject)
+    console.log(result);
+  
+    
+  }
+
 
   checkIfStoreAsData(): void {
     this.storeService.allChampions$.subscribe(res => {

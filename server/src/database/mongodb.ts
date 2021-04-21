@@ -37,6 +37,9 @@ export const disconnect = () => {
 import { Schema } from "mongoose";
 const UserSchema = new mongoose.Schema({
   username: {
+    type: String
+  },
+  summonerName: {
     type: String,
     required: true
   },
@@ -55,4 +58,3 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model("User", UserSchema)
 
 export default { UserSchema, User}
-// export default ;

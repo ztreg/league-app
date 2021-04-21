@@ -16,7 +16,7 @@ export class MatchCardComponent implements OnInit {
       this.sortedTeam.Players = []
 
       for (const player of this.teamInfo.Players) {
-        const {lane, role} = player.timeline
+        let {lane, role} = player.timeline
         switch (lane) {
           case 'TOP':
             this.sortedTeam.Players[0] = player
@@ -29,9 +29,11 @@ export class MatchCardComponent implements OnInit {
             break
           case 'BOTTOM':
             if (role === 'DUO_CARRY') {
+              player.timeline.lane = 'ADC'
               this.sortedTeam.Players[3] = player
             }
             if (role === 'DUO_SUPPORT') {
+              player.timeline.lane = 'SUPPORT'
               this.sortedTeam.Players[4] = player
             }
             break
@@ -39,7 +41,7 @@ export class MatchCardComponent implements OnInit {
             break
         }
       }
-
+      this.sorted = true
     } else {
       console.log('no data')
     }

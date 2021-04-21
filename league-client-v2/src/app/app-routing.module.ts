@@ -5,6 +5,7 @@ import { FollowingComponent } from './pages/following/following.component'
 import { HomeComponent } from './pages/home/home.component'
 import { MatchDetailsComponent } from './pages/match-details/match-details.component'
 import { MatchesComponent } from './pages/matches/matches.component'
+import { SignupComponent } from './pages/signup/signup.component'
 import { UserComponent } from './pages/user/user.component'
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: UserComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
   }
 ]
 

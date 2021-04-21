@@ -16,7 +16,11 @@ import { MatchDetailsComponent } from './pages/match-details/match-details.compo
 import { MatchFullDetailsComponent } from './components/match-full-details/match-full-details.component';
 import { MatchFullDetailsHeaderComponent } from './components/match-full-details-header/match-full-details-header.component';
 import { MatchCardComponent } from './components/match-card/match-card.component';
-import { UserComponent } from './pages/user/user.component'
+import { UserComponent } from './pages/user/user.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { FormComponent } from './components/form/form.component';
+import { InputComponent } from './components/input/input.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,14 +34,18 @@ import { UserComponent } from './pages/user/user.component'
     MatchFullDetailsComponent,
     MatchFullDetailsHeaderComponent,
     MatchCardComponent,
-    UserComponent
+    UserComponent,
+    SignupComponent,
+    FormComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModules
+    MaterialModules,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
