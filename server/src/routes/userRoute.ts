@@ -6,4 +6,5 @@ const usersRouter = Router();
 usersRouter.post('/', addUser)
 usersRouter.get('/', getUsers);
 
+
 export default usersRouter;

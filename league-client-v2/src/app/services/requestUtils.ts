@@ -17,8 +17,8 @@ export class RequestUtilities {
 
   getUserMatches(currentUserAccountId: string, start: number, end: number): void {
       this.req.getAllMatches(currentUserAccountId, start, end).then(data => {
-        console.log(data);
-        
+        console.log(data)
+
         const fullMatchesData: any = data
         const { matches } = fullMatchesData
         this.storeService.updateMyMatches(matches)
@@ -65,18 +65,27 @@ export class RequestUtilities {
   async signUp(userObject: any): Promise<void> {
     const {summonerName} = userObject
     const summonerInfo = await this.req.getUserInfoByName(summonerName)
-    if(summonerInfo) {
+    if (summonerInfo) {
       const result = await this.req.signUp(userObject)
-      console.log(result);
+      console.log(result)
     } else {
-      console.log('user doest exist exist');
+      console.log('user doest exist exist')
     }
   }
 
   async login(userObject: any): Promise<any> {
-    const res = await this.req.login(userObject)
-    console.log(res);
-    
+    try {
+      return await this.req.login(userObject)
+    } catch (error) {
+      return error
+    }
+
+    // console.log(res);
+
+    // if (res.msg) {
+    //   return res.msg
+    // }
+
   }
 
 

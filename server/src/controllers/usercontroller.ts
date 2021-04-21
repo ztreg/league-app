@@ -8,8 +8,6 @@ export const getUsers = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(401).json({msg: error})
   }
-  
-  
 }
 
 export const addUser = async (req: Request, res: Response) => {

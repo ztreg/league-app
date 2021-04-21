@@ -7,14 +7,14 @@ import { HttpClient, HttpResponse } from '@angular/common/http'
 export class RequestService {
   queryToken = 'api_key=RGAPI-adab3bc2-8561-4700-9b7f-4defd6285da0'
   matches = 'lol/match/v4/matches'
-  
+
   allMatches = 'lol/match/v4/matchlists/by-account'
-  
+
   itemsURL = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/item.json'
   itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
   championsURL = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/champion.json'
   summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/summoner.json'
-  
+
   userByNameURL = 'lol/summoner/v4/summoners/by-name'
 
   constructor(private http: HttpClient) { }
@@ -53,6 +53,6 @@ export class RequestService {
   }
 
   login(userObject: any): Promise<any> {
-    return this.http.post<HttpResponse<any>>('http://localhost:3000/login', userObject).toPromise()
+    return this.http.post<HttpResponse<any>>('http://localhost:3000/auth/login', userObject).toPromise()
   }
 }

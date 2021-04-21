@@ -8,5 +8,7 @@
 <form (submit)="loginForm($event)" class="add-user-form" *ngIf="page === 'login'">
   <app-input type="text" (inputData)="handleEventData($event)" value="user.summonerName" name="summonerName" placeholder="Your summonername"></app-input>
   <app-input type="password" (inputData)="handleEventData($event)" value="user.password" name="password" placeholder="password..."></app-input>
+  <p *ngIf="errorMsg && page === 'login'">{{errorMsg}}</p>
   <button mat-button color="warn">Login</button>
 </form>
+
