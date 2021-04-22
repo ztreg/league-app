@@ -79,7 +79,7 @@ export class RequestUtilities {
       const summonerInfo: any = await this.req.getUserInfoByName(userObject.summonerName)
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       console.log(summonerInfo)
-      sessionStorage.setItem('token',  JSON.stringify(loggedInStatus.token))
+      sessionStorage.setItem('token', loggedInStatus.token)
       sessionStorage.setItem('user', JSON.stringify(summonerInfo))
       this.storeService.updateCurrentUser(summonerInfo)
       return 'OK'

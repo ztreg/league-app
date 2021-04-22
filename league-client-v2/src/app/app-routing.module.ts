@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { AuthGuardService as AuthGuard, AuthGuardService } from './auth/auth-guard.service'
+import { AuthGuardLoggedinService } from './auth/auth-loggedin.service'
 import { MatchListItemComponent } from './components/match-list-item/match-list-item.component'
 import { FollowingComponent } from './pages/following/following.component'
 import { HomeComponent } from './pages/home/home.component'
@@ -16,19 +18,23 @@ const routes: Routes = [
   },
   {
     path: 'matches',
-    component: MatchesComponent
+    component: MatchesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'matches/:id',
-    component: MatchDetailsComponent
+    component: MatchDetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'following',
-    component: FollowingComponent
+    component: FollowingComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
-    component: UserComponent
+    component: UserComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'signup',
@@ -36,8 +42,10 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
-  }
+    component: LoginComponent,
+    canActivate: [AuthGuardLoggedinService]
+  },
+    { path: '**', redirectTo: '' }
 ]
 
 @NgModule({

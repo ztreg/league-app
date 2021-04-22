@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { StoreService } from 'src/app/services/store.service'
 
 @Component({
@@ -7,10 +8,22 @@ import { StoreService } from 'src/app/services/store.service'
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private store: StoreService) { }
+  constructor(
+    private store: StoreService,
+    private router: Router,
+    private ref: ChangeDetectorRef
+  ) { }
   currentUser$ = this.store.currentUser$
 
   ngOnInit(): void {
   }
 
+  logout(): void {
+    this.ref.detectChanges()
+    this.store.updateCurrentUser({})
+    sessionStorage.removeItem('token')
+    sessionStorage.removeItem('user')
+    this.router.navigate(['login'])
+
+  }
 }

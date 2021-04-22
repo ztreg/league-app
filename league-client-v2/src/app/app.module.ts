@@ -23,6 +23,10 @@ import { InputComponent } from './components/input/input.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { LoginComponent } from './pages/login/login.component'
 import { DatePipe } from '@angular/common'
+import { AuthGuardService } from './auth/auth-guard.service'
+import { AuthService } from './auth/auth.service'
+import { JwtModule, JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt'
+import { AuthGuardLoggedinService } from './auth/auth-loggedin.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,9 +53,17 @@ import { DatePipe } from '@angular/common'
     BrowserAnimationsModule,
     MaterialModules,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    AuthGuardService,
+    AuthGuardLoggedinService,
+    AuthService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
