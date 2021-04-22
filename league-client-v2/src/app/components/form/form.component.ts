@@ -1,5 +1,6 @@
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface'
 import { Component, Input, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 
 @Component({
@@ -15,7 +16,7 @@ export class FormComponent implements OnInit {
     password: ''
   }
 
-  constructor(private utils: RequestUtilities) { }
+  constructor(private utils: RequestUtilities, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -26,17 +27,17 @@ export class FormComponent implements OnInit {
 
   submitForm(event: Event): void {
     event.preventDefault()
-    console.log(this.user)
     this.utils.signUp(this.user)
   }
 
   async loginForm(event: Event): Promise<void> {
     event.preventDefault()
     const res = await this.utils.login(this.user)
-    console.log(res)
 
     if (res.error) {
       this.errorMsg = res.error.msg
+    } else {
+      this.router.navigate(['/matches'])
     }
   }
 }

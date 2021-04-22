@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { lowerFirst } from 'cypress/types/lodash'
 
 @Component({
   selector: 'app-match-card',
@@ -9,14 +11,14 @@ export class MatchCardComponent implements OnInit {
   @Input() teamInfo: any
   sortedTeam: any = {}
   sorted = false
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     if (this.teamInfo) {
       this.sortedTeam.Players = []
 
       for (const player of this.teamInfo.Players) {
-        let {lane, role} = player.timeline
+        const {lane, role} = player.timeline
         switch (lane) {
           case 'TOP':
             this.sortedTeam.Players[0] = player
@@ -45,5 +47,9 @@ export class MatchCardComponent implements OnInit {
     } else {
       console.log('no data')
     }
+  }
+
+  redirect(id: string): void {
+    this.router.navigate(['/users', id])
   }
 }

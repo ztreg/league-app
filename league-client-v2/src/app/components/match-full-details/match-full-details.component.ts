@@ -40,21 +40,19 @@ export class MatchFullDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('LOAD')
     this.teamOne = []
     this.teamTwo = []
     this.teamOne.Players = []
     this.teamTwo.Players = []
 
+    // If the match isnt in from store, get it from API
     if (!this.match) {
-      console.log('no matchdata, getting it')
       this.req.getMatchDetails(this.match.gameId).then(res2 => {
         this.gameData = res2
       })
     } else {
       this.gameData = this.match
     }
-    console.log(this.gameData)
 
     this.getTeamData()
 
@@ -66,8 +64,6 @@ export class MatchFullDetailsComponent implements OnInit {
     })
     const teamOnePlayers: any = []
     const teamTwoPlayers: any = []
-
-    console.log('players:', teamOnePlayers)
 
     for (let i = 0; i < this.gameData.participantIdentities.length; i++) {
       const participantIdentity = this.gameData.participantIdentities[i]
@@ -86,16 +82,17 @@ export class MatchFullDetailsComponent implements OnInit {
 
       const { imageURL } = this.getSpecificChampion(participantINFO.championId)
       const { summonersURL1, summonersURL2 } = this.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
+      console.log(participantIdentity.player.accountId)
 
       const playerToAdd: Player = {
         name: participantIdentity.player.summonerName,
+        accountId: participantIdentity.player.accountId,
         championURL: imageURL,
         stats: participantINFO.stats,
         items,
         timeline: { lane, role },
         summoners: { summonersURL1, summonersURL2 }
       }
-      console.log('-------------------------------')
 
       if (participantIdentity.participantId <= 5) {
         teamOnePlayers.push(playerToAdd)

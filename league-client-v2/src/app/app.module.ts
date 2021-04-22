@@ -26,7 +26,8 @@ import { DatePipe } from '@angular/common'
 import { AuthGuardService } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
 import { JwtModule, JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt'
-import { AuthGuardLoggedinService } from './auth/auth-loggedin.service'
+import { AuthGuardLoggedinService } from './auth/auth-loggedin.service';
+import { UsersProfileComponent } from './components/users-profile/users-profile.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { AuthGuardLoggedinService } from './auth/auth-loggedin.service'
     SignupComponent,
     FormComponent,
     InputComponent,
-    LoginComponent
+    LoginComponent,
+    UsersProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,6 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     const storageData: any = sessionStorage.getItem('user')
     const data = JSON.parse(storageData)
-    console.log(data)
     this.store.updateCurrentUser(data)
 
     this.utils.getAllItemsData()

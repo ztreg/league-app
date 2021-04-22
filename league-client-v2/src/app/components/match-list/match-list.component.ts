@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { RequestUtilities } from 'src/app/services/requestUtils';
-import { StoreService } from 'src/app/services/store.service';
+import { Component, OnInit } from '@angular/core'
+import { RequestUtilities } from 'src/app/services/requestUtils'
+import { StoreService } from 'src/app/services/store.service'
 
 @Component({
   selector: 'app-match-list',
@@ -11,9 +11,9 @@ export class MatchListComponent implements OnInit {
   allMatches: any = []
   start = true
   userAccId!: string
-  page = 1;
-  startIndex = 0;
-  endIndex = 10;
+  page = 1
+  startIndex = 0
+  endIndex = 10
   pageSize = 10
 
   once = false
@@ -24,7 +24,7 @@ export class MatchListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(!this.once) {
+    if (!this.once) {
       this.getPagMatches('yo')
       this.once = true
     }
@@ -40,7 +40,7 @@ export class MatchListComponent implements OnInit {
       this.userAccId = res.accountId
     })
 
-    if(typeof option === 'string') {
+    if (typeof option === 'string') {
       this.page = 1
       this.startIndex = 0
       this.endIndex = 10
@@ -55,7 +55,7 @@ export class MatchListComponent implements OnInit {
       this.page--
       this.startIndex -= 10
       this.endIndex -= 10
-      if(this.startIndex <= 0) {
+      if (this.startIndex <= 0) {
         this.start = true
         this.startIndex = 0
       }

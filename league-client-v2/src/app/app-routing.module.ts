@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { AuthGuardService as AuthGuard, AuthGuardService } from './auth/auth-guard.service'
 import { AuthGuardLoggedinService } from './auth/auth-loggedin.service'
 import { MatchListItemComponent } from './components/match-list-item/match-list-item.component'
+import { UsersProfileComponent } from './components/users-profile/users-profile.component'
 import { FollowingComponent } from './pages/following/following.component'
 import { HomeComponent } from './pages/home/home.component'
 import { LoginComponent } from './pages/login/login.component'
@@ -35,6 +36,10 @@ const routes: Routes = [
     path: 'profile',
     component: UserComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'users/:id',
+    component: UsersProfileComponent
   },
   {
     path: 'signup',

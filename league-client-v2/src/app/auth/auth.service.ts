@@ -9,8 +9,6 @@ export class AuthService {
   // ...
   public isAuthenticated(): boolean {
     const token: any = sessionStorage.getItem('token')
-    console.log(token)
-
     // Check whether the token is expired and return
     // true or false
     return !jwt.isTokenExpired(token)

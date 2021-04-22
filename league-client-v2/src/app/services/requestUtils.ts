@@ -17,8 +17,6 @@ export class RequestUtilities {
 
   getUserMatches(currentUserAccountId: string, start: number, end: number): void {
       this.req.getAllMatches(currentUserAccountId, start, end).then(data => {
-        console.log(data)
-
         const fullMatchesData: any = data
         const { matches } = fullMatchesData
         this.storeService.updateMyMatches(matches)
@@ -66,8 +64,7 @@ export class RequestUtilities {
     const {summonerName} = userObject
     const summonerInfo = await this.req.getUserInfoByName(summonerName)
     if (summonerInfo) {
-      const result = await this.req.signUp(userObject)
-      console.log(result)
+      await this.req.signUp(userObject)
     } else {
       console.log('user doest exist exist')
     }
@@ -75,7 +72,7 @@ export class RequestUtilities {
 
   async login(userObject: any): Promise<any> {
     try {
-      const loggedInStatus = await this.req.login(userObject)
+      const loggedInStatus: any = await this.req.login(userObject)
       const summonerInfo: any = await this.req.getUserInfoByName(userObject.summonerName)
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       console.log(summonerInfo)
