@@ -1,0 +1,24 @@
+<div class="user-profile" *ngIf="userData">
+  <div class="hero-wrapper">
+    <div class="hero-image">
+      <div class="hero-text">
+        <div class="icon-lvl">
+          <img [src]="userData.profileIconId" alt="" srcset="">
+          <div class="top-right">{{userData.summonerLevel}}</div>
+        </div>
+        
+        <div class="profile-username">{{userData.name}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ranked-solo-flex-part">
+    Info about solo and flex ranked games
+  </div>
+  <div class="last-games-data">
+    Data about 5 recent games
+  </div>
+  <div class="top-played-champions">
+    Data about most played chamption. KDA etc
+  </div>
+</div>

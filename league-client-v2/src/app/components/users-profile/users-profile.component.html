@@ -1,1 +1,3 @@
-<p>users-profile works!</p>
+<div class="user-profile" *ngIf="userData">
+  <app-users-profile-details [userData]="userData"></app-users-profile-details>
+</div>

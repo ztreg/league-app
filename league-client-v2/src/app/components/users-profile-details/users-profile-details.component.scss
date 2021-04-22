@@ -1,0 +1,53 @@
+
+.hero-wrapper {
+  height: 250px;
+  background-color: black;
+  margin: 20px 0;
+  .hero-image {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_5.jpg");
+    /* Set a specific height */
+    height: 100%;
+    width: 100%;
+    // margin: 0 auto;
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-position-y: 10%;
+    background-repeat: no-repeat;
+    background-size:cover;
+    position: relative;
+    
+  }
+  
+  /* Place text in the middle of the image */
+  .hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    color: white;
+    .profile-username {
+      width: 300px;
+      font-size: 1.2em;
+    }
+    .icon-lvl {
+      position: relative;
+      text-align: center;
+      color: white;
+    
+      img {
+        width: 100px;
+        height: 100px;
+      }
+      .top-right {
+        position: absolute;
+        top: 0px;
+        left: 100px;
+        background-color: black;
+      }
+    }
+
+  }
+}
+

@@ -27,7 +27,8 @@ import { AuthGuardService } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
 import { JwtModule, JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt'
 import { AuthGuardLoggedinService } from './auth/auth-loggedin.service';
-import { UsersProfileComponent } from './components/users-profile/users-profile.component'
+import { UsersProfileComponent } from './components/users-profile/users-profile.component';
+import { UsersProfileDetailsComponent } from './components/users-profile-details/users-profile-details.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { UsersProfileComponent } from './components/users-profile/users-profile.
     FormComponent,
     InputComponent,
     LoginComponent,
-    UsersProfileComponent
+    UsersProfileComponent,
+    UsersProfileDetailsComponent
   ],
   imports: [
     BrowserModule,

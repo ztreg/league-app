@@ -16,6 +16,7 @@ export class RequestService {
   summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/summoner.json'
 
   userByNameURL = 'lol/summoner/v4/summoners/by-name'
+  userByIdUrl = '/lol/summoner/v4/summoners/by-account'
   localURL = 'http://localhost:3000'
 
   constructor(private http: HttpClient) { }
@@ -47,6 +48,10 @@ export class RequestService {
 
   getUserInfoByName(summonerName: string): Promise<HttpResponse<any>> {
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByNameURL}/${summonerName}?${this.queryToken}`).toPromise()
+  }
+
+  getUserInfoByID(accountId: string): Promise<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByIdUrl}/${accountId}?${this.queryToken}`).toPromise()
   }
 
   signUp(userObject: any): Promise<any> {

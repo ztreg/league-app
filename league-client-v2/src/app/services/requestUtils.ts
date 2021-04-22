@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { sum } from 'cypress/types/lodash'
 import { RequestService } from './request.service'
 import { StoreService } from './store.service'
 
@@ -84,6 +85,19 @@ export class RequestUtilities {
       return error
     }
 
+  }
+
+  async getUserDataByID(accountId: string): Promise<any> {
+    try {
+      const summonerInfo: any = await this.req.getUserInfoByID(accountId)
+      console.log(summonerInfo)
+      summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
+      return summonerInfo
+
+    } catch (error) {
+      console.log(error)
+
+    }
   }
 
 

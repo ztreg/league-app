@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
+import { RequestUtilities } from 'src/app/services/requestUtils'
 
 @Component({
   selector: 'app-users-profile',
@@ -8,15 +9,17 @@ import { ActivatedRoute } from '@angular/router'
 })
 export class UsersProfileComponent implements OnInit {
 
-  constructor(private router: ActivatedRoute) { }
-
+  constructor(private router: ActivatedRoute, private utils: RequestUtilities) { }
+  userData: any
   ngOnInit(): void {
     this.getUserDataById()
   }
-  getUserDataById(): void {
+  async getUserDataById(): Promise<void> {
     const accountId = this.router.snapshot.paramMap.get('id')
     console.log(accountId)
-
+    if (accountId) {
+      this.userData = await this.utils.getUserDataByID(accountId)
+    }
   }
 
 }
