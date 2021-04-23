@@ -63,7 +63,7 @@ export class RequestUtilities {
 
   async signUp(userObject: any): Promise<void> {
     const {summonerName} = userObject
-    const summonerInfo = await this.req.getUserInfoByName(summonerName)
+    const summonerInfo: any = await this.req.getUserInfoByName(summonerName)
     if (summonerInfo) {
       await this.req.signUp(userObject)
     } else {
@@ -79,6 +79,7 @@ export class RequestUtilities {
       console.log(summonerInfo)
       sessionStorage.setItem('token', loggedInStatus.token)
       sessionStorage.setItem('user', JSON.stringify(summonerInfo))
+
       this.storeService.updateCurrentUser(summonerInfo)
       return 'OK'
     } catch (error) {
@@ -90,9 +91,14 @@ export class RequestUtilities {
   async getUserDataByID(accountId: string): Promise<any> {
     try {
       const summonerInfo: any = await this.req.getUserInfoByID(accountId)
-      console.log(summonerInfo)
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
-      return summonerInfo
+      const {id} = summonerInfo
+      const rankedInfo = await this.req.getUserRankedInfo(id)
+      const data = {
+        summonerInfo,
+        rankedInfo
+      }
+      return data
 
     } catch (error) {
       console.log(error)

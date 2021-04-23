@@ -19,11 +19,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.ref.detectChanges()
-    this.store.updateCurrentUser({})
+    this.store.updateCurrentUser(null)
     sessionStorage.removeItem('token')
     sessionStorage.removeItem('user')
     this.router.navigate(['login'])
+    this.ref.detectChanges()
 
   }
 }

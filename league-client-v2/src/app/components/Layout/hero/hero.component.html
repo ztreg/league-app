@@ -1,0 +1,11 @@
+<div class="hero-wrapper">
+    <div class="hero-image" [ngStyle]="{'background-image': userData.favoriteChampUrl}">
+      <div class="hero-text">
+        <div class="icon-lvl">
+          <img [src]="userData.profileIconId" alt="" srcset="">
+          <div class="top-right">{{userData.summonerLevel}}</div>
+        </div>
+        <div class="profile-username">{{userData.name}}</div>
+      </div>
+    </div>
+  </div>

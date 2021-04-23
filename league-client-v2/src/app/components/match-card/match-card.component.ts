@@ -19,6 +19,8 @@ export class MatchCardComponent implements OnInit {
 
       for (const player of this.teamInfo.Players) {
         const {lane, role} = player.timeline
+        console.log(lane);
+        // TODO: Bugfix roles, sometimes they are not correct
         switch (lane) {
           case 'TOP':
             this.sortedTeam.Players[0] = player

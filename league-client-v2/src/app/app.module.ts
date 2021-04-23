@@ -28,7 +28,9 @@ import { AuthService } from './auth/auth.service'
 import { JwtModule, JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt'
 import { AuthGuardLoggedinService } from './auth/auth-loggedin.service';
 import { UsersProfileComponent } from './components/users-profile/users-profile.component';
-import { UsersProfileDetailsComponent } from './components/users-profile-details/users-profile-details.component'
+import { UsersProfileDetailsComponent } from './components/users-profile-details/users-profile-details.component';
+import { HeroComponent } from './components/layout/hero/hero.component'
+import { FooterComponent } from './components/Layout/footer/footer.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,9 @@ import { UsersProfileDetailsComponent } from './components/users-profile-details
     InputComponent,
     LoginComponent,
     UsersProfileComponent,
-    UsersProfileDetailsComponent
+    UsersProfileDetailsComponent,
+    HeroComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

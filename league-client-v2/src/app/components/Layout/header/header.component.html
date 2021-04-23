@@ -8,6 +8,7 @@
   <span class="example-spacer"></span>
 
   <h3 *ngIf="(currentUser$ | async) as currentUser">{{currentUser.name}}</h3>
+  <h4 *ngIf="(currentUser$ | async) as xd">{{xd.xd}}</h4>
   <span class="example-spacer"></span>
 
   <button *ngIf="(currentUser$ | async)" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/following" routerLinkActive="active">

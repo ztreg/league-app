@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
 
 @Component({
@@ -7,12 +9,24 @@ import { StoreService } from 'src/app/services/store.service'
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+  userData: any
 
-  constructor(private store: StoreService) { }
-  currentUser$ = this.store.currentUser$
+  constructor(
+    private utils: RequestUtilities,
+    private store: StoreService
+  ) { }
 
   ngOnInit(): void {
-
+    this.store.currentUser$.subscribe(res => {
+      this.getUserDataById(res.accountId)
+    })
+  }
+  
+  async getUserDataById(accountId: string): Promise<void> {
+    console.log(accountId)
+    if (accountId) {
+      this.userData = await this.utils.getUserDataByID(accountId)
+    }
   }
 
 }

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpResponse } from '@angular/common/http'
+import { environment } from 'src/environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-5f4bdac9-5d4c-43cd-8cbc-bc8e2faeb261'
+  queryToken = 'api_key=RGAPI-3aa08189-4a5c-4b14-9e61-ceb18127809c'
   matches = 'lol/match/v4/matches'
 
   allMatches = 'lol/match/v4/matchlists/by-account'
@@ -17,7 +18,7 @@ export class RequestService {
 
   userByNameURL = 'lol/summoner/v4/summoners/by-name'
   userByIdUrl = '/lol/summoner/v4/summoners/by-account'
-  localURL = 'http://localhost:3000'
+  rankedInfoBySummonerIdURL = 'lol/league/v4/entries/by-summoner'
 
   constructor(private http: HttpClient) { }
 
@@ -54,11 +55,15 @@ export class RequestService {
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByIdUrl}/${accountId}?${this.queryToken}`).toPromise()
   }
 
+  getUserRankedInfo(summonerId: string): Promise<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(`/api/v1/${this.rankedInfoBySummonerIdURL}/${summonerId}?${this.queryToken}`).toPromise()
+  }
+
   signUp(userObject: any): Promise<any> {
-    return this.http.post<HttpResponse<any>>(`${this.localURL}/users`, userObject).toPromise()
+    return this.http.post<HttpResponse<any>>(`${environment.backendURL}/users`, userObject).toPromise()
   }
 
   login(userObject: any): Promise<any> {
-    return this.http.post<HttpResponse<any>>(`${this.localURL}/auth/login`, userObject).toPromise()
+    return this.http.post<HttpResponse<any>>(`${environment.backendURL}/auth/login`, userObject).toPromise()
   }
 }
