@@ -11,7 +11,7 @@
     width: 100px;
   }
   .icon {
-    height: 24px;
+    height: 35px;
   }
 }
 
@@ -22,6 +22,11 @@
 .linkBtn {
   color: white;
   margin: 10px;
+}
+
+.mat-icon-button {
+  width: 100px !important;
+  height: 60px !important;
 }
 
 .example-icon {

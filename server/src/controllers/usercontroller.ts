@@ -1,5 +1,5 @@
 import { Application, Request, Response, NextFunction } from 'express'
-import { addUserModel, getUsersModel }  from '../models/usermodel';
+import { addUserModel, getUsersModel, updateUserFollowModel }  from '../models/usermodel';
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -17,6 +17,18 @@ export const addUser = async (req: Request, res: Response) => {
     
   } catch (error) {
     res.status(401).json({msg: error})
+  }
+}
+
+export const updateUserFollow = async (req: Request, res: Response) => {
+  const { id } = req.params
+  const { accountId } = req.body
+
+  try {
+    const updatedUser = await updateUserFollowModel({id, accountId})
+    res.status(200).json({msg: 'User updated'})
+  } catch (error) {
+    res.status(401).json({msg: 'Error updating'})
   }
 }
   

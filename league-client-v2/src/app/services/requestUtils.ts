@@ -74,7 +74,10 @@ export class RequestUtilities {
   async login(userObject: any): Promise<any> {
     try {
       const loggedInStatus: any = await this.req.login(userObject)
+      console.log(loggedInStatus)
+
       const summonerInfo: any = await this.req.getUserInfoByName(userObject.summonerName)
+      summonerInfo.userDetails = loggedInStatus
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       console.log(summonerInfo)
       sessionStorage.setItem('token', loggedInStatus.token)
@@ -83,6 +86,8 @@ export class RequestUtilities {
       this.storeService.updateCurrentUser(summonerInfo)
       return 'OK'
     } catch (error) {
+      console.log(error)
+
       return error
     }
 
@@ -103,6 +108,19 @@ export class RequestUtilities {
     } catch (error) {
       console.log(error)
 
+    }
+  }
+
+  async followUser(accountId: string, currentUser: string): Promise<any> {
+    try {
+      const result: any = await this.req.followUser(accountId, currentUser)
+      console.log(result)
+
+      return result
+    } catch (error) {
+      console.log(error)
+
+      return error
     }
   }
 

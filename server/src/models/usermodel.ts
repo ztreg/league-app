@@ -22,3 +22,12 @@ export const addUserModel = async (user: any) => {
   return addedUser
 }
 
+export const updateUserFollowModel = async (userObject: any) => {
+  const {id, accountId} = userObject
+  return await dbFile.User.updateOne(
+      { _id: id }, 
+      { $push: { following: accountId } }
+  );
+
+}
+

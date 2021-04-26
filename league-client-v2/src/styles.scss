@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../src/styles/settings/variables";
+// @import "../src/test.scss";
 html, body { height: 100%; }
 body { 
   margin: 0; 
@@ -7,3 +8,13 @@ body {
   background-color: var(--coolDark); 
   color: whitesmoke; 
 }
+
+.mat-button, .mat-icon-button {
+  color: white !important;
+  border-left: 1px solid var(mat-light-theme) !important;
+  border-radius: 0 !important;
+  width: 100px !important;
+  height: 60px !important;
+}
+
+

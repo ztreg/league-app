@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment'
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-3aa08189-4a5c-4b14-9e61-ceb18127809c'
+  queryToken = 'api_key=RGAPI-5c968404-731a-4625-ac9a-39334164605a'
   matches = 'lol/match/v4/matches'
 
   allMatches = 'lol/match/v4/matchlists/by-account'
@@ -65,5 +65,9 @@ export class RequestService {
 
   login(userObject: any): Promise<any> {
     return this.http.post<HttpResponse<any>>(`${environment.backendURL}/auth/login`, userObject).toPromise()
+  }
+
+  followUser(accountId: string, currentUserId: string): Promise<any> {
+    return this.http.patch<HttpResponse<any>>(`${environment.backendURL}/users/${currentUserId}`, {accountId}).toPromise()
   }
 }

@@ -12,6 +12,8 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatCardModule } from '@angular/material/card'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MatButtonModule } from '@angular/material/button'
+
 @NgModule({
   exports: [
     MatAutocompleteModule,
@@ -27,7 +29,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
     MatToolbarModule,
     MatCardModule,
     MatGridListModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonModule
   ]
 })
 export class MaterialModules { }
