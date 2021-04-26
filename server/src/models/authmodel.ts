@@ -17,7 +17,7 @@ export const loginModel = async (loginObject: any) => {
         const checkedPassword = bcrypt.compareSync(loginObject.password, user.password)
         if(checkedPassword) {
             let token = createToken({userId: user._id, summonerName: user.summonerName})
-            return {token: token, summonerName: user.summonerName, id: user._id.toString()}
+            return {token: token, summonerName: user.summonerName, id: user._id.toString(), following: user.following}
         } else {
             return {msg: 'wrong password'}
         }

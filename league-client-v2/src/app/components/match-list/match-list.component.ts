@@ -44,12 +44,12 @@ export class MatchListComponent implements OnInit {
       this.page = 1
       this.startIndex = 0
       this.endIndex = 10
-      this.utils.getUserMatches(this.userAccId, this.startIndex, this.endIndex)
+      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex)
      } else if (option) {
       this.page++
       this.startIndex += 10
       this.endIndex += 10
-      this.utils.getUserMatches(this.userAccId, this.startIndex, this.endIndex)
+      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex)
       this.start = false
      } else {
       this.page--
@@ -59,7 +59,7 @@ export class MatchListComponent implements OnInit {
         this.start = true
         this.startIndex = 0
       }
-      this.utils.getUserMatches(this.userAccId, this.startIndex, this.endIndex)
+      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex)
     }
   }
 }

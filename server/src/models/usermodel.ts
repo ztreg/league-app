@@ -13,7 +13,10 @@ export const getUsersModel = async () => {
 
 
 export const getSingleUserModel = async(summonerName: any) => {
-  return await dbFile.User.findOne({summonerName})
+  const res = await dbFile.User.findOne({summonerName})
+  console.log(res);
+  return res
+  
 }
 
 export const addUserModel = async (user: any) => {

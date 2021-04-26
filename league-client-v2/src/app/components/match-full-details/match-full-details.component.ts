@@ -48,6 +48,8 @@ export class MatchFullDetailsComponent implements OnInit {
     // If the match isnt in from store, get it from API
     if (!this.match) {
       this.req.getMatchDetails(this.match.gameId).then(res2 => {
+        console.log(res2)
+
         this.gameData = res2
       })
     } else {

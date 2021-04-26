@@ -16,7 +16,7 @@ export class RequestUtilities {
   hasMatches: boolean | undefined
   hasItemsData: boolean | undefined
 
-  getUserMatches(currentUserAccountId: string, start: number, end: number): void {
+  getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 10): void {
       this.req.getAllMatches(currentUserAccountId, start, end).then(data => {
         const fullMatchesData: any = data
         const { matches } = fullMatchesData
@@ -24,6 +24,12 @@ export class RequestUtilities {
         this.hasMatches = true
       })
   }
+
+  async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
+    const result: any = await this.req.getAllMatches(accountId, start || 0, end || 5)
+    const { matches } = result
+    return matches
+}
 
   getAllChampions(): void {
     this.checkIfStoreAsData()
@@ -96,13 +102,19 @@ export class RequestUtilities {
   async getUserDataByID(accountId: string): Promise<any> {
     try {
       const summonerInfo: any = await this.req.getUserInfoByID(accountId)
+      console.log(summonerInfo)
+
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       const {id} = summonerInfo
       const rankedInfo = await this.req.getUserRankedInfo(id)
+      console.log(rankedInfo)
+
       const data = {
         summonerInfo,
         rankedInfo
       }
+      console.log(data)
+
       return data
 
     } catch (error) {
