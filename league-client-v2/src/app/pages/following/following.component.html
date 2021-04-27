@@ -1,1 +1,29 @@
-
+<h1>Following</h1>
+<div class="container-users">
+  <table *ngIf="usersSolo && usersSolo.length > 0">
+    <div class="tableType">Solo/Duo Leaderboard</div>
+    <tr>
+      <th>Summoner</th>
+      <th>League</th>
+      <th>Games</th>
+    </tr>
+    <tr *ngFor="let user of usersSolo">
+      <td >{{ user?.name }}</td>
+      <td> {{ user.stats?.tier }} {{ user.stats?.rank }} {{ user.stats?.leaguePoints }} LP </td>
+      <td> {{ user.stats?.wins }} W - {{ user.stats?.losses }} L ({{ user.stats?.wins +  user.stats?.losses }})</td>
+    </tr>
+  </table>
+  <table *ngIf="usersFlex && usersFlex.length > 0">
+    <div class="tableType">Flex Leaderboard</div>
+    <tr>
+      <th>Summoner</th>
+      <th>League</th>
+      <th>Games</th>
+    </tr>
+    <tr *ngFor="let user of usersFlex">
+      <td >{{ user?.name }}</td>
+      <td> {{ user.stats?.tier }} {{ user.stats?.rank }} {{ user.stats?.leaguePoints }} LP </td>
+      <td> {{ user.stats?.wins }}W | {{ user.stats?.losses }}L ({{ user.stats?.wins +  user.stats?.losses }})</td>
+    </tr>
+  </table>
+</div>

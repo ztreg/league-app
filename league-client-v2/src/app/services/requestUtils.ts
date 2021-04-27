@@ -80,7 +80,7 @@ export class RequestUtilities {
   async login(userObject: any): Promise<any> {
     try {
       const loggedInStatus: any = await this.req.login(userObject)
-      console.log(loggedInStatus)
+      // console.log(loggedInStatus)
 
       const summonerInfo: any = await this.req.getUserInfoByName(userObject.summonerName)
       summonerInfo.userDetails = loggedInStatus
@@ -102,18 +102,18 @@ export class RequestUtilities {
   async getUserDataByID(accountId: string): Promise<any> {
     try {
       const summonerInfo: any = await this.req.getUserInfoByID(accountId)
-      console.log(summonerInfo)
+      // console.log(summonerInfo)
 
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       const {id} = summonerInfo
       const rankedInfo = await this.req.getUserRankedInfo(id)
-      console.log(rankedInfo)
+      // console.log(rankedInfo)
 
       const data = {
         summonerInfo,
         rankedInfo
       }
-      console.log(data)
+      // console.log(data)
 
       return data
 
@@ -127,11 +127,10 @@ export class RequestUtilities {
     try {
       const result: any = await this.req.followUser(accountId, currentUser)
       console.log(result)
-
       return result
+
     } catch (error) {
       console.log(error)
-
       return error
     }
   }

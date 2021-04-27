@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { match } from 'cypress/types/sinon'
+import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
-import { MatchShort } from 'src/app/types/Match'
 
 @Component({
   selector: 'app-following',
@@ -11,11 +10,13 @@ import { MatchShort } from 'src/app/types/Match'
 })
 export class FollowingComponent implements OnInit {
   followingUserIdsArray: string[] | [] | undefined
-  users: any
+  usersSolo: any[] = []
+  usersFlex: any[] = []
 
   constructor(
     private store: StoreService,
-    private utils: RequestUtilities
+    private utils: RequestUtilities,
+    private generalUtils: GeneralUtilsService
     ) { }
 
   ngOnInit(): void {
@@ -32,11 +33,29 @@ export class FollowingComponent implements OnInit {
 
   }
 
-  async getMatchesByFollowed(followingArray: any[]): Promise<void> {
+  async getMatchesByFollowed(followingArray: string[]): Promise<void> {
+    const soloBoard = []
+    const flexBoard = []
     for (const id of followingArray) {
+      const res: any = await this.utils.getUserDataByID(id)
+      console.log(res)
 
+      for (const rankedMatch of res.rankedInfo) {
+        const {tier, rank, leaguePoints, wins, losses} = rankedMatch
+        const user = {
+          name: res.summonerInfo.name,
+          stats: {tier, rank, leaguePoints, wins, losses}
+        }
+        if (rankedMatch.queueType === 'RANKED_FLEX_SR' ) {
+          flexBoard.unshift(user)
+        } else {
+          soloBoard.unshift(user)
+        }
+      }
     }
 
-  }
+    this.usersSolo = await this.generalUtils.sortByRank(soloBoard)
+    this.usersFlex = await this.generalUtils.sortByRank(flexBoard)
 
+  }
 }
