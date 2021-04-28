@@ -1,25 +1,29 @@
 <app-hero [userData]="userData.summonerInfo"></app-hero>
 
 <div class="user-profile" *ngIf="userData">
-  <div class="ranked-user col" >
-    <div *ngFor="let info of userData.rankedInfo">
+  <div class="col1" >
+    <div *ngFor="let info of userData.rankedInfo" class="ranked-user">
       <div> {{info.queueType}} : {{ info.tier }}</div>
       <div> LP: {{info.leaguePoints}}</div>
       <div> Wins: {{info.wins}} </div>
       <div> Losses: {{info.losses}} </div>
     </div>
+    <div *ngIf="userData.rankedInfo.length === 0" class="ranked-user">
+      <div>No ranked games played</div>
+    </div>
+    <div class="top-played-champions">
+      <div>Data about most played champion. KDA etc</div>
+      <div>Data about most played champion. KDA etc</div>
+      <div>Data about most played champion. KDA etc</div>
+    </div>
+  </div>
+  <div class="user-games-data col2" *ngIf="(profileMatches$ | async) as matches">
+    <div *ngFor="let match of matches; index as i">
+      <div *ngIf="i < 5"> 
+        <app-match-list-item [match]="match"></app-match-list-item>
+      </div>
+    </div>
 
   </div>
-  <div class="user-games-data col">
-    <div> Data about 5 recent games </div>
-    <div> Data about 5 recent games </div>
-    <div> Data about 5 recent games </div>
-    <div> Data about 5 recent games </div>
-    <div> Data about 5 recent games </div>
-  </div>
-  <div class="top-played-champions col">
-    <div>Data about most played champion. KDA etc</div>
-    <div>Data about most played champion. KDA etc</div>
-    <div>Data about most played champion. KDA etc</div>
-  </div>
+
 </div>

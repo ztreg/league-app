@@ -3,42 +3,18 @@
   <div *ngIf="itemData.length > 0" > 
     <table [ngClass]="{'victory': myStats.win, 'defeat': !myStats.win}">
       <tr *ngIf="loaded && myStats">
-        <th>Overview:</th>
-        <td *ngIf="myStats.win">Victory</td>
-        <td *ngIf="!myStats.win">Defeat</td>
+        <th *ngIf="myStats.win">Victory</th>
+        <th *ngIf="!myStats.win">Defeat</th>
         <td>
           <img src="{{mySummoners.summonersURL1}}" alt="">
           <img src="{{mySummoners.summonersURL2}}" alt="">
         </td>
         <td> <img src="{{playedChampion.imageURL}}" alt=""> </td>
         <td>{{myStats.kda}}</td>
-        <td [routerLink]="['/matches', match.gameId]">View Match <mat-icon>arrow_forward</mat-icon> </td>
+        <td mat-icon-button aria-label="Example icon-button with share icon" [routerLink]="['/matches', match.gameId]">
+          View Match <mat-icon>arrow_forward</mat-icon> 
+        </td>
       </tr>
-      <div *ngIf="!expand">
-          More details: <mat-icon (click)="expandItem()">arrow_downward</mat-icon>
-      </div>
-   
-      <tr *ngIf="myStats && expand">
-        <th>Stats:</th>
-        <td>K: {{myStats.kills}}</td>
-        <td>D: {{myStats.deaths}}</td>
-        <td>A: {{myStats.assists}}</td>
-        <td>Dmg: {{myStats.totalDamageDealtToChampions}}</td>
-        <td>Gold: {{myStats.goldEarned}}</td>
-        <td >Lvl: {{myStats.champLevel}}</td>
-      </tr>
-      <tr *ngIf="myStats && expand && itemData">
-        <th>Items:</th>
-          <td *ngFor="let item of itemData">
-            <img *ngIf="item?.imageURL" src="{{item.imageURL}}" alt="icon of item">
-          </td>
-        <!-- <td></td> -->
-      </tr>
-  
-      <div *ngIf="expand">
-        Minimize: <mat-icon (click)="expandItem()">arrow_upward</mat-icon>
-      </div>
-  
     </table>
   </div>
 </div>

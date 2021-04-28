@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { sum } from 'cypress/types/lodash'
+import { take } from 'rxjs/operators'
 import { RequestService } from './request.service'
 import { StoreService } from './store.service'
 
@@ -16,18 +17,29 @@ export class RequestUtilities {
   hasMatches: boolean | undefined
   hasItemsData: boolean | undefined
 
+  test: boolean | undefined
+
   getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 10): void {
+
+    this.storeService.myMatches$.pipe(take(1)).subscribe(myMatches => {
+      if (myMatches) {
+        this.test = true
+      }
+    })
+    if (!this.test) {
       this.req.getAllMatches(currentUserAccountId, start, end).then(data => {
         const fullMatchesData: any = data
         const { matches } = fullMatchesData
         this.storeService.updateMyMatches(matches)
         this.hasMatches = true
       })
+    }
   }
 
   async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
     const result: any = await this.req.getAllMatches(accountId, start || 0, end || 5)
     const { matches } = result
+    this.storeService.updateProfileMatches(matches)
     return matches
 }
 

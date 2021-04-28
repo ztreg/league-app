@@ -8,11 +8,13 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
-import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar'
 import { MatCardModule } from '@angular/material/card'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatButtonModule } from '@angular/material/button'
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatMenuModule } from '@angular/material/menu'
 
 @NgModule({
   exports: [
@@ -30,7 +32,10 @@ import { MatButtonModule } from '@angular/material/button'
     MatCardModule,
     MatGridListModule,
     MatProgressBarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatMenuModule
   ]
 })
 export class MaterialModules { }

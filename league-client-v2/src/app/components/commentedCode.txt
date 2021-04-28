@@ -6,3 +6,28 @@
     <img *ngIf="item?.image" src="{{item.image}}" alt="">
   </div>
 </div>
+
+      <!-- <div *ngIf="!expand">
+          More details: <mat-icon (click)="expandItem()">arrow_downward</mat-icon>
+      </div>
+   
+      <tr *ngIf="myStats && expand">
+        <th>Stats:</th>
+        <td>K: {{myStats.kills}}</td>
+        <td>D: {{myStats.deaths}}</td>
+        <td>A: {{myStats.assists}}</td>
+        <td>Dmg: {{myStats.totalDamageDealtToChampions}}</td>
+        <td>Gold: {{myStats.goldEarned}}</td>
+        <td >Lvl: {{myStats.champLevel}}</td>
+      </tr>
+      <tr *ngIf="myStats && expand && itemData">
+        <th>Items:</th>
+          <td *ngFor="let item of itemData">
+            <img *ngIf="item?.imageURL" src="{{item.imageURL}}" alt="icon of item">
+          </td>
+        <!-- <td></td> -->
+      </tr>
+  
+      <div *ngIf="expand">
+        Minimize: <mat-icon (click)="expandItem()">arrow_upward</mat-icon>
+      </div> -->

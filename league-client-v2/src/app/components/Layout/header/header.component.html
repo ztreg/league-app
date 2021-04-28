@@ -1,21 +1,33 @@
 <mat-toolbar class="header-container">
-  
-  <button color="primary" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
+    <button mat-button class="menu-button" [matMenuTriggerFor]="menu" >
+      <mat-icon>{{ isMenuOpen ? 'menu_close' : 'menu' }}</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" (click)="onSidenavClick()">
+      <div *ngIf="(currentUser$ | async)">
+        <div *ngFor="let menuItem of menuListLoggedIn">
+          <button mat-menu-item routerLink="{{menuItem.link}}" routerLinkActive="active">{{menuItem.name}}</button>
+        </div>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </div>
+      <div *ngIf="!(currentUser$ | async)">
+        <div *ngFor="let menuItem of menuListNotLoggedIn">
+          <button mat-menu-item routerLink="{{menuItem.link}}" routerLinkActive="active">{{menuItem.name}}</button>
+        </div>
+      </div>
+    </mat-menu>
 
-  <a routerLink="/matches" routerLinkActive="active" class="linkBtn"><span> Home</span></a>
-  <span class="example-spacer"></span>
+ 
+  <a routerLink="/matches" routerLinkActive="active" class="linkBtn nav-item"><span> Home</span></a>
+  <span class="example-spacer nav-item"></span>
 
-  <h3 *ngIf="(currentUser$ | async) as currentUser">{{currentUser.name}}</h3>
-  <h4 *ngIf="(currentUser$ | async) as xd">{{xd.xd}}</h4>
-  <span class="example-spacer"></span>
+  <h3 class="nav-item" *ngIf="(currentUser$ | async) as currentUser">{{currentUser.name}}</h3>
+  <span class="example-spacer nav-item"></span>
 
-  <button *ngIf="(currentUser$ | async)" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/following" routerLinkActive="active">
-    Following <mat-icon >group</mat-icon>
+  <button *ngIf="(currentUser$ | async)" mat-icon-button class="example-icon nav-item" aria-label="Example icon-button with share icon" routerLink="/following" routerLinkActive="active">
+    Leaderboard <mat-icon >leaderboard</mat-icon>
    </button>
 
-   <button class="header-summoner-icon" *ngIf="(currentUser$ | async) as currentUser"  mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon" routerLink="/profile" routerLinkActive="active">
+   <button class="header-summoner-icon nav-item" *ngIf="(currentUser$ | async) as currentUser"  mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon" routerLink="/profile" routerLinkActive="active">
     Profile 
     <img class="icon" src="{{currentUser.profileIconId}}" alt="" srcset="">
    </button>
@@ -24,7 +36,7 @@
     Login<mat-icon >login</mat-icon>
   </button>
 
-  <button *ngIf="!(currentUser$ | async)" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"  routerLink="/signup" routerLinkActive="active">
+  <button *ngIf="!(currentUser$ | async)" mat-icon-button class="example-icon nav-item" aria-label="Example icon-button with share icon"  routerLink="/signup" routerLinkActive="active">
    SignUp <mat-icon>login</mat-icon>
   </button>
   

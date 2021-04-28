@@ -1,11 +1,12 @@
 table, th, td {
   // border: 1px solid blue;
   // border-collapse: collapse;
-  background-color: black;
+  background-color: var(--coolDark);
   color: white;
 }
 table {
-  width: 850px;
+  width: 100%;
+  max-width: 850px;
   margin: 0 auto;
 }
 
@@ -14,24 +15,35 @@ th {
   text-align: left;
 }
 td {
+  // :hover, :not(:nth-child) {
+  //   transform: scale(1.05);
+  // }
   text-align: center;
   img {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
 }
 
 .match-table {
-  padding: 20px;
-  // :hover, :not(:nth-child) {
-  //   transform: scale(1.05);
-  // }
+  margin: 8px;
+  // padding: 20px;
 }
 
 .victory {
-  border: 10px solid rgb(77, 233, 77);
+  border: 4px solid rgb(77, 233, 77);
+  border-radius: 10px;
 }
 
 .defeat {
-  border: 10px solid rgb(156, 16, 16);
+  border: 4px solid rgb(156, 16, 16);
+  border-radius: 10px;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+
 }

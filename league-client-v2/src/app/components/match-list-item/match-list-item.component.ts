@@ -34,6 +34,7 @@ export class MatchListItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('hello')
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
 
       this.gameData = res2
@@ -47,6 +48,7 @@ export class MatchListItemComponent implements OnInit {
           // this.store.updateCurrentUser(participant.player)
         }
       }
+
       this.getItemsData()
     })
   }
