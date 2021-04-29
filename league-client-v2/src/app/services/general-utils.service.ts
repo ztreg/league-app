@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core'
+import { Item } from '../types/Player'
+import { StoreService } from './store.service'
+import { take } from 'rxjs/operators'
 
 enum ranks {
   CHALLENGER = 1,
@@ -20,13 +23,18 @@ enum division {
 }
 
 
+
 @Injectable({
   providedIn: 'root'
 })
 
-export class GeneralUtilsService {
 
-  constructor() { }
+export class GeneralUtilsService {
+  itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
+  championImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
+  summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
+
+  constructor(private store: StoreService) { }
 
   sortByRank(arrayToSort: any[]): any {
     this.getDivsionAsNumber(arrayToSort)
@@ -56,6 +64,55 @@ export class GeneralUtilsService {
       player.stats.division = division[player.stats.rank]
     }
     return array
+  }
+
+  getItems(itemsArray: any []): Item[] {
+
+    const itemsURL: Item[] = []
+    this.store.allItems$.pipe(take(1)).subscribe(allItems => {
+      if (allItems) {
+        for (const id of itemsArray) {
+          if (id === 0) {
+            continue
+          }
+          const itemURL = allItems[id]
+          itemsURL.unshift(itemURL)
+          itemsURL[0].itemURL = this.itemImageUrl + allItems[id].image.full
+        }
+      }
+    })
+    itemsURL.reverse()
+    return itemsURL
+  }
+
+  getSpecificChampion(championId: string): any {
+    const championPlayed: any = {}
+
+    this.store.allChampions$.pipe(take(1)).subscribe(champions => {
+      const championsArray: any = Object.entries(champions)
+      for (const [key, item] of championsArray) {
+        if (championId.toString() === item.key) {
+          championPlayed.imageURL = `${this.championImageUrl}${item.image.full}`
+        }
+      }
+    })
+    return championPlayed
+  }
+
+  getSummoners(summoner1Id: string, summoner2Id: string): any {
+    const summonerData: any = {}
+    this.store.allSummoners$.subscribe(summoners => {
+      const summonersArray: any = Object.entries(summoners)
+      for (const [key, item] of summonersArray) {
+        if (summoner1Id.toString() === item.key) {
+          summonerData.summonersURL1 = `${this.summonersURL}${item.image.full}`
+        }
+        if (summoner2Id.toString() === item.key) {
+          summonerData.summonersURL2 = `${this.summonersURL}${item.image.full}`
+        }
+      }
+    })
+    return summonerData
   }
 
 }

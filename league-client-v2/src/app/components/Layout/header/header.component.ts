@@ -60,7 +60,5 @@ export class HeaderComponent implements OnInit {
   onSidenavClick(): void {
     this.isMenuOpen = !this.isMenuOpen
     console.log(this.isMenuOpen)
-    this.ref.detectChanges()
-
   }
 }

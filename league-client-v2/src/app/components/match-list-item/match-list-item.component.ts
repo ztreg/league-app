@@ -20,7 +20,10 @@ export class MatchListItemComponent implements OnInit {
 
   currentUserAccountId!: string
   loaded = false
+  imagesLoaded = false
   myPartId = 0
+
+  SCORE: any = {}
 
   myItems: any = []
   playedChampion: any
@@ -55,8 +58,14 @@ export class MatchListItemComponent implements OnInit {
 
   getItemsData(): void {
     const me = this.gameData.participants[this.myPartId - 1]
-    const myStats = this.gameData.participants[this.myPartId - 1].stats
+    console.log(me)
+
+    const myStats = me.stats
+
+
     this.myStats = myStats
+    console.log(this.myStats)
+
     this.myStats.kda = (myStats.kills + myStats.assists) / myStats.deaths
     this.myStats.kda = this.myStats.kda.toFixed(2)
 
@@ -77,6 +86,7 @@ export class MatchListItemComponent implements OnInit {
             this.itemData[0].imageURL = this.itemImageUrl + allItems[id].image.full
           }
         }
+        this.imagesLoaded = true
       }
     })
 
@@ -102,10 +112,10 @@ export class MatchListItemComponent implements OnInit {
     this.store.allSummoners$.subscribe(summoners => {
       const summonersArray: any = Object.entries(summoners)
       for (const [key, item] of summonersArray) {
-        if (summoner1Id.toString() === item.key) {
+        if (summoner1Id.toString() == item.key) {
           summonerData.summonersURL1 = `${this.summonersURL}${item.image.full}`
         }
-        if (summoner2Id.toString() === item.key) {
+        if (summoner2Id.toString() == item.key) {
           summonerData.summonersURL2 = `${this.summonersURL}${item.image.full}`
         }
       }
