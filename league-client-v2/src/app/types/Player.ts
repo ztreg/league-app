@@ -5,7 +5,9 @@ export interface Player {
     items: Item[]
     timeline: Timeline
     summoners: Summoners
-    accountId: string
+    accountId: string,
+    win?: boolean,
+    kda?: any
 }
 
 export interface Players {

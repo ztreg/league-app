@@ -13,9 +13,7 @@ export class UsersProfileDetailsComponent implements OnInit {
   profileMatches$ = this.store.profileMatches$
 
   ngOnInit(): void {
-    console.log(this.userData)
     this.utils.getUserMatches(this.userData.summonerInfo.accountId, 0, 5)
-
   }
 
 }

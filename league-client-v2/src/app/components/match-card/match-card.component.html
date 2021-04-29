@@ -6,7 +6,7 @@
   </mat-card-header>
   <mat-card-content *ngFor="let player of sortedTeam.Players" class="fullPlayerData">
     <div class="row">
-      <div class="row-item"> {{player.timeline.lane}} <button (click)="redirect(player.accountId)"> {{ player.name }} </button></div>
+      <div class="row-item"> <button (click)="redirect(player.accountId)"> {{ player.name }} </button></div>
         <img class="row-item" src="{{player.championURL}}" alt="" class="avatar">
         <img class="avatar-item" src="{{player.summoners.summonersURL1}}" alt="" srcset="">
         <img class="avatar-item" src="{{player.summoners.summonersURL2}}" alt="" srcset="">

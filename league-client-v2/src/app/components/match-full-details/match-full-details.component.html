@@ -1,13 +1,13 @@
 <div class="card-container">
-  <div *ngIf="teamOne.Players.length < 0 && teamTwo.Players.length < 0">
+  <div *ngIf="teamOne.Players.length < 0 && teamTwo.Players.length < 0  && !loaded">
     <mat-progress-bar mode="indeterminate" class="progress-bar"></mat-progress-bar>
   </div>
-  <div class="example-card" *ngIf="teamOne.Players.length > 0">
+  <div class="example-card" *ngIf="teamOne.Players.length > 0 && loaded">
     <app-match-card [teamInfo]="teamOne"></app-match-card>
   </div>
   <div class="middle">VS</div>
 
-  <div class="example-card" *ngIf="teamTwo.Players.length > 0">
+  <div class="example-card" *ngIf="teamTwo.Players.length > 0 && loaded">
     <app-match-card [teamInfo]="teamTwo"></app-match-card>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <app-hero [userData]="userData.summonerInfo"></app-hero>
 
 <div class="user-profile" *ngIf="userData">
-  <div class="col1" >
+  <div class="col1" *ngIf="userData.rankedInfo">
     <div *ngFor="let info of userData.rankedInfo" class="ranked-user">
       <div> {{info.queueType}} : {{ info.tier }}</div>
       <div> LP: {{info.leaguePoints}}</div>

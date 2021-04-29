@@ -36,6 +36,11 @@ export class GeneralUtilsService {
 
   constructor(private store: StoreService) { }
 
+  /**
+   *
+   * @param arrayToSort the array that should be sorted
+   * @returns a array sorted by TIER -> DIVISION -> LEAGUEPOINTS
+   */
   sortByRank(arrayToSort: any[]): any {
     this.getDivsionAsNumber(arrayToSort)
     this.getLeagueAsNumber(arrayToSort)
@@ -66,8 +71,12 @@ export class GeneralUtilsService {
     return array
   }
 
+  /**
+   *
+   * @param itemsArray An array of items
+   * @returns a array of URLS to the images of the items in the array
+   */
   getItems(itemsArray: any []): Item[] {
-
     const itemsURL: Item[] = []
     this.store.allItems$.pipe(take(1)).subscribe(allItems => {
       if (allItems) {
@@ -85,9 +94,14 @@ export class GeneralUtilsService {
     return itemsURL
   }
 
+  /**
+   *
+   * @param championId The champion we want data from
+   * @returns Specific data about the champion that we want for the program.
+   * This metadata should be in the store
+   */
   getSpecificChampion(championId: string): any {
     const championPlayed: any = {}
-
     this.store.allChampions$.pipe(take(1)).subscribe(champions => {
       const championsArray: any = Object.entries(champions)
       for (const [key, item] of championsArray) {
@@ -99,6 +113,12 @@ export class GeneralUtilsService {
     return championPlayed
   }
 
+  /**
+   *
+   * @param summoner1Id The first summonerspell the user is using
+   * @param summoner2Id The second summonerspell the user is using
+   * @returns An object of data about the summonerspells
+   */
   getSummoners(summoner1Id: string, summoner2Id: string): any {
     const summonerData: any = {}
     this.store.allSummoners$.subscribe(summoners => {

@@ -16,37 +16,44 @@ export class RequestUtilities {
   hasSummonerIcons: boolean | undefined
   hasMatches: boolean | undefined
   hasItemsData: boolean | undefined
+  currentUserID: string | undefined
 
   test: boolean | undefined
 
-  getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 10): void {
-
+  async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 10): Promise<any> {
+    let res
     this.storeService.myMatches$.pipe(take(1)).subscribe(myMatches => {
       if (myMatches) {
         this.test = true
       }
     })
     if (!this.test) {
-      this.req.getAllMatches(currentUserAccountId, start, end).then(data => {
-        const fullMatchesData: any = data
-        const { matches } = fullMatchesData
-        this.storeService.updateMyMatches(matches)
-        this.hasMatches = true
-      })
+      res = await this.req.getAllMatches(currentUserAccountId, start, end)
+      const fullMatchesData: any = res
+      const { matches } = fullMatchesData
+      this.storeService.updateMyMatches(matches)
+      this.hasMatches = true
+
     }
+    return res
   }
 
   async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
+    this.storeService.currentUser$.pipe(take(1)).subscribe(currentUser => {
+      this.currentUserID = currentUser.accountId
+    })
+
     const result: any = await this.req.getAllMatches(accountId, start || 0, end || 5)
     const { matches } = result
     this.storeService.updateProfileMatches(matches)
-    return matches
+
 }
 
   getAllChampions(): void {
     this.checkIfStoreAsData()
 
     if (!this.hasChamps) {
+      console.log('getting summoners data')
       this.req.getAllChampions().then(champs => {
         const {data}: any = champs
         this.storeService.updateAllChampions(data)
@@ -92,12 +99,9 @@ export class RequestUtilities {
   async login(userObject: any): Promise<any> {
     try {
       const loggedInStatus: any = await this.req.login(userObject)
-      // console.log(loggedInStatus)
-
       const summonerInfo: any = await this.req.getUserInfoByName(userObject.summonerName)
       summonerInfo.userDetails = loggedInStatus
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
-      console.log(summonerInfo)
       sessionStorage.setItem('token', loggedInStatus.token)
       sessionStorage.setItem('user', JSON.stringify(summonerInfo))
 

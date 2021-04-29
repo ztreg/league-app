@@ -1,7 +1,9 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
 import { take } from 'rxjs/operators'
+import { GeneralUtilsService } from 'src/app/services/general-utils.service'
+import { Player } from 'src/app/types/Player'
 @Component({
   selector: 'app-match-list-item',
   templateUrl: './match-list-item.component.html',
@@ -20,24 +22,18 @@ export class MatchListItemComponent implements OnInit {
 
   currentUserAccountId!: string
   loaded = false
-  imagesLoaded = false
   myPartId = 0
 
-  SCORE: any = {}
-
-  myItems: any = []
-  playedChampion: any
-  myStats: any = {}
-  mySummoners: any = {}
+  player: Player | undefined
 
   constructor(
     private req: RequestService,
     private store: StoreService,
-    private ref: ChangeDetectorRef
+    private generalUtils: GeneralUtilsService
   ) {}
 
   ngOnInit(): void {
-    console.log('hello')
+    console.log('printing match')
     this.req.getMatchDetails(this.match.gameId).then(res2 => {
 
       this.gameData = res2
@@ -52,75 +48,45 @@ export class MatchListItemComponent implements OnInit {
         }
       }
 
+
       this.getItemsData()
     })
   }
 
   getItemsData(): void {
-    const me = this.gameData.participants[this.myPartId - 1]
-    console.log(me)
+    let me = this.myPartId
 
-    const myStats = me.stats
+    me = (me - 1)
+    if (me === -1) {
+      me++
+    }
+    const participantIdentity = this.gameData.participantIdentities[me]
+    const participantINFO = this.gameData.participants[me]
+    const {role, lane} = participantINFO.timeline
 
+    const {item0, item1, item2, item3, item4, item5, item6, win} = participantINFO.stats
+    const playerItems = [item0, item1, item2, item3, item4, item5, item6]
+    const items = this.generalUtils.getItems(playerItems)
 
-    this.myStats = myStats
-    console.log(this.myStats)
+    const { imageURL } = this.generalUtils.getSpecificChampion(participantINFO.championId)
 
-    this.myStats.kda = (myStats.kills + myStats.assists) / myStats.deaths
-    this.myStats.kda = this.myStats.kda.toFixed(2)
+    const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
+    const kdaclear = (participantINFO.stats.kills + participantINFO.stats.assists) / participantINFO.stats.deaths
+    const kda = kdaclear.toFixed(2)
 
-    const {item0, item1, item2, item3, item4, item5, item6} = myStats
-    const {championId} = me
-
-    const myItems = [item0, item1, item2, item3, item4, item5, item6]
-    this.mySummoners = this.getSummoners(me.spell1Id, me.spell2Id)
-
-    this.store.allItems$.pipe(take(1)).subscribe(allItems => {
-      if (allItems) {
-        for (const id of myItems) {
-          if (id === 0) {
-            continue
-          }
-          if (allItems[id]) {
-            this.itemData.unshift(allItems[id])
-            this.itemData[0].imageURL = this.itemImageUrl + allItems[id].image.full
-          }
-        }
-        this.imagesLoaded = true
-      }
-    })
-
-    this.getSpecificChampion(championId)
-  }
-
-  getSpecificChampion(championId: string): void {
-    this.ref.detectChanges()
-    this.store.allChampions$.subscribe(champions => {
-      const championsArray: any = Object.entries(champions)
-      for (const [key, item] of championsArray) {
-        if (championId == item.key) {
-          this.playedChampion = item
-          this.playedChampion.imageURL = `${this.championImageUrl}${item.image.full}`
-          this.loaded = true
-        }
-      }
-    })
-  }
-
-  getSummoners(summoner1Id: string, summoner2Id: string): any {
-    const summonerData: any = {}
-    this.store.allSummoners$.subscribe(summoners => {
-      const summonersArray: any = Object.entries(summoners)
-      for (const [key, item] of summonersArray) {
-        if (summoner1Id.toString() == item.key) {
-          summonerData.summonersURL1 = `${this.summonersURL}${item.image.full}`
-        }
-        if (summoner2Id.toString() == item.key) {
-          summonerData.summonersURL2 = `${this.summonersURL}${item.image.full}`
-        }
-      }
-    })
-    return summonerData
+    const playerToAdd: Player = {
+      name: participantIdentity.player.summonerName,
+      accountId: participantIdentity.player.accountId,
+      championURL: imageURL,
+      stats: participantINFO.stats,
+      items,
+      win,
+      kda,
+      timeline: { lane, role },
+      summoners: { summonersURL1, summonersURL2 }
+    }
+    this.player = playerToAdd
+    this.loaded = true
   }
 
   expandItem(): void {

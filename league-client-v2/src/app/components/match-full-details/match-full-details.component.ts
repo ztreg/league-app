@@ -90,6 +90,8 @@ export class MatchFullDetailsComponent implements OnInit {
         timeline: { lane, role },
         summoners: { summonersURL1, summonersURL2 }
       }
+      console.log(playerToAdd)
+
 
       if (participantIdentity.participantId <= 5) {
         teamOnePlayers.push(playerToAdd)
@@ -103,6 +105,7 @@ export class MatchFullDetailsComponent implements OnInit {
     if (teamTwoPlayers.length === 5) {
       this.teamTwo.Players = teamTwoPlayers
     }
+    this.loaded = true
 
   }
   expandItem(): void {

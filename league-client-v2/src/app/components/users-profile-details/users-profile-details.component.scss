@@ -1,5 +1,5 @@
 .user-profile {
-  width: 1200px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -40,7 +40,7 @@
   @media only screen and (max-width: 700px) {
     .col1, .col2 {
       display: block;
-      width: 90%;
+      width: 400px;
     }
   }
   

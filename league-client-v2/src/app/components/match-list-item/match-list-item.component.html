@@ -1,16 +1,16 @@
 
-<div class="match-table" >
-  <div *ngIf="itemData.length > 0" > 
-    <table [ngClass]="{'victory': myStats.win, 'defeat': !myStats.win}">
-      <tr *ngIf="loaded && myStats  && imagesLoaded">
-        <th *ngIf="myStats.win">Victory</th>
-        <th *ngIf="!myStats.win">Defeat</th>
+<div class="match-table" *ngIf="player && player.stats">
+  <div *ngIf="player.items.length > 0" > 
+    <table [ngClass]="{'victory': player.win, 'defeat': !player.win}">
+      <tr *ngIf="loaded && player.stats">
+        <th *ngIf="player.win">Victory</th>
+        <th *ngIf="!player.win">Defeat</th>
         <td>
-          <img src="{{mySummoners.summonersURL1}}" alt="">
-          <img src="{{mySummoners.summonersURL2}}" alt="">
+          <img src="{{player.summoners.summonersURL1}}" alt="">
+          <img src="{{player.summoners.summonersURL2}}" alt="">
         </td>
-        <td> <img src="{{playedChampion.imageURL}}" alt=""> </td>
-        <td>{{myStats.kda}}</td>
+        <td> <img src="{{player.championURL}}" alt=""> </td>
+        <td>{{player.kda}}</td>
         <td mat-icon-button aria-label="Example icon-button with share icon" [routerLink]="['/matches', match.gameId]">
           View Match <mat-icon>arrow_forward</mat-icon> 
         </td>

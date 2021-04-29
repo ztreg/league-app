@@ -7,6 +7,7 @@ import { ReplaySubject } from 'rxjs'
 export class StoreService {
   private readonly _currentUser = new ReplaySubject<any>(1)
   private readonly _myMatches = new ReplaySubject<any>(1)
+  private readonly _currentUserLatestMatches = new ReplaySubject<any>(1)
   private readonly _profileMatches = new ReplaySubject<any>(1)
   private readonly _allChampions = new ReplaySubject<any>(1)
   private readonly _allSummoners = new ReplaySubject<any>(1)
@@ -14,6 +15,7 @@ export class StoreService {
 
   readonly currentUser$ = this._currentUser.asObservable()
   readonly myMatches$ = this._myMatches.asObservable()
+  readonly currentUserLatestMatches$ = this._currentUserLatestMatches.asObservable()
   readonly profileMatches$ = this._profileMatches.asObservable()
   readonly allChampions$ = this._allChampions.asObservable()
   readonly allSummoners$ = this._allSummoners.asObservable()
@@ -25,6 +27,10 @@ export class StoreService {
 
   private set myMatches(val: any) {
     this._myMatches.next(val)
+  }
+
+  private set currentUserLatestMatches(val: any) {
+    this._currentUserLatestMatches.next(val)
   }
 
   private set profileMatches(val: any) {
@@ -49,6 +55,10 @@ export class StoreService {
 
   updateMyMatches(val: any): void {
     this.myMatches = val
+  }
+
+  updateCurrentUserLatestMatches(val: any): void {
+    this.currentUserLatestMatches = val
   }
 
   updateProfileMatches(val: any): void {
