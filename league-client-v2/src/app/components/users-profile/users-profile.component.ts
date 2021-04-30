@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
+import { from } from 'rxjs'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 
 @Component({
@@ -21,5 +22,4 @@ export class UsersProfileComponent implements OnInit {
       this.userData = await this.utils.getUserDataByID(accountId)
     }
   }
-
 }

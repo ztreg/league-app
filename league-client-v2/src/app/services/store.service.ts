@@ -13,6 +13,8 @@ export class StoreService {
   private readonly _allSummoners = new ReplaySubject<any>(1)
   private readonly _allItems = new ReplaySubject<any>(1)
 
+  private readonly _followingData = new ReplaySubject<any>(1)
+
   readonly currentUser$ = this._currentUser.asObservable()
   readonly myMatches$ = this._myMatches.asObservable()
   readonly currentUserLatestMatches$ = this._currentUserLatestMatches.asObservable()
@@ -21,8 +23,14 @@ export class StoreService {
   readonly allSummoners$ = this._allSummoners.asObservable()
   readonly allItems$ = this._allItems.asObservable()
 
+  readonly followingData$ = this._followingData.asObservable()
+
   private set currentUser(val: any) {
     this._currentUser.next(val)
+  }
+
+  private set followingData(val: any) {
+    this._followingData.next(val)
   }
 
   private set myMatches(val: any) {
@@ -47,6 +55,10 @@ export class StoreService {
 
   private set allItems(val: any) {
     this._allItems.next(val)
+  }
+
+  updateFollowingData(val: any): void {
+    this.followingData = val
   }
 
   updateCurrentUser(val: any): void {

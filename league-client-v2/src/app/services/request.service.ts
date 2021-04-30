@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpResponse } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
-
+import { from } from 'rxjs'
 @Injectable({
   providedIn: 'root'
 })
@@ -70,4 +70,12 @@ export class RequestService {
   followUser(accountId: string, currentUserId: string): Promise<any> {
     return this.http.patch<HttpResponse<any>>(`${environment.backendURL}/users/${currentUserId}`, {accountId}).toPromise()
   }
+
+
+  //   const options = {
+  //     headers: 'Access-Control-Allow-Origin'
+  //   }
+  //   return this.http.get<any>('https://euw.op.gg/summoner/userName=Ztreg', options).toPromise()
+  // }
+
 }

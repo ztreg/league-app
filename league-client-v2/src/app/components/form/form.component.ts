@@ -33,11 +33,12 @@ export class FormComponent implements OnInit {
   async loginForm(event: Event): Promise<void> {
     event.preventDefault()
     const res = await this.utils.login(this.user)
-
     if (res.error) {
       this.errorMsg = res.error.msg
     } else {
       this.router.navigate(['/matches'])
+      this.utils.fillFollowerDataToStore()
     }
   }
+
 }

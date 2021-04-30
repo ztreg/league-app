@@ -16,7 +16,9 @@ export class AppComponent implements OnInit{
     const storageData: any = sessionStorage.getItem('user')
     const data = JSON.parse(storageData)
     this.store.updateCurrentUser(data)
-
+    if (data) {
+      this.utils.fillFollowerDataToStore()
+    }
     this.utils.getAllItemsData()
     this.utils.getAllChampions()
     this.utils.getAllSummoners()

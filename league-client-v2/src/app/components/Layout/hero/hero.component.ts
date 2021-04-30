@@ -12,14 +12,13 @@ export class HeroComponent implements OnInit {
   constructor(private store: StoreService, private utils: RequestUtilities) { }
 
   ngOnInit(): void {
-    this.userData.favoriteChampUrl = "url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_5.jpg)"
+    console.log(this.userData);
+    
+    this.userData.favoriteChampUrl = `url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_5.jpg)`
   }
 
   followUser(accountId: string): void {
     this.store.currentUser$.subscribe(res => {
-      // console.log(res.);
-      
-      console.log(accountId);
       this.utils.followUser(accountId, res.userDetails.id)
     })
   }

@@ -90,7 +90,7 @@ export class MatchFullDetailsComponent implements OnInit {
         timeline: { lane, role },
         summoners: { summonersURL1, summonersURL2 }
       }
-      console.log(playerToAdd)
+      // console.log(playerToAdd)
 
 
       if (participantIdentity.participantId <= 5) {

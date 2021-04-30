@@ -2,11 +2,14 @@
 
 <div class="user-profile" *ngIf="userData">
   <div class="col1" *ngIf="userData.rankedInfo">
-    <div *ngFor="let info of userData.rankedInfo" class="ranked-user">
-      <div> {{info.queueType}} : {{ info.tier }}</div>
-      <div> LP: {{info.leaguePoints}}</div>
-      <div> Wins: {{info.wins}} </div>
-      <div> Losses: {{info.losses}} </div>
+    <div *ngFor="let info of userData.rankedInfo">
+      <div  class="ranked-user">
+        <div *ngIf="info.queueType === 'RANKED_SOLO_5x5'"> Solo/Duo : {{ info.tier }}</div>
+        <div *ngIf="info.queueType === 'RANKED_FLEX_SR'"> Flex : {{ info.tier }}</div>
+        <div> LP: {{info.leaguePoints}}</div>
+        <div> Wins: {{info.wins}} </div>
+        <div> Losses: {{info.losses}} </div>
+      </div>
     </div>
     <div *ngIf="userData.rankedInfo.length === 0" class="ranked-user">
       <div>No ranked games played</div>

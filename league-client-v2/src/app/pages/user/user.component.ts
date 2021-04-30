@@ -17,16 +17,34 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // this.test()
     this.store.currentUser$.subscribe(res => {
       this.getUserDataById(res.accountId)
     })
   }
-  
+
   async getUserDataById(accountId: string): Promise<void> {
     console.log(accountId)
     if (accountId) {
       this.userData = await this.utils.getUserDataByID(accountId)
     }
   }
+
+    // async test(): Promise<void> {
+    //   console.log('yo')
+
+    //   const result = await fetch('https://euw.op.gg/summoner/userName=Ztreg', {
+    //     method: 'GET',
+    //     headers: {
+    //       'Access-Control-Allow-Origin': '*'
+    //     },
+    //     mode: 'cors'
+    //   })
+    //   .then(response => console.log(response))
+    //   .then(json => console.log(json))
+    //   .catch (err => console.log(err))
+
+    //   console.log(result)
+    // }
 
 }

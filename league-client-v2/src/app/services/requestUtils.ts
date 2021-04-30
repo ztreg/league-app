@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { sum } from 'cypress/types/lodash'
 import { take } from 'rxjs/operators'
+import { GeneralUtilsService } from './general-utils.service'
 import { RequestService } from './request.service'
 import { StoreService } from './store.service'
 
@@ -11,7 +12,7 @@ import { StoreService } from './store.service'
   providedIn: 'root'
 })
 export class RequestUtilities {
-  constructor( private storeService: StoreService, private req: RequestService) { }
+  constructor( private storeService: StoreService, private req: RequestService, private generalUtils: GeneralUtilsService) { }
   hasChamps: boolean | undefined
   hasSummonerIcons: boolean | undefined
   hasMatches: boolean | undefined
@@ -118,18 +119,16 @@ export class RequestUtilities {
   async getUserDataByID(accountId: string): Promise<any> {
     try {
       const summonerInfo: any = await this.req.getUserInfoByID(accountId)
-      // console.log(summonerInfo)
-
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       const {id} = summonerInfo
       const rankedInfo = await this.req.getUserRankedInfo(id)
-      // console.log(rankedInfo)
+      // const dataFromAnotherSite = await this.req.testing(summonerInfo.summonerName)
+      // console.log(dataFromAnotherSite)
 
       const data = {
         summonerInfo,
         rankedInfo
       }
-      // console.log(data)
 
       return data
 
@@ -151,6 +150,44 @@ export class RequestUtilities {
     }
   }
 
+  async fillFollowerDataToStore(): Promise<any> {
+    let test = {}
+    this.storeService.currentUser$.subscribe(userData => {
+      const followingUserIdsArray = userData.userDetails.following || []
+      if (followingUserIdsArray.length > 0) {
+        test = this.getMatchesByFollowed(followingUserIdsArray)
+      }
+    })
+    return test
+  }
+
+  async getMatchesByFollowed(followingArray: string[]): Promise<any> {
+    const soloBoard = []
+    const flexBoard = []
+    for (const id of followingArray) {
+      const res: any = await this.getUserDataByID(id)
+
+      for (const rankedMatch of res.rankedInfo) {
+        const {tier, rank, leaguePoints, wins, losses} = rankedMatch
+        const user = {
+          name: res.summonerInfo.name,
+          stats: {tier, rank, leaguePoints, wins, losses}
+        }
+        if (rankedMatch.queueType === 'RANKED_FLEX_SR' ) {
+          flexBoard.unshift(user)
+        } else {
+          soloBoard.unshift(user)
+        }
+      }
+    }
+    const leagues = {
+      usersSolo: await this.generalUtils.sortByRank(soloBoard),
+      usersFlex: await this.generalUtils.sortByRank(flexBoard)
+    }
+    this.storeService.updateFollowingData(leagues)
+    return leagues
+
+  }
 
   checkIfStoreAsData(): void {
     this.storeService.allChampions$.subscribe(res => {
