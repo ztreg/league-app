@@ -1,20 +1,32 @@
-
-.card-container {
-  // padding: 20px;
-  width: 1300px;
+.whole {
+  
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  align-self: center;
-  // .example-card {
-  //   width: 50%;
-  // }
-  .middle {
-    width: 20px;
+  .card-container {
+    // padding: 20px;
+    width: 1300px;
     margin: 0 auto;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    // .example-card {
+    //   width: 50%;
+    // }
+    .middle {
+      width: 20px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .progress-bar {
+      color: white;
+    }
   }
-  .progress-bar {
-    color: white;
+  
+  .middle-button {
+    display: flex;
+    margin: 0 auto;
+    align-self: center;
+    width: 200px;
+    text-align: center;
+    border-bottom: 1px solid var(--highContrastRed);
   }
 }

@@ -1,0 +1,24 @@
+<div id="chart" 
+*ngIf="chartOptions 
+  && chartOptions.xaxis
+  && chartOptions.plotOptions
+  && chartOptions.dataLabels
+  && chartOptions.chart
+  && chartOptions.series
+  && chartOptions.fill
+  && chartOptions.tooltip
+  ">
+  <mat-tab-group mat-align-tabs="start" class="yes" animationDuration="2ms" (selectedTabChange)="changeGraphStat($event)">
+    <mat-tab [label]="stat.displayName" *ngFor="let stat of avaialbleStats" >  
+      <apx-chart
+      [tooltip]="chartOptions.tooltip"
+      [fill]="chartOptions.fill"
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [dataLabels]="chartOptions.dataLabels"
+      [plotOptions]="chartOptions.plotOptions"
+      [xaxis]="chartOptions.xaxis"
+      ></apx-chart>
+    </mat-tab>
+</mat-tab-group>
+</div>

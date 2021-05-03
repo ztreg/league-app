@@ -18,3 +18,15 @@ body {
 }
 
 
+.mat-tab-label, .mat-tab-link, .mat-tab-label-content {
+  color: white !important;
+  
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: var(--highContrastRed)
+}
+
+.apexcharts-toolbar, .apexcharts-menu-icon {
+  display: none !important;
+}

@@ -1,15 +1,15 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
-import { Item, Player } from 'src/app/types/Player'
+import { Item, Player} from 'src/app/types/Player'
 import { take } from 'rxjs/operators'
 import { GeneralUtilsService } from 'src/app/services/general-utils.service'
-
 @Component({
   selector: 'app-match-full-details',
   templateUrl: './match-full-details.component.html',
   styleUrls: ['./match-full-details.component.scss']
 })
+
 
 export class MatchFullDetailsComponent implements OnInit {
   @Input() match: any
@@ -79,7 +79,7 @@ export class MatchFullDetailsComponent implements OnInit {
       const {item0, item1, item2, item3, item4, item5, item6} = participantINFO.stats
       const playerItems = [item0, item1, item2, item3, item4, item5, item6]
       const items = this.generalUtils.getItems(playerItems)
-
+      participantINFO.stats.name = participantIdentity.player.summonerName
       const { imageURL } = this.generalUtils.getSpecificChampion(participantINFO.championId)
       const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
 
@@ -92,8 +92,6 @@ export class MatchFullDetailsComponent implements OnInit {
         timeline: { lane, role },
         summoners: { summonersURL1, summonersURL2 },
       }
-      console.log(participantINFO)
-
 
       if (participantIdentity.participantId <= 5) {
         teamOnePlayers.push(playerToAdd)

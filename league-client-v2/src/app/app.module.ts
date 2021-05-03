@@ -26,11 +26,13 @@ import { DatePipe } from '@angular/common'
 import { AuthGuardService } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
 import { JwtModule, JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt'
-import { AuthGuardLoggedinService } from './auth/auth-loggedin.service';
-import { UsersProfileComponent } from './components/users-profile/users-profile.component';
-import { UsersProfileDetailsComponent } from './components/users-profile-details/users-profile-details.component';
+import { AuthGuardLoggedinService } from './auth/auth-loggedin.service'
+import { UsersProfileComponent } from './components/users-profile/users-profile.component'
+import { UsersProfileDetailsComponent } from './components/users-profile-details/users-profile-details.component'
 import { HeroComponent } from './components/layout/hero/hero.component'
 import { FooterComponent } from './components/Layout/footer/footer.component'
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ChartComponent } from './components/utils/chart/chart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,8 @@ import { FooterComponent } from './components/Layout/footer/footer.component'
     UsersProfileComponent,
     UsersProfileDetailsComponent,
     HeroComponent,
-    FooterComponent
+    FooterComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { FooterComponent } from './components/Layout/footer/footer.component'
     MaterialModules,
     FormsModule,
     ReactiveFormsModule,
-    JwtModule
+    JwtModule,
+    NgApexchartsModule,
   ],
   providers: [
     DatePipe,

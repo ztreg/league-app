@@ -19,9 +19,9 @@ export class MatchCardComponent implements OnInit {
 
       let index = 0
       for (const player of this.teamInfo.Players) {
+
         const {lane, role} = player.timeline
         this.sortedTeam.Players[index] = player
-
         // TODO: Bugfix roles, sometimes they are not correct
         // switch (lane) {
         //   case 'TOP':

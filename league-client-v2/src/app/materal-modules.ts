@@ -15,7 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatMenuModule } from '@angular/material/menu'
-
+import { MatTabsModule } from '@angular/material/tabs'
 @NgModule({
   exports: [
     MatAutocompleteModule,
@@ -35,7 +35,8 @@ import { MatMenuModule } from '@angular/material/menu'
     MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule
   ]
 })
 export class MaterialModules { }
