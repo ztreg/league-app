@@ -18,9 +18,11 @@ export class HeroComponent implements OnInit {
   }
 
   followUser(accountId: string): void {
-    this.store.currentUser$.subscribe(res => {
-      this.utils.followUser(accountId, res.userDetails.id)
-    })
+    if(accountId) {
+      this.store.currentUser$.subscribe(res => {
+        this.utils.followUser(accountId, res.userDetails.id)
+      })
+    }
   }
 
 }

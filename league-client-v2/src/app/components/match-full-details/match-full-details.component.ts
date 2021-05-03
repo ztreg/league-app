@@ -34,9 +34,11 @@ export class MatchFullDetailsComponent implements OnInit {
 
   currentUserAccountId!: string
 
+  graph = false
+
   constructor(
     private req: RequestService,
-    private gereralUtils: GeneralUtilsService
+    private generalUtils: GeneralUtilsService
   ) {}
 
   ngOnInit(): void {
@@ -71,15 +73,15 @@ export class MatchFullDetailsComponent implements OnInit {
     for (let i = 0; i < this.gameData.participantIdentities.length; i++) {
       const participantIdentity = this.gameData.participantIdentities[i]
       const participantINFO = this.gameData.participants[i]
-
+      const {totalDamageDealtToChampions } = participantINFO
       const {role, lane} = this.gameData.participants[i].timeline
 
       const {item0, item1, item2, item3, item4, item5, item6} = participantINFO.stats
       const playerItems = [item0, item1, item2, item3, item4, item5, item6]
-      const items = this.gereralUtils.getItems(playerItems)
+      const items = this.generalUtils.getItems(playerItems)
 
-      const { imageURL } = this.gereralUtils.getSpecificChampion(participantINFO.championId)
-      const { summonersURL1, summonersURL2 } = this.gereralUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
+      const { imageURL } = this.generalUtils.getSpecificChampion(participantINFO.championId)
+      const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
 
       const playerToAdd: Player = {
         name: participantIdentity.player.summonerName,
@@ -88,9 +90,9 @@ export class MatchFullDetailsComponent implements OnInit {
         stats: participantINFO.stats,
         items,
         timeline: { lane, role },
-        summoners: { summonersURL1, summonersURL2 }
+        summoners: { summonersURL1, summonersURL2 },
       }
-      // console.log(playerToAdd)
+      console.log(participantINFO)
 
 
       if (participantIdentity.participantId <= 5) {
@@ -110,5 +112,9 @@ export class MatchFullDetailsComponent implements OnInit {
   }
   expandItem(): void {
     this.expand = !this.expand
+  }
+
+  changeStats(): void {
+    this.graph = !this.graph
   }
 }

@@ -6,7 +6,7 @@ import { from } from 'rxjs'
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-3fd507bd-c600-42ca-b4cd-b291b76f42ab'
+  queryToken = 'api_key=RGAPI-bdbe6c4a-f43f-45db-87c5-1cd82defbf5a'
   matches = 'lol/match/v4/matches'
 
   allMatches = 'lol/match/v4/matchlists/by-account'

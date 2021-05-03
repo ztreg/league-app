@@ -22,8 +22,6 @@ enum division {
   V
 }
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -73,7 +71,7 @@ export class GeneralUtilsService {
 
   /**
    *
-   * @param itemsArray An array of items
+   * @param itemsArray An array of items with ids
    * @returns a array of URLS to the images of the items in the array
    */
   getItems(itemsArray: any []): Item[] {

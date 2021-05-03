@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
     if (data) {
       this.utils.fillFollowerDataToStore()
     }
+    // Meta-data about the game
     this.utils.getAllItemsData()
     this.utils.getAllChampions()
     this.utils.getAllSummoners()
