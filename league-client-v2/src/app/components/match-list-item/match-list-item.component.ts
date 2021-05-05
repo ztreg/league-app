@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
-import { take } from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
 import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { Player } from 'src/app/types/Player'
 @Component({
@@ -25,6 +25,15 @@ export class MatchListItemComponent implements OnInit {
   myPartId = 0
 
   player: Player | undefined
+
+  champions$ = this.store.allChampions$.pipe(
+    map(data => {
+      const hejhej = Object.values(data).map((item: any) => [item.key, item])
+      const awsomeDict = Object.fromEntries(hejhej)
+      return awsomeDict
+    })
+  )
+
 
   constructor(
     private req: RequestService,
@@ -68,7 +77,7 @@ export class MatchListItemComponent implements OnInit {
     const playerItems = [item0, item1, item2, item3, item4, item5, item6]
     const items = this.generalUtils.getItems(playerItems)
 
-    const { imageURL } = this.generalUtils.getSpecificChampion(participantINFO.championId)
+    // const { imageURL } = this.generalUtils.getSpecificChampion(participantINFO.championId)
 
     const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
     const kdaclear = (participantINFO.stats.kills + participantINFO.stats.assists) / participantINFO.stats.deaths
@@ -77,12 +86,11 @@ export class MatchListItemComponent implements OnInit {
     const playerToAdd: Player = {
       name: participantIdentity.player.summonerName,
       accountId: participantIdentity.player.accountId,
-      championURL: imageURL,
       stats: participantINFO.stats,
       items,
       win,
       kda,
-      timeline: { lane, role },
+      timeline: { lane, role, championID: participantINFO.championId },
       summoners: { summonersURL1, summonersURL2 }
     }
     this.player = playerToAdd

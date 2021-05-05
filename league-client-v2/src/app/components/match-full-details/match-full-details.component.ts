@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
 import { Item, Player} from 'src/app/types/Player'
-import { take } from 'rxjs/operators'
+import { first, single, take, tap } from 'rxjs/operators'
 import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 @Component({
   selector: 'app-match-full-details',
@@ -38,7 +38,8 @@ export class MatchFullDetailsComponent implements OnInit {
 
   constructor(
     private req: RequestService,
-    private generalUtils: GeneralUtilsService
+    private generalUtils: GeneralUtilsService,
+    private store: StoreService
   ) {}
 
   ngOnInit(): void {
@@ -73,23 +74,20 @@ export class MatchFullDetailsComponent implements OnInit {
     for (let i = 0; i < this.gameData.participantIdentities.length; i++) {
       const participantIdentity = this.gameData.participantIdentities[i]
       const participantINFO = this.gameData.participants[i]
-      const {totalDamageDealtToChampions } = participantINFO
       const {role, lane} = this.gameData.participants[i].timeline
 
       const {item0, item1, item2, item3, item4, item5, item6} = participantINFO.stats
       const playerItems = [item0, item1, item2, item3, item4, item5, item6]
       const items = this.generalUtils.getItems(playerItems)
       participantINFO.stats.name = participantIdentity.player.summonerName
-      const { imageURL } = this.generalUtils.getSpecificChampion(participantINFO.championId)
       const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
 
       const playerToAdd: Player = {
         name: participantIdentity.player.summonerName,
         accountId: participantIdentity.player.accountId,
-        championURL: imageURL,
         stats: participantINFO.stats,
         items,
-        timeline: { lane, role },
+        timeline: { lane, role, championID: participantINFO.championId },
         summoners: { summonersURL1, summonersURL2 },
       }
 

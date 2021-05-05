@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { lowerFirst } from 'cypress/types/lodash'
+import { first, map, tap } from 'rxjs/operators'
+import { StoreService } from 'src/app/services/store.service'
 
 @Component({
   selector: 'app-match-card',
@@ -11,7 +13,14 @@ export class MatchCardComponent implements OnInit {
   @Input() teamInfo: any
   sortedTeam: any = {}
   sorted = false
-  constructor(private router: Router) { }
+  constructor(private router: Router, private store: StoreService) { }
+  champions$ = this.store.allChampions$.pipe(
+    map(data => {
+      const hejhej = Object.values(data).map((item: any) => [item.key, item])
+      const awsomeDict = Object.fromEntries(hejhej)
+      return awsomeDict
+    })
+  )
 
   ngOnInit(): void {
     if (this.teamInfo) {
@@ -20,7 +29,7 @@ export class MatchCardComponent implements OnInit {
       let index = 0
       for (const player of this.teamInfo.Players) {
 
-        const {lane, role} = player.timeline
+        const {lane, role, test} = player.timeline
         this.sortedTeam.Players[index] = player
         // TODO: Bugfix roles, sometimes they are not correct
         // switch (lane) {

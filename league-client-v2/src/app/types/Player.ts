@@ -1,6 +1,5 @@
 export interface Player {
     name: string
-    championURL: string
     stats: object
     items: Item[]
     timeline: Timeline
@@ -25,4 +24,5 @@ export interface Item {
 export interface Timeline {
     role: string
     lane: string
+    championID?: any
 }

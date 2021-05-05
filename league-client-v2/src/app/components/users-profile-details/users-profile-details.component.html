@@ -2,10 +2,10 @@
 
 <div class="user-profile" *ngIf="userData">
   <div class="col1" *ngIf="userData.rankedInfo">
-    <div *ngFor="let info of userData.rankedInfo">
-      <div  class="ranked-user">
-        <div *ngIf="info.queueType === 'RANKED_SOLO_5x5'"> Solo/Duo : {{ info.tier }}</div>
-        <div *ngIf="info.queueType === 'RANKED_FLEX_SR'"> Flex : {{ info.tier }}</div>
+    <div *ngFor="let info of userData.rankedInfo" class="col1-ranks">
+      <div class="ranked-user" *ngIf="info.emblemPath">
+        <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_SOLO_5x5'"> Solo/Duo <img class="emblems" [src]="info.emblemPath" alt=""></div>
+        <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_FLEX_SR'"> Flex   <img class="emblems" [src]="info.emblemPath" alt=""> </div>
         <div> LP: {{info.leaguePoints}}</div>
         <div> Wins: {{info.wins}} </div>
         <div> Losses: {{info.losses}} </div>
@@ -20,7 +20,16 @@
       <div>Data about most played champion. KDA etc</div>
     </div>
   </div>
-  <div class="user-games-data col2" *ngIf="(profileMatches$ | async) as matches">
+
+
+  <div class="user-games-data col2" *ngIf="isMe && (myMatches$ | async) as matches">
+    <div *ngFor="let match of matches; index as i">
+      <div *ngIf="i < 5"> 
+        <app-match-list-item [match]="match"></app-match-list-item>
+      </div>
+    </div>
+  </div>
+  <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as matches">
     <div *ngFor="let match of matches; index as i">
       <div *ngIf="i < 5"> 
         <app-match-list-item [match]="match"></app-match-list-item>
@@ -28,5 +37,4 @@
     </div>
 
   </div>
-
 </div>

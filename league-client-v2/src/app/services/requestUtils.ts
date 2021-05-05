@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { sum } from 'cypress/types/lodash'
-import { take } from 'rxjs/operators'
+import { take, tap } from 'rxjs/operators'
 import { GeneralUtilsService } from './general-utils.service'
 import { RequestService } from './request.service'
 import { StoreService } from './store.service'
@@ -23,11 +23,14 @@ export class RequestUtilities {
 
   async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 10): Promise<any> {
     let res
-    this.storeService.myMatches$.pipe(take(1)).subscribe(myMatches => {
+    this.storeService.myMatches$.pipe(tap(x => console.log('log my stuff', x)))
+    this.storeService.myMatches$.pipe(tap(myMatches => {
       if (myMatches) {
+        console.log('yaas')
+
         this.test = true
       }
-    })
+    }))
     if (!this.test) {
       res = await this.req.getAllMatches(currentUserAccountId, start, end)
       const fullMatchesData: any = res
@@ -107,6 +110,7 @@ export class RequestUtilities {
       sessionStorage.setItem('user', JSON.stringify(summonerInfo))
 
       this.storeService.updateCurrentUser(summonerInfo)
+      await this.getMyUserMatches(summonerInfo.accountId, 0, 10)
       return 'OK'
     } catch (error) {
       console.log(error)
@@ -141,6 +145,9 @@ export class RequestUtilities {
   async followUser(accountId: string, currentUser: string): Promise<any> {
     try {
       const result: any = await this.req.followUser(accountId, currentUser)
+      if (result.status === 200) {
+        this.storeService.updateFollowingData(accountId)
+      }
       console.log(result)
       return result
 

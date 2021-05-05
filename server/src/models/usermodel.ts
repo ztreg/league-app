@@ -12,7 +12,7 @@ export const getUsersModel = async () => {
 }
 
 
-export const getSingleUserModel = async(summonerName: any) => {
+export const getSingleUserModel = async(summonerName: string) => {
   const res = await dbFile.User.findOne({summonerName})
   console.log(res);
   return res

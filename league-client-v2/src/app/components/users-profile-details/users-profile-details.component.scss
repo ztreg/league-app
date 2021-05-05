@@ -6,12 +6,38 @@
   justify-content: space-around;
 
   .col1 {
+    display: flex;
+    flex-wrap: wrap;
     background-color: var(--smoothDark);
     border-radius: 5px;
     width: 400px;
     margin-top: 10px;
     padding: 20px;
-    min-height: 500px;
+    min-height: 400px;
+    
+    .col1-ranks {
+      flex: 2;
+    
+      .ranked-user {
+        font-size: 1.1em;
+        width: 90px;
+        margin: 0 auto;
+        background-color: var(--smoothDark);
+        text-align: center;
+        .emblems {
+          display: block;
+          margin: 0 auto;
+          // margin: 5px;
+          width: 70px;
+          height: 70px;
+        }
+      }
+    }
+    .user-games-data {
+      flex: 2;
+      background-color: var(--darkBlue);
+  
+    }
   }
 
   .col2 {
@@ -22,17 +48,7 @@
     min-height: 500px;
   }
 
-  .ranked-user {
-    // display: flex;
-    width: 150px;
-    padding: 10px;
-    background-color: var(--smoothDark);
-  }
-  .user-games-data {
-
-    background-color: var(--darkBlue);
-
-  }
+ 
   .top-played-champions {
     border-top: 1px solid var(--brightRed);
     padding: 10px;

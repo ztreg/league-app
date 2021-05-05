@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { tap } from 'rxjs/operators'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
 
@@ -36,9 +37,9 @@ export class MatchListComponent implements OnInit {
 
   getPagMatches(option: boolean | string): void {
 
-    this.store.currentUser$.subscribe(res => {
+    this.store.currentUser$.pipe(tap(res => {
       this.userAccId = res.accountId
-    })
+    }))
 
     if (typeof option === 'string') {
       this.page = 1

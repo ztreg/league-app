@@ -6,7 +6,7 @@ import { from } from 'rxjs'
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-bdbe6c4a-f43f-45db-87c5-1cd82defbf5a'
+  queryToken = 'api_key=RGAPI-3cc385af-474d-42a9-b1a7-6562fbfd9d01'
   matches = 'lol/match/v4/matches'
 
   allMatches = 'lol/match/v4/matchlists/by-account'
@@ -24,34 +24,44 @@ export class RequestService {
 
   getAllMatches(accountId: string, startIndex: number, endIndex: number): Promise<HttpResponse<any>> {
     const indexQuery = `?endIndex=${endIndex}&beginIndex=${startIndex}`
+    console.log('REQ: Matches')
+
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.allMatches}/${accountId}${indexQuery}&${this.queryToken}`).toPromise()
   }
 
   getMatchDetails(matchId: string): Promise<HttpResponse<any>> {
+    console.log('REQ: MatchDetails')
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.matches}/${matchId}?${this.queryToken}`).toPromise()
   }
 
   getItems(): Promise<HttpResponse<any>> {
+    console.log('ITEMS')
     return this.http.get<HttpResponse<any>>(this.itemsURL).toPromise()
   }
 
   getItemImage(imageId: string): Promise<HttpResponse<any>> {
+    console.log('ITEM IMAGE')
     return this.http.get<HttpResponse<any>>(`${this.itemImageUrl}${imageId}`).toPromise()
   }
 
   getAllChampions(): Promise<HttpResponse<any>> {
+    console.log('CHAMPIONS')
     return this.http.get<HttpResponse<any>>(this.championsURL).toPromise()
   }
 
   getAllSummoners(): Promise<HttpResponse<any>> {
+    console.log('SUMMONERS')
     return this.http.get<HttpResponse<any>>(this.summonersURL).toPromise()
   }
 
   getUserInfoByName(summonerName: string): Promise<HttpResponse<any>> {
+    console.log('REQ: SUMS')
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByNameURL}/${summonerName}?${this.queryToken}`).toPromise()
   }
 
   getUserInfoByID(accountId: string): Promise<HttpResponse<any>> {
+    console.log('USER ITEM ID')
+
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByIdUrl}/${accountId}?${this.queryToken}`).toPromise()
   }
 

@@ -18,6 +18,7 @@ export class AppComponent implements OnInit{
     this.store.updateCurrentUser(data)
     if (data) {
       this.utils.fillFollowerDataToStore()
+      this.utils.getMyUserMatches(data.accountId, 0, 10)
     }
     // Meta-data about the game
     this.utils.getAllItemsData()

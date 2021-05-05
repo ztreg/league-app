@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { GeneralUtilsService } from 'src/app/services/general-utils.service'
-import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
 
 @Component({
@@ -10,20 +8,12 @@ import { StoreService } from 'src/app/services/store.service'
 })
 export class FollowingComponent implements OnInit {
   followingUserIdsArray: string[] | [] | undefined
-  usersSolo: any[] = []
-  usersFlex: any[] = []
+  followingData$ = this.store.followingData$
 
   constructor(
-    private store: StoreService,
-    private utils: RequestUtilities,
-    private generalUtils: GeneralUtilsService
+    private store: StoreService
     ) { }
 
   // followingData$ = this.store.followingData$
-  ngOnInit(): void {
-    this.store.followingData$.subscribe(data => {
-      this.usersSolo = data.usersSolo
-      this.usersFlex = data.usersFlex
-    })
-  }
+  ngOnInit(): void {}
 }

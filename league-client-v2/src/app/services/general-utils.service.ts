@@ -14,6 +14,15 @@ enum ranks {
   BRONZE
 }
 
+export enum emblemsEnum {
+  MASTER = '../../assets/images/Emblem_Master.png',
+  DIAMOND = '../../assets/images/Emblem_Diamond.png',
+  PLATINUM = '../../assets/images/Emblem_Platinum.png',
+  GOLD = '../../assets/images/Emblem_Gold.png',
+  SILVER = '../../assets/images/Emblem_Silver.png',
+  BRONZE = '../../assets/images/Emblem_Bronze.png'
+}
+
 enum division {
   I = 1,
   II,
@@ -69,6 +78,10 @@ export class GeneralUtilsService {
     return array
   }
 
+  getRankedEmblems(rank: string): string {
+    return emblemsEnum[rank as keyof typeof emblemsEnum]
+  }
+
   /**
    *
    * @param itemsArray An array of items with ids
@@ -100,6 +113,7 @@ export class GeneralUtilsService {
    */
   getSpecificChampion(championId: string): any {
     const championPlayed: any = {}
+
     this.store.allChampions$.pipe(take(1)).subscribe(champions => {
       const championsArray: any = Object.entries(champions)
       for (const [key, item] of championsArray) {

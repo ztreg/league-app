@@ -49,6 +49,7 @@ export class StoreService {
     this._allChampions.next(val)
   }
 
+
   private set allSummoners(val: any) {
     this._allSummoners.next(val)
   }
