@@ -1,21 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { map } from 'rxjs/operators'
+import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
-import { first, map, take, tap } from 'rxjs/operators'
-import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { Player } from 'src/app/types/Player'
-import { _MatTabGroupBase } from '@angular/material/tabs'
-import { getLocaleWeekEndRange } from '@angular/common'
+
 @Component({
-  selector: 'app-match-list-item',
-  templateUrl: './match-list-item.component.html',
-  styleUrls: ['./match-list-item.component.scss']
+  selector: 'app-match-list-nonmeta-item',
+  templateUrl: './match-list-nonmeta-item.component.html',
+  styleUrls: ['./match-list-nonmeta-item.component.scss']
 })
-export class MatchListItemComponent implements OnInit {
+export class MatchListNonmetaItemComponent implements OnInit {
+
   @Input() match: any
   itemData: any = []
 
-  title = 'league-client-v2'
+  title = 'match-details'
   gameData: any
   expand = false
   itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
@@ -31,10 +31,10 @@ export class MatchListItemComponent implements OnInit {
   champions$ = this.store.allChampions$.pipe(
     map(data => {
       const changedChampions = Object.values(data).map((item: any) => [item.key, item])
-      return Object.fromEntries(changedChampions)
+      const changed = Object.fromEntries(changedChampions)
+      return changed
     })
   )
-
 
   constructor(
     private req: RequestService,
@@ -43,49 +43,27 @@ export class MatchListItemComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    await this.getMatchDetails()
+    this.gameData = this.match
+    this.store.currentUser$.subscribe(res2 => {
+      this.currentUserAccountId = res2.accountId
+    })
+    
+    for (const participant of this.gameData.participantIdentities) {
+      if (participant.player.accountId ===  this.currentUserAccountId) {
+        this.myPartId = participant.participantId
+      }
+    }
+    this.getItemsData()
   }
 
-  async getMatchDetails(): Promise<void> {
-
-
-  const oldList: any[] = this.store.getCurrentUserLatestMatches()
-  try {
-      let newList = []
-      const res = await this.req.getMatchDetails(this.match.gameId)
-      this.gameData = res
-      newList = oldList
-      newList.push(res)
-      this.store.updateCurrentUserLatestMatches(newList)
-      const kk = this.store.getCurrentUserLatestMatches()
-
-      this.gameData = res
-      this.store.currentUser$.subscribe(res2 => {
-        this.currentUserAccountId = res2.accountId
-      })
-
-      for (const participant of this.gameData.participantIdentities) {
-        if (participant.player.accountId ===  this.currentUserAccountId) {
-          this.myPartId = participant.participantId
-        }
-      }
-
-
-    } catch (error) {
-      console.log(error)
-
-    }
-  this.getItemsData()
-
-}
-
-getItemsData(): void {
+  getItemsData(): void {
     let me = this.myPartId
 
     me = (me - 1)
     if (me === -1) {
       me++
     }
+
     const participantIdentity = this.gameData.participantIdentities[me]
     const participantINFO = this.gameData.participants[me]
     const {role, lane} = participantINFO.timeline
@@ -93,9 +71,6 @@ getItemsData(): void {
     const {item0, item1, item2, item3, item4, item5, item6, win} = participantINFO.stats
     const playerItems = [item0, item1, item2, item3, item4, item5, item6]
     const items = this.generalUtils.getItems(playerItems)
-
-    // const { imageURL } = this.generalUtils.getSpecificChampion(participantINFO.championId)
-
     const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
     const kdaclear = (participantINFO.stats.kills + participantINFO.stats.assists) / participantINFO.stats.deaths
     const kda = kdaclear.toFixed(2)
@@ -114,7 +89,4 @@ getItemsData(): void {
     this.loaded = true
   }
 
-expandItem(): void {
-    this.expand = !this.expand
-  }
 }

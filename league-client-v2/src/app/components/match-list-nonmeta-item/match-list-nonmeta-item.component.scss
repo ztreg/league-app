@@ -1,0 +1,49 @@
+table, th, td {
+  // border: 1px solid blue;
+  // border-collapse: collapse;
+  background-color: var(--coolDark);
+  color: white;
+}
+table {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+th {
+  padding: 15px;
+  text-align: left;
+}
+td {
+  // :hover, :not(:nth-child) {
+  //   transform: scale(1.05);
+  // }
+  text-align: center;
+  img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.match-table {
+  margin: 8px;
+  // padding: 20px;
+}
+
+.victory {
+  border: 4px solid rgb(77, 233, 77);
+  border-radius: 10px;
+}
+
+.defeat {
+  border: 4px solid rgb(156, 16, 16);
+  border-radius: 10px;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+
+}

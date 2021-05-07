@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-import { sum } from 'cypress/types/lodash'
 import { take, tap } from 'rxjs/operators'
 import { GeneralUtilsService } from './general-utils.service'
 import { RequestService } from './request.service'
@@ -21,25 +20,28 @@ export class RequestUtilities {
 
   test: boolean | undefined
 
-  async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 10): Promise<any> {
-    let res
-    this.storeService.myMatches$.pipe(tap(x => console.log('log my stuff', x)))
-    this.storeService.myMatches$.pipe(tap(myMatches => {
+  async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 5): Promise<any> {
+
+    this.storeService.myMatches$.subscribe(myMatches => {
       if (myMatches) {
         console.log('yaas')
 
         this.test = true
       }
-    }))
+    })
     if (!this.test) {
-      res = await this.req.getAllMatches(currentUserAccountId, start, end)
-      const fullMatchesData: any = res
-      const { matches } = fullMatchesData
-      this.storeService.updateMyMatches(matches)
-      this.hasMatches = true
+      try {
+        const res = await this.req.getAllMatches(currentUserAccountId, start, end)
+        const fullMatchesData: any = res
+        const { matches } = fullMatchesData
+        this.storeService.updateMyMatches(matches)
+        this.hasMatches = true
+        return res
+      } catch (error) {
+        console.log(error)
 
+      }
     }
-    return res
   }
 
   async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
@@ -126,9 +128,6 @@ export class RequestUtilities {
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       const {id} = summonerInfo
       const rankedInfo = await this.req.getUserRankedInfo(id)
-      // const dataFromAnotherSite = await this.req.testing(summonerInfo.summonerName)
-      // console.log(dataFromAnotherSite)
-
       const data = {
         summonerInfo,
         rankedInfo

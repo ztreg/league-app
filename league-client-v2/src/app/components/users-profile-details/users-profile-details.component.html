@@ -21,20 +21,38 @@
     </div>
   </div>
 
-
-  <div class="user-games-data col2" *ngIf="isMe && (myMatches$ | async) as matches">
-    <div *ngFor="let match of matches; index as i">
-      <div *ngIf="i < 5"> 
-        <app-match-list-item [match]="match"></app-match-list-item>
+  <div *ngIf="!isInStore">
+    <div class="user-games-data col2" *ngIf="isMe && (myMatches$ | async) as matches">
+      <div *ngFor="let match of matches; index as i">
+        <div *ngIf="i < 5"> 
+          <app-match-list-item [match]="match"></app-match-list-item>
+        </div>
       </div>
+    </div>
+    <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as matches">
+      <div *ngFor="let match of matches; index as i">
+        <div *ngIf="i < 5"> 
+          <app-match-list-item [match]="match"></app-match-list-item>
+        </div>
+      </div>
+
     </div>
   </div>
-  <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as matches">
-    <div *ngFor="let match of matches; index as i">
-      <div *ngIf="i < 5"> 
-        <app-match-list-item [match]="match"></app-match-list-item>
+
+  <div *ngIf="isInStore">
+    <div class="user-games-data col2" *ngIf="isMe">
+      <h1>IS ME && IS IN STORE</h1>
+      <div *ngFor="let nonMetaMatch of nonMetaMetaches">
+        <app-match-list-nonmeta-item [match]="nonMetaMatch" ></app-match-list-nonmeta-item>
       </div>
     </div>
 
+    <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as matches">
+      <div *ngFor="let match of matches; index as i">
+        <div *ngIf="i < 5"> 
+          <app-match-list-item [match]="match"></app-match-list-item>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

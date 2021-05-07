@@ -20,17 +20,34 @@ export class UsersProfileDetailsComponent implements OnInit {
     ) { }
   profileMatches$ = this.store.profileMatches$
   myMatches$ = this.store.myMatches$
+  nonMetaMetaches: any = []
   isMe = false
+  isInStore = false
 
   ngOnInit(): void {
     this.store.currentUser$.subscribe(res => {
       if (res.name === this.userData.summonerInfo.name) {
+        console.log('isme')
+
         this.isMe = true
       } else {
+        console.log('not me')
+
         const userId: any = this.router.snapshot.paramMap.get('id')
         this.utils.getUserMatches(userId, 0, 5)
       }
     })
+    const hasMatches = this.store.getCurrentUserLatestMatches()
+    if (hasMatches.length > 0) {
+      console.log('is in store')
+      this.nonMetaMetaches = hasMatches
+
+      this.isInStore = true
+    } else {
+      this.isInStore = false
+      console.log('isnt in store')
+    }
+
     this.getRankedEmblems()
   }
 
@@ -40,8 +57,6 @@ export class UsersProfileDetailsComponent implements OnInit {
         infoRow.emblemPath = this.generalUtils.getRankedEmblems(infoRow.tier)
       }
     }
-
-
   }
 
 }

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpResponse } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
-import { from } from 'rxjs'
+
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-3cc385af-474d-42a9-b1a7-6562fbfd9d01'
+  queryToken = 'api_key=RGAPI-dd86a881-e085-49d8-88cf-b47281c1b919'
   matches = 'lol/match/v4/matches'
 
   allMatches = 'lol/match/v4/matchlists/by-account'
@@ -60,8 +60,7 @@ export class RequestService {
   }
 
   getUserInfoByID(accountId: string): Promise<HttpResponse<any>> {
-    console.log('USER ITEM ID')
-
+    console.log('REQ: USER INFO BY ID')
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByIdUrl}/${accountId}?${this.queryToken}`).toPromise()
   }
 
@@ -80,12 +79,5 @@ export class RequestService {
   followUser(accountId: string, currentUserId: string): Promise<any> {
     return this.http.patch<HttpResponse<any>>(`${environment.backendURL}/users/${currentUserId}`, {accountId}).toPromise()
   }
-
-
-  //   const options = {
-  //     headers: 'Access-Control-Allow-Origin'
-  //   }
-  //   return this.http.get<any>('https://euw.op.gg/summoner/userName=Ztreg', options).toPromise()
-  // }
 
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { tap } from 'rxjs/operators'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
 
@@ -10,12 +9,15 @@ import { StoreService } from 'src/app/services/store.service'
 })
 export class MatchListComponent implements OnInit {
   allMatches: any = []
+  nonMetaMetaches: any = []
+  isInStore = false
+
   start = true
   userAccId!: string
+  endIndex = 5
   page = 1
   startIndex = 0
-  endIndex = 10
-  pageSize = 10
+  pageSize = 5
 
   once = false
 
@@ -25,37 +27,38 @@ export class MatchListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.once) {
-      this.getPagMatches('yo')
-      this.once = true
+    const storeMatches = this.store.getCurrentUserLatestMatches()
+    if (storeMatches.length > 0) {
+      this.nonMetaMetaches = storeMatches
+      this.isInStore = true
+    } else {
+      console.log('isnt in store')
+
+      this.store.myMatches$.subscribe(res => {
+        console.log(res)
+
+        this.allMatches = res
+      })
     }
 
-    this.store.myMatches$.subscribe(matches => {
-      this.allMatches = matches
-    })
   }
 
   getPagMatches(option: boolean | string): void {
-
-    this.store.currentUser$.pipe(tap(res => {
-      this.userAccId = res.accountId
-    }))
-
     if (typeof option === 'string') {
       this.page = 1
       this.startIndex = 0
-      this.endIndex = 10
+      this.endIndex = 5
       this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex)
      } else if (option) {
       this.page++
-      this.startIndex += 10
-      this.endIndex += 10
+      this.startIndex += 5
+      this.endIndex += 5
       this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex)
       this.start = false
      } else {
       this.page--
-      this.startIndex -= 10
-      this.endIndex -= 10
+      this.startIndex -= 5
+      this.endIndex -= 5
       if (this.startIndex <= 0) {
         this.start = true
         this.startIndex = 0

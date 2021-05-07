@@ -31,8 +31,9 @@ import { UsersProfileComponent } from './components/users-profile/users-profile.
 import { UsersProfileDetailsComponent } from './components/users-profile-details/users-profile-details.component'
 import { HeroComponent } from './components/layout/hero/hero.component'
 import { FooterComponent } from './components/Layout/footer/footer.component'
-import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgApexchartsModule } from 'ng-apexcharts'
 import { ChartComponent } from './components/utils/chart/chart.component';
+import { MatchListNonmetaItemComponent } from './components/match-list-nonmeta-item/match-list-nonmeta-item.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +56,8 @@ import { ChartComponent } from './components/utils/chart/chart.component';
     UsersProfileDetailsComponent,
     HeroComponent,
     FooterComponent,
-    ChartComponent
+    ChartComponent,
+    MatchListNonmetaItemComponent
   ],
   imports: [
     BrowserModule,

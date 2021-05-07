@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { ReplaySubject } from 'rxjs'
+import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,7 @@ import { ReplaySubject } from 'rxjs'
 export class StoreService {
   private readonly _currentUser = new ReplaySubject<any>(1)
   private readonly _myMatches = new ReplaySubject<any>(1)
-  private readonly _currentUserLatestMatches = new ReplaySubject<any>(1)
+  private readonly _currentUserLatestMatches = new BehaviorSubject<any[]>([])
   private readonly _profileMatches = new ReplaySubject<any>(1)
   private readonly _allChampions = new ReplaySubject<any>(1)
   private readonly _allSummoners = new ReplaySubject<any>(1)
@@ -37,8 +37,15 @@ export class StoreService {
     this._myMatches.next(val)
   }
 
-  private set currentUserLatestMatches(val: any) {
+  private set currentUserLatestMatches(val: any[]) {
     this._currentUserLatestMatches.next(val)
+  }
+  private get currentUserLatestMatches(): any[] {
+    return this._currentUserLatestMatches.getValue()
+  }
+
+  getCurrentUserLatestMatches(): any[] {
+    return this.currentUserLatestMatches
   }
 
   private set profileMatches(val: any) {
@@ -70,7 +77,7 @@ export class StoreService {
     this.myMatches = val
   }
 
-  updateCurrentUserLatestMatches(val: any): void {
+  updateCurrentUserLatestMatches(val: any[]): void {
     this.currentUserLatestMatches = val
   }
 

@@ -17,8 +17,9 @@ export class AppComponent implements OnInit{
     const data = JSON.parse(storageData)
     this.store.updateCurrentUser(data)
     if (data) {
+      console.log('getting the matches dud')
       this.utils.fillFollowerDataToStore()
-      this.utils.getMyUserMatches(data.accountId, 0, 10)
+      this.utils.getMyUserMatches(data.accountId, 0, 5)
     }
     // Meta-data about the game
     this.utils.getAllItemsData()
