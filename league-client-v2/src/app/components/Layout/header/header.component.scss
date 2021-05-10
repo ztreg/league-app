@@ -27,7 +27,16 @@
     main {
         padding: 18px 24px;
     }
+
 }
+
+  .fullSearch {
+    width: 100%;
+
+  }
+  .mat-form-field {
+    display: block !important;
+  }
 }
 
 .example-spacer {
@@ -37,6 +46,10 @@
 .linkBtn {
   color: white;
   margin: 10px;
+}
+
+.searchText {
+  
 }
 
 .mat-icon-button {

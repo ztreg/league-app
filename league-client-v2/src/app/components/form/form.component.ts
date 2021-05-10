@@ -25,7 +25,7 @@ export class FormComponent implements OnInit {
     this.user[inputData.key] = inputData.value
   }
 
-  submitForm(event: Event): void {
+  signUp(event: Event): void {
     event.preventDefault()
     this.utils.signUp(this.user)
   }

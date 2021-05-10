@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment'
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-dd86a881-e085-49d8-88cf-b47281c1b919'
+  queryToken = 'api_key=RGAPI-1c6a068b-b77a-4eae-ad5e-55ff8e53ed30'
   matches = 'lol/match/v4/matches'
 
   allMatches = 'lol/match/v4/matchlists/by-account'
@@ -56,6 +56,8 @@ export class RequestService {
 
   getUserInfoByName(summonerName: string): Promise<HttpResponse<any>> {
     console.log('REQ: SUMS')
+    console.log(summonerName)
+
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByNameURL}/${summonerName}?${this.queryToken}`).toPromise()
   }
 
@@ -65,6 +67,7 @@ export class RequestService {
   }
 
   getUserRankedInfo(summonerId: string): Promise<HttpResponse<any>> {
+    console.log('REQ: GET RANKED INFO BY ID')
     return this.http.get<HttpResponse<any>>(`/api/v1/${this.rankedInfoBySummonerIdURL}/${summonerId}?${this.queryToken}`).toPromise()
   }
 

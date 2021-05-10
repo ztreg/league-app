@@ -24,15 +24,17 @@
   <div *ngIf="!isInStore">
     <div class="user-games-data col2" *ngIf="isMe && (myMatches$ | async) as matches">
       <div *ngFor="let match of matches; index as i">
+        <p>loggedin match. Not in store</p>
         <div *ngIf="i < 5"> 
           <app-match-list-item [match]="match"></app-match-list-item>
         </div>
       </div>
     </div>
-    <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as matches">
-      <div *ngFor="let match of matches; index as i">
+    <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as visitingMatches">
+      <div *ngFor="let visitingMatch of visitingMatches; index as i">
+        <p>visiting match. Isnt me</p>
         <div *ngIf="i < 5"> 
-          <app-match-list-item [match]="match"></app-match-list-item>
+          <app-match-list-item [match]="visitingMatch"></app-match-list-item>
         </div>
       </div>
 
@@ -41,16 +43,17 @@
 
   <div *ngIf="isInStore">
     <div class="user-games-data col2" *ngIf="isMe">
-      <h1>IS ME && IS IN STORE</h1>
       <div *ngFor="let nonMetaMatch of nonMetaMetaches">
+        <p>loggedin match. exists in store</p>
         <app-match-list-nonmeta-item [match]="nonMetaMatch" ></app-match-list-nonmeta-item>
       </div>
     </div>
 
-    <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as matches">
-      <div *ngFor="let match of matches; index as i">
+    <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as visitingMatches">
+      <div *ngFor="let visitingMatch of visitingMatches; index as i">
+        <p>visiting match. Isnt me</p>
         <div *ngIf="i < 5"> 
-          <app-match-list-item [match]="match"></app-match-list-item>
+          <app-match-list-item [match]="visitingMatch"></app-match-list-item>
         </div>
       </div>
     </div>

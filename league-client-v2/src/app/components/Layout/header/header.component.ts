@@ -39,6 +39,8 @@ export class HeaderComponent implements OnInit {
     }
   ]
 
+  searchSummonerValue = ''
+  searchBarOpen = false
   constructor(
     private store: StoreService,
     private router: Router,
@@ -57,6 +59,16 @@ export class HeaderComponent implements OnInit {
     this.ref.detectChanges()
 
   }
+
+  searchSummoner(event: Event): void {
+    console.log(event.target)
+
+  }
+
+  searchBarShow(): void {
+    this.searchBarOpen = !this.searchBarOpen
+  }
+
   onSidenavClick(): void {
     this.isMenuOpen = !this.isMenuOpen
   }

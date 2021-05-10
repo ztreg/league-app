@@ -1,5 +1,4 @@
-<p>login-form works!</p>
-<form (submit)="submitForm($event)" class="add-user-form" *ngIf="page === 'signup'">
+<form (submit)="signUp($event)" class="add-user-form" *ngIf="page === 'signup'">
   <h4>Signup</h4>
   <app-input type="text" (inputData)="handleEventData($event)" value="user.summonerName" name="summonerName" placeholder="Your summonername Ex: Faker"></app-input>
   <app-input type="password" (inputData)="handleEventData($event)" value="user.password" name="password" placeholder="password..."></app-input>

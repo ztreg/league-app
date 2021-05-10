@@ -1,4 +1,4 @@
-<mat-toolbar class="header-container">
+<mat-toolbar class="header-container" *ngIf="!searchBarOpen">
     <button mat-button class="menu-button" [matMenuTriggerFor]="menu" >
       <mat-icon>{{ isMenuOpen ? 'menu_close' : 'menu' }}</mat-icon>
     </button>
@@ -18,9 +18,12 @@
 
  
   <a routerLink="/matches" routerLinkActive="active" class="linkBtn nav-item"><span> Home</span></a>
+
   <span class="example-spacer nav-item"></span>
 
+
   <h3 class="nav-item" *ngIf="(currentUser$ | async) as currentUser">{{currentUser.name}}</h3>
+
   <span class="example-spacer nav-item"></span>
 
   <button *ngIf="(currentUser$ | async)" mat-icon-button class="example-icon nav-item" aria-label="Example icon-button with share icon" routerLink="/following" routerLinkActive="active">
@@ -32,6 +35,10 @@
     <img class="icon" src="{{currentUser.profileIconId}}" alt="" srcset="">
    </button>
 
+   <button (click)="searchBarShow()" *ngIf="!searchBarOpen" mat-icon-button class="example-icon" aria-label="icon-button with search icon" >
+    Search<mat-icon >search</mat-icon>
+  </button>
+  
   <button *ngIf="!(currentUser$ | async)" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"  routerLink="/login" routerLinkActive="active">
     Login<mat-icon >login</mat-icon>
   </button>
@@ -43,4 +50,13 @@
   <button *ngIf="(currentUser$ | async)" (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     logout <mat-icon >logout</mat-icon>
    </button>
+</mat-toolbar>
+
+<mat-toolbar class="header-container" *ngIf="searchBarOpen">
+  <div *ngIf="searchBarOpen" class="fullSearch">
+    <app-search-bar *ngIf="searchBarOpen"></app-search-bar>
+  </div>
+  <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="searchBarShow()">
+    <mat-icon>close</mat-icon>
+  </button>
 </mat-toolbar>

@@ -141,6 +141,16 @@ export class RequestUtilities {
     }
   }
 
+  async getUserDataByName(summonerName: string): Promise<any> {
+    try {
+      const summonerInfo: any = await this.req.getUserInfoByName(summonerName)
+      return summonerInfo
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+
   async followUser(accountId: string, currentUser: string): Promise<any> {
     try {
       const result: any = await this.req.followUser(accountId, currentUser)

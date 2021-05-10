@@ -1,0 +1,10 @@
+<form (submit)="searchSummoner()" class="fullSearch">
+  <mat-form-field class="example-form-field">
+    <mat-label>Search... (euw)</mat-label>
+    <input matInput type="text" class="searchText" [(ngModel)]="searchSummonerValue" [ngModelOptions]="{standalone: true}">
+
+    <button mat-icon-button class="example-icon" aria-label="icon-button with search icon" >
+      <mat-icon >search</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
