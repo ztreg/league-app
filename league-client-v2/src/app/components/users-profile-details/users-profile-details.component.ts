@@ -30,6 +30,16 @@ export class UsersProfileDetailsComponent implements OnInit {
         console.log('isme')
 
         this.isMe = true
+        const hasMatches = this.store.getCurrentUserLatestMatches()
+        if (hasMatches.length > 0) {
+          console.log('is in store')
+          this.nonMetaMetaches = hasMatches
+
+          this.isInStore = true
+        } else {
+          this.isInStore = false
+          console.log('isnt in store')
+        }
       } else {
         console.log('not me')
 
@@ -37,16 +47,7 @@ export class UsersProfileDetailsComponent implements OnInit {
         this.utils.getUserMatches(userId, 0, 5)
       }
     })
-    const hasMatches = this.store.getCurrentUserLatestMatches()
-    if (hasMatches.length > 0) {
-      console.log('is in store')
-      this.nonMetaMetaches = hasMatches
 
-      this.isInStore = true
-    } else {
-      this.isInStore = false
-      console.log('isnt in store')
-    }
 
     this.getRankedEmblems()
   }

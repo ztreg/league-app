@@ -29,8 +29,8 @@
         </div>
       </div>
     </div>
-    <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as matches">
-      <div *ngFor="let match of matches; index as i">
+    <div class="user-games-data col2" *ngIf="!isMe && (profileMatches$ | async) as profilematches">
+      <div *ngFor="let match of profilematches; index as i">
         <div *ngIf="i < 5"> 
           <app-match-list-item [match]="match"></app-match-list-item>
         </div>

@@ -45,9 +45,10 @@ export class RequestUtilities {
   }
 
   async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
-    this.storeService.currentUser$.pipe(take(1)).subscribe(currentUser => {
-      this.currentUserID = currentUser.accountId
-    })
+    // this.storeService.currentUser$.pipe(take(1)).subscribe(currentUser => {
+    //   this.currentUserID = currentUser.accountId
+    // })
+    console.log(accountId)
 
     const result: any = await this.req.getAllMatches(accountId, start || 0, end || 5)
     const { matches } = result

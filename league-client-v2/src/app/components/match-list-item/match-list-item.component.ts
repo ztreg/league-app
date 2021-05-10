@@ -6,6 +6,7 @@ import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { Player } from 'src/app/types/Player'
 import { _MatTabGroupBase } from '@angular/material/tabs'
 import { getLocaleWeekEndRange } from '@angular/common'
+import { ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-match-list-item',
   templateUrl: './match-list-item.component.html',
@@ -39,7 +40,8 @@ export class MatchListItemComponent implements OnInit {
   constructor(
     private req: RequestService,
     private store: StoreService,
-    private generalUtils: GeneralUtilsService
+    private generalUtils: GeneralUtilsService,
+    private router: ActivatedRoute
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -47,35 +49,47 @@ export class MatchListItemComponent implements OnInit {
   }
 
   async getMatchDetails(): Promise<void> {
-
-
-  const oldList: any[] = this.store.getCurrentUserLatestMatches()
-  try {
-      let newList = []
+    try {
       const res = await this.req.getMatchDetails(this.match.gameId)
       this.gameData = res
-      newList = oldList
-      newList.push(res)
-      this.store.updateCurrentUserLatestMatches(newList)
-      const kk = this.store.getCurrentUserLatestMatches()
+      const userId = this.router.snapshot.paramMap.get('id')
 
-      this.gameData = res
-      this.store.currentUser$.subscribe(res2 => {
-        this.currentUserAccountId = res2.accountId
-      })
 
-      for (const participant of this.gameData.participantIdentities) {
-        if (participant.player.accountId ===  this.currentUserAccountId) {
-          this.myPartId = participant.participantId
+      if (!userId) {
+        this.store.currentUser$.subscribe(res2 => {
+          this.currentUserAccountId = res2.accountId
+        })
+        const oldList: any[] = this.store.getCurrentUserLatestMatches()
+
+        let newList = []
+
+        newList = oldList
+        newList.push(res)
+        this.store.updateCurrentUserLatestMatches(newList)
+        const kk = this.store.getCurrentUserLatestMatches()
+
+        this.gameData = res
+        for (const participant of this.gameData.participantIdentities) {
+            if (participant.player.accountId ===  this.currentUserAccountId) {
+              this.myPartId = participant.participantId
+            }
+          }
+
+      } else {
+        this.currentUserAccountId = userId
+        for (const participant of this.gameData.participantIdentities) {
+          if (participant.player.accountId === userId) {
+            this.myPartId = participant.participantId
+          }
         }
       }
-
-
     } catch (error) {
       console.log(error)
-
     }
-  this.getItemsData()
+
+
+
+    this.getItemsData()
 
 }
 
