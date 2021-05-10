@@ -113,7 +113,7 @@ export class RequestUtilities {
       sessionStorage.setItem('user', JSON.stringify(summonerInfo))
 
       this.storeService.updateCurrentUser(summonerInfo)
-      await this.getMyUserMatches(summonerInfo.accountId, 0, 10)
+      await this.getMyUserMatches(summonerInfo.accountId, 0, 5)
       return 'OK'
     } catch (error) {
       console.log(error)
@@ -139,6 +139,16 @@ export class RequestUtilities {
     } catch (error) {
       console.log(error)
 
+    }
+  }
+
+  async getUserDataByName(summonerName: string): Promise<any> {
+    try {
+      const summonerInfo: any = await this.req.getUserInfoByName(summonerName)
+      return summonerInfo
+    } catch (error) {
+      console.log(error)
+      return error
     }
   }
 

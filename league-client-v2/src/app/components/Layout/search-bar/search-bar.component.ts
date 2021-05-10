@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RequestUtilities } from 'src/app/services/requestUtils';
 
 @Component({
@@ -8,12 +9,27 @@ import { RequestUtilities } from 'src/app/services/requestUtils';
 })
 export class SearchBarComponent implements OnInit {
 
-  constructor(private reqUtils: RequestUtilities) { }
+  constructor(private reqUtils: RequestUtilities, private router: Router) { }
   searchValue = ''
+  errormsg = ''
   ngOnInit(): void {
   }
 
-  searchUser(): void {
-    console.log(this.searchValue);
+  async searchUser(): Promise<void> {
+    
+    if(this.searchValue.length > 0) {
+      const res = await this.reqUtils.getUserDataByName(this.searchValue)
+      console.log(res);
+      if(res.accountId) {
+        console.log('navigating to users');
+        
+        this.router.navigate(['/users', res.accountId])
+        window.location.replace(`/users/${res.accountId}`)
+      }
+      else {
+        this.errormsg = 'No user found'
+      }
+    }
+
   }
 }

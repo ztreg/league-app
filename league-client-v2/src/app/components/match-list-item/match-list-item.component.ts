@@ -89,11 +89,11 @@ export class MatchListItemComponent implements OnInit {
 
 
 
-    this.getItemsData()
+    this.getMatchData()
 
 }
 
-getItemsData(): void {
+getMatchData(): void {
     let me = this.myPartId
 
     me = (me - 1)

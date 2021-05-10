@@ -47,16 +47,16 @@ export class MatchListNonmetaItemComponent implements OnInit {
     this.store.currentUser$.subscribe(res2 => {
       this.currentUserAccountId = res2.accountId
     })
-    
+
     for (const participant of this.gameData.participantIdentities) {
       if (participant.player.accountId ===  this.currentUserAccountId) {
         this.myPartId = participant.participantId
       }
     }
-    this.getItemsData()
+    this.getMatchData()
   }
 
-  getItemsData(): void {
+  getMatchData(): void {
     let me = this.myPartId
 
     me = (me - 1)

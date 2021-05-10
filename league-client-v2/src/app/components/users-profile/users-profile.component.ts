@@ -14,10 +14,10 @@ export class UsersProfileComponent implements OnInit {
   userData: any
   ngOnInit(): void {
     this.getUserDataById()
+    console.log('yoo')
+
   }
   async getUserDataById(): Promise<void> {
-    console.log('WE ARE AT USERS, NOT ME. GET USERID FROM PARAMS')
-
     const accountId = this.router.snapshot.paramMap.get('id')
     console.log(accountId)
     if (accountId) {
