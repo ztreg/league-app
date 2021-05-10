@@ -1,0 +1,6 @@
+<form (submit)="searchUser()" class="searchField">
+  <mat-form-field class="example-form-field">
+    <mat-label>Search user</mat-label>
+    <input matInput type="text" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
+  </mat-form-field>
+</form>

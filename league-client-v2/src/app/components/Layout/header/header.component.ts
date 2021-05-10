@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit {
       link: '/signup'
     }
   ]
+  searchBar = false
 
   constructor(
     private store: StoreService,
@@ -59,5 +60,9 @@ export class HeaderComponent implements OnInit {
   }
   onSidenavClick(): void {
     this.isMenuOpen = !this.isMenuOpen
+  }
+
+  showSearchBar(): void {
+    this.searchBar = !this.searchBar
   }
 }

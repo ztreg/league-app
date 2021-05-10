@@ -1,4 +1,4 @@
-<mat-toolbar class="header-container">
+<mat-toolbar class="header-container" *ngIf="!searchBar">
     <button mat-button class="menu-button" [matMenuTriggerFor]="menu" >
       <mat-icon>{{ isMenuOpen ? 'menu_close' : 'menu' }}</mat-icon>
     </button>
@@ -27,6 +27,10 @@
     Leaderboard <mat-icon >leaderboard</mat-icon>
    </button>
 
+   <button (click)="showSearchBar()" *ngIf="!searchBar" mat-icon-button class="example-icon" aria-label="Example icon-button with search icon">
+    Search<mat-icon >search</mat-icon>
+  </button>
+
    <button class="header-summoner-icon nav-item" *ngIf="(currentUser$ | async) as currentUser"  mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon" routerLink="/profile" routerLinkActive="active">
     Profile 
     <img class="icon" src="{{currentUser.profileIconId}}" alt="" srcset="">
@@ -43,4 +47,8 @@
   <button *ngIf="(currentUser$ | async)" (click)="logout()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     logout <mat-icon >logout</mat-icon>
    </button>
+</mat-toolbar>
+
+<mat-toolbar class="header-container" *ngIf="searchBar">
+  <app-search-bar *ngIf="searchBar"></app-search-bar>
 </mat-toolbar>
