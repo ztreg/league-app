@@ -160,7 +160,6 @@ export class RequestUtilities {
 
     try {
       const result: any = await this.req.followUser(accountId, currentUser)
-      console.log(result)
       return result
 
     } catch (error) {

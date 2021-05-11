@@ -1,5 +1,7 @@
 import { Application, Request, Response, NextFunction } from 'express'
-import { addUserModel, getUsersModel, updateUserFollowModel }  from '../models/usermodel';
+import { Logger } from 'mongodb';
+import { addUserModel, getSingleUserModel, getUsersModel, updateFollowingListModel, updateUserFollowModel }  from '../models/usermodel';
+import { User } from '../types/users.types';
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -23,12 +25,32 @@ export const addUser = async (req: Request, res: Response) => {
 export const updateUserFollow = async (req: Request, res: Response) => {
   const { id } = req.params
   const { accountId } = req.body
+  const currentFollowing: User | any = await getSingleUserModel({_id: id})
+  const testfoll = currentFollowing.following
 
-  try {
-    const updatedUser = await updateUserFollowModel({id, accountId})
-    res.status(200).json(updatedUser)
-  } catch (error) {
-    res.status(401).json(error)
+  for (let i = 0; i < testfoll.length; i++) {
+    const element = testfoll[i];
+    if(element === accountId) {
+      testfoll.splice(i, 1);
+      const newObject = {
+        id, following: testfoll
+      }
+      const test = await updateFollowingListModel(newObject)
+      res.status(200).json(test)
+      
+    } else {
+      console.log('not following that user');
+    }
   }
+    try {
+      console.log('npnp');
+      const updatedUser = await updateUserFollowModel({id, accountId})
+      res.status(200).json(updatedUser)
+    } catch (error) {
+      console.log(error);
+      
+      res.status(401).json(error)
+    }
+
 }
   

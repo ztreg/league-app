@@ -8,3 +8,11 @@ export interface IUser {
 }
 export interface IUserDocument extends IUser, Document {}
 export interface IUserModel extends Model<IUserDocument> {}
+
+export interface User {
+  following: string[]
+  _id: number
+  id?: string
+  summonerName: string
+  password?: string
+}

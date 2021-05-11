@@ -1,11 +1,11 @@
 .container-users {
   padding: 20px;
   display: flex;
-  .calculating {
-    margin: 0 auto;
-  }
-}
 
+}
+.calculating {
+  margin: 0 auto;
+}
 table {
   width: 600px;
   margin: 0 auto;
@@ -24,6 +24,10 @@ table {
   th {
     background: linear-gradient(180deg, var(--highContrastRed),  var(--middleDark));
     color: white;
+  }
+  .link {
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
 

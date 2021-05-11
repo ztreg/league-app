@@ -7,7 +7,7 @@
         </div>
         <div class="profile-username">{{userData.name}}</div>
         <button *ngIf="user.accountId !== userData.accountId && !isFollowed" mat-button color="primary" (click)="followUser(userData.accountId)">Follow</button>
-        <button *ngIf="user.accountId !== userData.accountId && isFollowed" mat-button color="primary" (click)="followUser(userData.accountId)">Unfollow</button>
+        <button *ngIf="user.accountId !== userData.accountId && isFollowed" mat-button color="primary" (click)="unFollowUser(userData.accountId)">Unfollow</button>
       </div>
     </div>
   </div>

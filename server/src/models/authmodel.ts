@@ -12,7 +12,7 @@ function createToken (payload: any) {
 
 export const loginModel = async (loginObject: any) => {
   try {
-    const user: any = await getSingleUserModel(loginObject.summonerName)
+    const user: any = await getSingleUserModel({summonerName: loginObject.summonerName})
     if(user) {
         const checkedPassword = bcrypt.compareSync(loginObject.password, user.password)
         if(checkedPassword) {
