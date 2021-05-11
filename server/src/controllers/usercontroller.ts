@@ -26,9 +26,9 @@ export const updateUserFollow = async (req: Request, res: Response) => {
 
   try {
     const updatedUser = await updateUserFollowModel({id, accountId})
-    res.status(200).json({msg: 'User updated'})
+    res.status(200).json(updatedUser)
   } catch (error) {
-    res.status(401).json({msg: 'Error updating'})
+    res.status(401).json(error)
   }
 }
   

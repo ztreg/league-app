@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment'
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-1c6a068b-b77a-4eae-ad5e-55ff8e53ed30'
+  queryToken = 'api_key=RGAPI-bd1e3d03-6de2-4178-bb51-cd72f56ca78b'
   matches = 'lol/match/v4/matches'
 
   allMatches = 'lol/match/v4/matchlists/by-account'

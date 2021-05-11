@@ -111,7 +111,6 @@ export class RequestUtilities {
       summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       sessionStorage.setItem('token', loggedInStatus.token)
       sessionStorage.setItem('user', JSON.stringify(summonerInfo))
-
       this.storeService.updateCurrentUser(summonerInfo)
       await this.getMyUserMatches(summonerInfo.accountId, 0, 5)
       return 'OK'
@@ -152,12 +151,15 @@ export class RequestUtilities {
     }
   }
 
+  /**
+   * @param accountId ID of the person you want to follow
+   * @param currentUser ID of the person who is logged in
+   * @returns Success or Error
+   */
   async followUser(accountId: string, currentUser: string): Promise<any> {
+
     try {
       const result: any = await this.req.followUser(accountId, currentUser)
-      if (result.status === 200) {
-        this.storeService.updateFollowingData(accountId)
-      }
       console.log(result)
       return result
 
