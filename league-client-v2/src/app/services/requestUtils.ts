@@ -190,7 +190,7 @@ export class RequestUtilities {
         const {tier, rank, leaguePoints, wins, losses} = rankedMatch
         const user = {
           name: res.summonerInfo.name,
-          stats: {tier, rank, leaguePoints, wins, losses}
+          stats: {tier, rank, leaguePoints, wins, losses, id}
         }
         if (rankedMatch.queueType === 'RANKED_FLEX_SR' ) {
           flexBoard.unshift(user)

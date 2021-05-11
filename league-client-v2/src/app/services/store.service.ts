@@ -15,7 +15,10 @@ export class StoreService {
 
   private readonly _followingData = new ReplaySubject<any>(1)
 
+  private readonly _currentProfileData = new ReplaySubject<any>(1)
+
   readonly currentUser$ = this._currentUser.asObservable()
+  readonly currentProfileData$ = this._currentProfileData.asObservable()
   readonly myMatches$ = this._myMatches.asObservable()
   readonly currentUserLatestMatches$ = this._currentUserLatestMatches.asObservable()
   readonly profileMatches$ = this._profileMatches.asObservable()
@@ -27,6 +30,10 @@ export class StoreService {
 
   private set currentUser(val: any) {
     this._currentUser.next(val)
+  }
+
+  private set currentProfileData(val: any) {
+    this._currentProfileData.next(val)
   }
 
   private set followingData(val: any) {
@@ -63,6 +70,10 @@ export class StoreService {
 
   private set allItems(val: any) {
     this._allItems.next(val)
+  }
+
+  updateCurrentProfileData(val: any): void {
+    this.currentProfileData = val
   }
 
   updateFollowingData(val: any): void {

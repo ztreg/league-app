@@ -28,7 +28,6 @@ export class UsersProfileDetailsComponent implements OnInit {
     this.store.currentUser$.subscribe(res => {
       if (res.name === this.userData.summonerInfo.name) {
         console.log('isme')
-
         this.isMe = true
         const hasMatches = this.store.getCurrentUserLatestMatches()
         if (hasMatches.length > 0) {
@@ -42,7 +41,6 @@ export class UsersProfileDetailsComponent implements OnInit {
         }
       } else {
         console.log('not me')
-
         const userId: any = this.router.snapshot.paramMap.get('id')
         this.utils.getUserMatches(userId, 0, 5)
       }

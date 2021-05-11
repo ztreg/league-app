@@ -11,7 +11,11 @@ import { StoreService } from 'src/app/services/store.service';
 export class HeroComponent implements OnInit {
   @Input() userData: any
   isFollowed = false
-  constructor(private store: StoreService, private utils: RequestUtilities) { }
+  constructor(
+    private store: StoreService, 
+    private utils: RequestUtilities
+  ) { }
+  
   currentUser$ = this.store.currentUser$.pipe(
     map(data => {
       const {following} = data.userDetails
@@ -46,7 +50,6 @@ export class HeroComponent implements OnInit {
       userPlacerholder.userDetails.following.push(id)
    })
    this.store.updateCurrentUser(userPlacerholder)
-   console.log(userPlacerholder)
   }
 
 }

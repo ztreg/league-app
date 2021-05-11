@@ -8,7 +8,7 @@
       <th>Games</th>
     </tr>
     <tr *ngFor="let user of data.usersSolo">
-      <td >{{ user?.name }}</td>
+      <td [routerLink]="['/users', user?.stats?.id]" routerLinkActive="active">{{ user?.name }}</td>
       <td> {{ user.stats?.tier }} {{ user.stats?.rank }} {{ user.stats?.leaguePoints }} LP </td>
       <td> {{ user.stats?.wins }} W - {{ user.stats?.losses }} L ({{ user.stats?.wins +  user.stats?.losses }})</td>
     </tr>
@@ -21,7 +21,7 @@
       <th>Games</th>
     </tr>
     <tr *ngFor="let user of data.usersFlex">
-      <td >{{ user?.name }}</td>
+      <td [routerLink]="['/users', user?.stats?.id]" routerLinkActive="active" >{{ user?.name }}</td>
       <td> {{ user.stats?.tier }} {{ user.stats?.rank }} {{ user.stats?.leaguePoints }} LP </td>
       <td> {{ user.stats?.wins }}W | {{ user.stats?.losses }}L ({{ user.stats?.wins +  user.stats?.losses }})</td>
     </tr>
