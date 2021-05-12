@@ -5,4 +5,5 @@ const express_1 = require("express");
 const usersRouter = express_1.Router();
 usersRouter.post('/', usercontroller_1.addUser);
 usersRouter.get('/', usercontroller_1.getUsers);
+usersRouter.patch('/:id', usercontroller_1.updateUserFollow);
 exports.default = usersRouter;
