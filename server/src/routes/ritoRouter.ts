@@ -19,7 +19,7 @@ ritoRouter.get('/matches/user/:accountId', async (req, res) => {
     }
     const accountId = req.params.accountId
     
-   const fullString = `${mainURL}/${matchlistByAccount}/${accountId}?${emptyParams.toString()}&${apiQuery}`
+   const fullString = `${mainURL}/${matchlistByAccount}/${accountId}?${emptyParams.toString()}&api_key=${apiQuery}`
     await fetch(`${fullString}`)
     .then((response: any) => response.json())
       .then(userData =>  {
@@ -32,7 +32,7 @@ ritoRouter.get('/matches/user/:accountId', async (req, res) => {
 
 ritoRouter.get('/summoner/:accountName', async (req, res) => {
   const accountName = req.params.accountName
-  const fullString = `${mainURL}/${userNameURL}/${accountName}?${apiQuery}`
+  const fullString = `${mainURL}/${userNameURL}/${accountName}?api_key=${apiQuery}`
 
   await fetch(`${fullString}`)
   .then((response: any) => response.json())
@@ -46,7 +46,7 @@ ritoRouter.get('/summoner/:accountName', async (req, res) => {
 
 ritoRouter.get('/summonerById/:accountId', async (req, res) => {
   const accountId = req.params.accountId
-  const fullString = `${mainURL}/${userByIdUrl}/${accountId}?${apiQuery}`
+  const fullString = `${mainURL}/${userByIdUrl}/${accountId}?api_key=${apiQuery}`
   await fetch(`${fullString}`)
   .then((response: any) => response.json())
     .then(userData =>  {
@@ -60,7 +60,7 @@ ritoRouter.get('/summonerById/:accountId', async (req, res) => {
 
 ritoRouter.get('/summonerRanked/:summonerId', async (req, res) => {
   const summonerId = req.params.summonerId
-  const fullString = `${mainURL}/${rankedURL}/${summonerId}?${apiQuery}`
+  const fullString = `${mainURL}/${rankedURL}/${summonerId}?api_key=${apiQuery}`
   await fetch(`${fullString}`)
   .then((response: any) => response.json())
     .then(userData =>  {
@@ -74,7 +74,7 @@ ritoRouter.get('/summonerRanked/:summonerId', async (req, res) => {
 
 ritoRouter.get('/matches/:matchId', async (req, res) => {
   const matchId = req.params.matchId
-  const fullString = `${mainURL}/${matchURL}/${matchId}?${apiQuery}`
+  const fullString = `${mainURL}/${matchURL}/${matchId}?api_key=${apiQuery}`
   await fetch(`${fullString}`)
   .then((response: any) => response.json())
     .then(userData =>  {

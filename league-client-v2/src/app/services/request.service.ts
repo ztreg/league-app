@@ -25,6 +25,8 @@ export class RequestService {
 
   getAllMatches(accountId: string, startIndex: number, endIndex: number): Promise<HttpResponse<any>> {
     const indexQuery = `?endIndex=${endIndex}&beginIndex=${startIndex}`
+    console.log(accountId)
+
     console.log('REQ: Matches')
 
     return this.http.get<HttpResponse<any>>(
