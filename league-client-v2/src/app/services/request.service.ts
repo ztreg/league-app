@@ -8,10 +8,10 @@ import { environment } from 'src/environments/environment'
 export class RequestService {
 
 
-  itemsURL = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/item.json'
-  itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
-  championsURL = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/champion.json'
-  summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/summoner.json'
+  itemsURL = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/item.json'
+  itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
+  championsURL = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/champion.json'
+  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/summoner.json'
 
   queryToken = 'api_key=RGAPI-44adcb7d-f9df-44c6-bd2b-0b6751773c45'
   matches = 'lol/match/v4/matches'
