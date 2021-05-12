@@ -30,20 +30,16 @@ export class UsersProfileDetailsComponent implements OnInit {
 
     this.store.currentUser$.pipe(take(1)).subscribe(async res => {
       if (res.name === this.userData.summonerInfo.name) {
-        console.log('isme')
         this.favChamp = res.favChamp
         this.isMe = true
         const hasMatches = this.store.getCurrentUserLatestMatches()
         if (hasMatches.length > 0) {
-          console.log('is in store')
           this.nonMetaMetaches = hasMatches
           this.isInStore = true
         } else {
           this.isInStore = false
-          console.log('isnt in store')
         }
       } else {
-        console.log('not me')
         const userId: any = this.router.snapshot.paramMap.get('id')
         this.favChamp = await this.utils.getUserMatches(userId, 0, 5)
       }
@@ -55,6 +51,7 @@ export class UsersProfileDetailsComponent implements OnInit {
     if (this.userData.rankedInfo) {
       for (const infoRow of this.userData.rankedInfo) {
         infoRow.emblemPath = this.generalUtils.getRankedEmblems(infoRow.tier)
+        console.log(infoRow.emblemPath)
       }
     }
   }

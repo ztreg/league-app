@@ -1,5 +1,5 @@
 <div class="hero-wrapper" *ngIf="(currentUser$ | async) as user"> 
-    <div class="hero-image" [ngStyle]="{'background-image': user.accountId === userData.accountId ? user.favChampUrl : userData.favoriteChampUrl}">
+    <div class="hero-image"  [ngStyle]="{'background-image': user.accountId === userData.accountId ? user.favChampUrl : userData.favoriteChampUrl}">
       <div class="hero-text">
         <div class="icon-lvl">
           <img [src]="userData.profileIconId" alt="" srcset="">

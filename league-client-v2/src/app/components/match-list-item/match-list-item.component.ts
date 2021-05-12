@@ -12,6 +12,9 @@ import { ActivatedRoute } from '@angular/router'
   templateUrl: './match-list-item.component.html',
   styleUrls: ['./match-list-item.component.scss']
 })
+/**
+ * This Component is used when we dont have access to the matches in the store
+ */
 export class MatchListItemComponent implements OnInit {
   @Input() match: any
   itemData: any = []
@@ -66,8 +69,6 @@ export class MatchListItemComponent implements OnInit {
         newList = oldList
         newList.push(res)
         this.store.updateCurrentUserLatestMatches(newList)
-        const kk = this.store.getCurrentUserLatestMatches()
-
         this.gameData = res
         for (const participant of this.gameData.participantIdentities) {
             if (participant.player.accountId ===  this.currentUserAccountId) {
@@ -111,7 +112,10 @@ getMatchData(): void {
     // const { imageURL } = this.generalUtils.getSpecificChampion(participantINFO.championId)
 
     const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
-    const kdaclear = (participantINFO.stats.kills + participantINFO.stats.assists) / participantINFO.stats.deaths
+
+    const kdaclear = (participantINFO.stats.kills + participantINFO.stats.assists) /
+    (participantINFO.stats.deaths > 0 ? participantINFO.stats.deaths : 1)
+
     const kda = kdaclear.toFixed(2)
 
     const playerToAdd: Player = {

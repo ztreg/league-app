@@ -1,9 +1,9 @@
 <app-hero *ngIf="favChamp" [favChamp]="favChamp" [userData]="userData.summonerInfo"></app-hero>
 
 <div class="user-profile" *ngIf="userData">
-  <div class="col1" *ngIf="userData.rankedInfo">
+  <div class="col1" *ngIf="userData && userData.rankedInfo">
     <div *ngFor="let info of userData.rankedInfo" class="col1-ranks">
-      <div class="ranked-user" *ngIf="info.emblemPath">
+      <div class="ranked-user">
         <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_SOLO_5x5'"> Solo/Duo <img class="emblems" [src]="info.emblemPath" alt=""></div>
         <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_FLEX_SR'"> Flex   <img class="emblems" [src]="info.emblemPath" alt=""> </div>
         <div> Division: {{info.rank}}</div>
@@ -14,11 +14,6 @@
     </div>
     <div *ngIf="userData.rankedInfo.length === 0" class="ranked-user">
       <div>No ranked games played</div>
-    </div>
-    <div class="top-played-champions">
-      <div>Data about most played champion. KDA etc</div>
-      <div>Data about most played champion. KDA etc</div>
-      <div>Data about most played champion. KDA etc</div>
     </div>
   </div>
 

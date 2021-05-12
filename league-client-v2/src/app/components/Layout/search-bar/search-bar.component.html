@@ -3,9 +3,11 @@
     <mat-label>Search user</mat-label>
     <input matInput type="text" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}">
    
-    <span *ngIf="searchValue" mat-icon-button class="example-icon" aria-label="Example icon-button with search icon">
+    <span mat-icon-button class="example-icon" aria-label="Example icon-button with search icon">
       <mat-icon >search</mat-icon>
     </span>
+    
+    <span class="errormsg" *ngIf="errormsg">{{errormsg}}</span>
   </mat-form-field>
-  <span *ngIf="errormsg">{{errormsg}}</span>
+  
 </form>

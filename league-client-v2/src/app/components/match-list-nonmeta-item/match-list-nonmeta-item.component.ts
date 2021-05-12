@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { map } from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
 import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
@@ -10,6 +10,9 @@ import { Player } from 'src/app/types/Player'
   templateUrl: './match-list-nonmeta-item.component.html',
   styleUrls: ['./match-list-nonmeta-item.component.scss']
 })
+/**
+ * This Component is used when we have access to the matches in the store
+ */
 export class MatchListNonmetaItemComponent implements OnInit {
 
   @Input() match: any
@@ -44,7 +47,7 @@ export class MatchListNonmetaItemComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.gameData = this.match
-    this.store.currentUser$.subscribe(res2 => {
+    this.store.currentUser$.pipe(take(1)).subscribe(res2 => {
       this.currentUserAccountId = res2.accountId
     })
 

@@ -36,7 +36,7 @@ export const updateUserFollow = async (req: Request, res: Response) => {
         id, following: testfoll
       }
       const test = await updateFollowingListModel(newObject)
-      res.status(200).json(test)
+      return res.status(200).json(test)
       
     } else {
       console.log('not following that user');

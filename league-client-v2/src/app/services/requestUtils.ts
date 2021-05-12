@@ -20,9 +20,9 @@ export class RequestUtilities {
 
   test: boolean | undefined
 
-  async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 10): Promise<any> {
+  async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 5): Promise<any> {
     let placeHolderFavoriteChampion: any = {}
-    this.storeService.myMatches$.subscribe(myMatches => {
+    this.storeService.myMatches$.pipe(take(1)).subscribe(myMatches => {
       if (myMatches) {
         this.test = true
       }

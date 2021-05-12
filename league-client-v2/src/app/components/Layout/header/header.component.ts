@@ -54,9 +54,12 @@ export class HeaderComponent implements OnInit {
     this.store.updateCurrentUser(null)
     sessionStorage.removeItem('token')
     sessionStorage.removeItem('user')
-    this.router.navigate(['login'])
+    this.store.updateCurrentProfileData(null)
+    this.store.updateCurrentUserLatestMatches([null])
+    this.store.updateFollowingData(null)
+    this.store.updateMyMatches(null)
     this.ref.detectChanges()
-
+    this.router.navigate(['login'])
   }
   onSidenavClick(): void {
     this.isMenuOpen = !this.isMenuOpen

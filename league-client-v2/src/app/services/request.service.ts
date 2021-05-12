@@ -6,16 +6,17 @@ import { environment } from 'src/environments/environment'
   providedIn: 'root'
 })
 export class RequestService {
-  queryToken = 'api_key=RGAPI-44adcb7d-f9df-44c6-bd2b-0b6751773c45'
-  matches = 'lol/match/v4/matches'
 
-  allMatches = 'lol/match/v4/matchlists/by-account'
 
   itemsURL = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/item.json'
   itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
   championsURL = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/champion.json'
   summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/summoner.json'
 
+  queryToken = 'api_key=RGAPI-44adcb7d-f9df-44c6-bd2b-0b6751773c45'
+  matches = 'lol/match/v4/matches'
+
+  allMatches = 'lol/match/v4/matchlists/by-account'
   userByNameURL = 'lol/summoner/v4/summoners/by-name'
   userByIdUrl = '/lol/summoner/v4/summoners/by-account'
   rankedInfoBySummonerIdURL = 'lol/league/v4/entries/by-summoner'
@@ -26,12 +27,13 @@ export class RequestService {
     const indexQuery = `?endIndex=${endIndex}&beginIndex=${startIndex}`
     console.log('REQ: Matches')
 
-    return this.http.get<HttpResponse<any>>(`/api/v1/${this.allMatches}/${accountId}${indexQuery}&${this.queryToken}`).toPromise()
+    return this.http.get<HttpResponse<any>>(
+      `${environment.backendURL}/ritoURL/matches/user/${accountId}${indexQuery}`).toPromise()
   }
 
   getMatchDetails(matchId: string): Promise<HttpResponse<any>> {
     console.log('REQ: MatchDetails')
-    return this.http.get<HttpResponse<any>>(`/api/v1/${this.matches}/${matchId}?${this.queryToken}`).toPromise()
+    return this.http.get<HttpResponse<any>>(`${environment.backendURL}/ritoURL/matches/${matchId}`).toPromise()
   }
 
   getItems(): Promise<HttpResponse<any>> {
@@ -56,16 +58,17 @@ export class RequestService {
 
   getUserInfoByName(summonerName: string): Promise<HttpResponse<any>> {
     console.log('REQ: SUMS')
-    return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByNameURL}/${summonerName}?${this.queryToken}`).toPromise()
+    return this.http.get<HttpResponse<any>>(`${environment.backendURL}/ritoURL/summoner/${summonerName}`).toPromise()
   }
 
   getUserInfoByID(accountId: string): Promise<HttpResponse<any>> {
     console.log('REQ: USER INFO BY ID')
-    return this.http.get<HttpResponse<any>>(`/api/v1/${this.userByIdUrl}/${accountId}?${this.queryToken}`).toPromise()
+    return this.http.get<HttpResponse<any>>(`${environment.backendURL}/ritoURL/summonerById/${accountId}`).toPromise()
   }
 
   getUserRankedInfo(summonerId: string): Promise<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(`/api/v1/${this.rankedInfoBySummonerIdURL}/${summonerId}?${this.queryToken}`).toPromise()
+    return this.http.get<HttpResponse<any>>(`
+    ${environment.backendURL}/ritoURL/summonerRanked/${summonerId}`).toPromise()
   }
 
   signUp(userObject: any): Promise<any> {

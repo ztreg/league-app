@@ -19,6 +19,8 @@ export class HeroComponent implements OnInit {
   
   currentUser$ = this.store.currentUser$.pipe(
     map(data => {
+      console.log('JAG ÄR I PIPEN LUL');
+      
       const {imageURL } = data.favChamp
       data.favChampUrl = `url(${imageURL})`
       const {following} = data.userDetails
@@ -33,6 +35,8 @@ export class HeroComponent implements OnInit {
   )
 
   ngOnInit(): void {
+    console.log(this.favChamp);
+    
     const {imageURL } = this.favChamp
     this.userData.favoriteChampUrl = `url(${imageURL})`
   }
@@ -50,8 +54,10 @@ export class HeroComponent implements OnInit {
 
   unFollowUser(accountId: string): void {
     this.store.currentUser$.pipe(take(1)).subscribe(async res => {
-      const followUserResulst = await this.utils.followUser(accountId, res.userDetails.id)
-      if (followUserResulst.nModified === 1) {
+      const unFollowUserResult = await this.utils.followUser(accountId, res.userDetails.id)
+      console.log(unFollowUserResult);
+      
+      if (unFollowUserResult.nModified === 1) {
         this.removeUserFromStore(accountId)
       }
    })
