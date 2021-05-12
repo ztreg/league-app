@@ -1,4 +1,4 @@
-<app-hero [userData]="userData.summonerInfo"></app-hero>
+<app-hero *ngIf="favChamp" [favChamp]="favChamp" [userData]="userData.summonerInfo"></app-hero>
 
 <div class="user-profile" *ngIf="userData">
   <div class="col1" *ngIf="userData.rankedInfo">
@@ -6,6 +6,7 @@
       <div class="ranked-user" *ngIf="info.emblemPath">
         <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_SOLO_5x5'"> Solo/Duo <img class="emblems" [src]="info.emblemPath" alt=""></div>
         <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_FLEX_SR'"> Flex   <img class="emblems" [src]="info.emblemPath" alt=""> </div>
+        <div> Division: {{info.rank}}</div>
         <div> LP: {{info.leaguePoints}}</div>
         <div> Wins: {{info.wins}} </div>
         <div> Losses: {{info.losses}} </div>
@@ -42,8 +43,10 @@
   <div *ngIf="isInStore">
     <div class="user-games-data col2" *ngIf="isMe">
       <h1>IS ME && IS IN STORE</h1>
-      <div *ngFor="let nonMetaMatch of nonMetaMetaches">
-        <app-match-list-nonmeta-item [match]="nonMetaMatch" ></app-match-list-nonmeta-item>
+      <div *ngFor="let nonMetaMatch of nonMetaMetaches; index as i">
+        <div *ngIf="i < 5"> 
+          <app-match-list-nonmeta-item [match]="nonMetaMatch" ></app-match-list-nonmeta-item>
+        </div>
       </div>
     </div>
 

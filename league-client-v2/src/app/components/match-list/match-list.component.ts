@@ -32,11 +32,7 @@ export class MatchListComponent implements OnInit {
       this.nonMetaMetaches = storeMatches
       this.isInStore = true
     } else {
-      console.log('isnt in store')
-
       this.store.myMatches$.subscribe(res => {
-        console.log(res)
-
         this.allMatches = res
       })
     }

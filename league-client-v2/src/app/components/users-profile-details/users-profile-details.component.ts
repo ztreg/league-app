@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { map } from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
 import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
@@ -17,23 +17,26 @@ export class UsersProfileDetailsComponent implements OnInit {
     private store: StoreService,
     private router: ActivatedRoute,
     private generalUtils: GeneralUtilsService
-    ) { }
+  ) { }
   profileMatches$ = this.store.profileMatches$
   myMatches$ = this.store.myMatches$
   nonMetaMetaches: any = []
   isMe = false
   isInStore = false
 
+  favChamp = ''
   ngOnInit(): void {
-    this.store.currentUser$.subscribe(res => {
+    console.log(this.userData)
+
+    this.store.currentUser$.pipe(take(1)).subscribe(async res => {
       if (res.name === this.userData.summonerInfo.name) {
         console.log('isme')
+        this.favChamp = res.favChamp
         this.isMe = true
         const hasMatches = this.store.getCurrentUserLatestMatches()
         if (hasMatches.length > 0) {
           console.log('is in store')
           this.nonMetaMetaches = hasMatches
-
           this.isInStore = true
         } else {
           this.isInStore = false
@@ -42,11 +45,9 @@ export class UsersProfileDetailsComponent implements OnInit {
       } else {
         console.log('not me')
         const userId: any = this.router.snapshot.paramMap.get('id')
-        this.utils.getUserMatches(userId, 0, 5)
+        this.favChamp = await this.utils.getUserMatches(userId, 0, 5)
       }
     })
-
-
     this.getRankedEmblems()
   }
 

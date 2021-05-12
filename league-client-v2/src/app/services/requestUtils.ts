@@ -20,12 +20,10 @@ export class RequestUtilities {
 
   test: boolean | undefined
 
-  async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 5): Promise<any> {
-
+  async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 10): Promise<any> {
+    let placeHolderFavoriteChampion: any = {}
     this.storeService.myMatches$.subscribe(myMatches => {
       if (myMatches) {
-        console.log('yaas')
-
         this.test = true
       }
     })
@@ -34,33 +32,35 @@ export class RequestUtilities {
         const res = await this.req.getAllMatches(currentUserAccountId, start, end)
         const fullMatchesData: any = res
         const { matches } = fullMatchesData
+        placeHolderFavoriteChampion = this.generalUtils.getMostPlayedChampion(matches)
         this.storeService.updateMyMatches(matches)
         this.hasMatches = true
-        return res
       } catch (error) {
         console.log(error)
 
       }
+      let empty: any = {}
+      this.storeService.currentUser$.pipe(take(1)).subscribe(myData => {
+        empty = myData
+      })
+      empty.favChamp = placeHolderFavoriteChampion
+      this.storeService.updateCurrentUser(empty)
     }
   }
 
   async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
-    // this.storeService.currentUser$.pipe(take(1)).subscribe(currentUser => {
-    //   this.currentUserID = currentUser.accountId
-    // })
-    console.log(accountId)
-
     const result: any = await this.req.getAllMatches(accountId, start || 0, end || 5)
     const { matches } = result
+    const favChamp = this.generalUtils.getMostPlayedChampion(matches)
     this.storeService.updateProfileMatches(matches)
+    return favChamp
+  }
 
-}
 
   getAllChampions(): void {
     this.checkIfStoreAsData()
 
     if (!this.hasChamps) {
-      console.log('getting summoners data')
       this.req.getAllChampions().then(champs => {
         const {data}: any = champs
         this.storeService.updateAllChampions(data)
@@ -72,8 +72,6 @@ export class RequestUtilities {
     this.checkIfStoreAsData()
 
     if (!this.hasSummonerIcons) {
-      console.log('getting sums data')
-
       this.req.getAllSummoners().then(summoners => {
         const {data}: any = summoners
         this.storeService.updateAllSummoners(data)
@@ -85,7 +83,6 @@ export class RequestUtilities {
     this.checkIfStoreAsData()
 
     if (!this.hasItemsData) {
-      console.log('getting items data')
       this.req.getItems().then(items => {
         const {data}: any = items
         this.storeService.updateAllItems(data)
@@ -99,7 +96,6 @@ export class RequestUtilities {
     if (summonerInfo) {
       await this.req.signUp(userObject)
     } else {
-      console.log('user doest exist exist')
     }
   }
 

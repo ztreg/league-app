@@ -147,5 +147,38 @@ export class GeneralUtilsService {
     return summonerData
   }
 
+  getMostPlayedChampion(test: any): void {
+
+    const mostOccurringElement = (array: { [key: string]: number }[]) => {
+      let max = array[0].champion
+      const counter: { [key: string]: number } = {}
+
+      for (const item of array) {
+        if (!counter[item.champion]) { counter[item.champion] = 0 }
+        counter[item.champion]++
+        if (counter[max] < counter[item.champion]) { max = item.champion }
+      }
+
+      return this.getSplashArtChampion(max.toString())
+    }
+
+    return mostOccurringElement(test)
+  }
+
+  getSplashArtChampion(championId: string): any {
+    const championPlayed: any = {}
+    const URL = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/`
+
+    this.store.allChampions$.pipe(take(1)).subscribe(champions => {
+      const championsArray: any = Object.entries(champions)
+      for (const [key, item] of championsArray) {
+        if (championId.toString() === item.key) {
+          const lastString = '_1.jpg'
+          championPlayed.imageURL = `${URL}${item.id}${lastString}`
+        }
+      }
+    })
+    return championPlayed
+  }
 }
 

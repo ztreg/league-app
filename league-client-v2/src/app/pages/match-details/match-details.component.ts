@@ -34,8 +34,6 @@ export class MatchDetailsComponent implements OnInit {
   getMatchDetails(): void {
     this.req.getMatchDetails(this.matchID || '').then(res => {
       this.match = res
-      console.log(this.match)
-
       const {teams, gameDuration, gameVersion} = this.match
       this.matchOverview = { teams, gameDuration, gameVersion }
     })

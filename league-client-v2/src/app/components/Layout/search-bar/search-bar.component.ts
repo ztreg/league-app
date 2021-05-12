@@ -16,13 +16,9 @@ export class SearchBarComponent implements OnInit {
   }
 
   async searchUser(): Promise<void> {
-    
     if(this.searchValue.length > 0) {
       const res = await this.reqUtils.getUserDataByName(this.searchValue)
-      console.log(res);
       if(res.accountId) {
-        console.log('navigating to users');
-        
         this.router.navigate(['/users', res.accountId])
         window.location.replace(`/users/${res.accountId}`)
       }
@@ -30,6 +26,5 @@ export class SearchBarComponent implements OnInit {
         this.errormsg = 'No user found'
       }
     }
-
   }
 }

@@ -52,11 +52,9 @@ export class MatchFullDetailsComponent implements OnInit {
     if (!this.match) {
       this.req.getMatchDetails(this.match.gameId).then(res2 => {
         this.gameData = res2
-        console.log('isnt in store')
 
       })
     } else {
-      console.log('is in store')
       this.gameData = this.match
     }
 

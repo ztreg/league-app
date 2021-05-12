@@ -10,6 +10,7 @@ import { StoreService } from 'src/app/services/store.service';
 })
 export class HeroComponent implements OnInit {
   @Input() userData: any
+  @Input() favChamp: any
   isFollowed = false
   constructor(
     private store: StoreService, 
@@ -18,18 +19,22 @@ export class HeroComponent implements OnInit {
   
   currentUser$ = this.store.currentUser$.pipe(
     map(data => {
+      const {imageURL } = data.favChamp
+      data.favChampUrl = `url(${imageURL})`
       const {following} = data.userDetails
       for (const follow of following) {    
         if(follow === this.userData.accountId) {
           this.isFollowed = true
         } 
       }
+      
       return data
     })
   )
 
   ngOnInit(): void {
-    this.userData.favoriteChampUrl = `url(http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Thresh_5.jpg)`
+    const {imageURL } = this.favChamp
+    this.userData.favoriteChampUrl = `url(${imageURL})`
   }
 
    followUser(accountId: string): void {
@@ -66,11 +71,8 @@ export class HeroComponent implements OnInit {
     this.store.currentUser$.pipe(take(1)).subscribe(res => {
       userPlacerholder = res
       const {following} = userPlacerholder.userDetails
-      console.log(following);
-      
       const userIndex = following.findIndex((accountId: string) => accountId === id);
       userPlacerholder.userDetails.following.splice(userIndex, 1)
-      
    })
    console.log(userPlacerholder);
    
