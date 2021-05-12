@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import fetch from 'node-fetch';
-import { captureRejectionSymbol } from 'node:events';
 
 const ritoRouter = Router();
 
