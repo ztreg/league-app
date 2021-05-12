@@ -21,9 +21,9 @@ export class MatchListNonmetaItemComponent implements OnInit {
   title = 'match-details'
   gameData: any
   expand = false
-  itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
-  championImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
-  summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
+  itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
+  championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
+  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
 
   currentUserAccountId!: string
   loaded = false

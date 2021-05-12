@@ -18,9 +18,9 @@ export class MatchFullDetailsComponent implements OnInit {
   title = 'league-client-v2'
   gameData: any
   expand = false
-  itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
-  championImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
-  summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
+  itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
+  championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
+  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
 
   loaded = false
   myPartId = 0

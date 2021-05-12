@@ -7,7 +7,7 @@
   <mat-card-content *ngFor="let player of sortedTeam.Players" class="fullPlayerDataBlue">
     <div class="row" *ngIf="champions$ | async as champions">
       <div class="row-item"> <button class="redirect" mat-button color="primary"(click)="redirect(player.accountId)"> {{ player.name }} </button></div>
-        <img class="row-item" [src]="'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'+champions[player.timeline.championID].image.full" alt="" class="avatar">
+        <img class="row-item" [src]="'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'+champions[player.timeline.championID].image.full" alt="" class="avatar">
         <img class="avatar-item" src="{{player.summoners.summonersURL1}}" alt="" srcset="">
         <img class="avatar-item" src="{{player.summoners.summonersURL2}}" alt="" srcset="">
     </div>

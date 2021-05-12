@@ -37,9 +37,9 @@ enum division {
 
 
 export class GeneralUtilsService {
-  itemImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
-  championImageUrl = 'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
-  summonersURL = 'http://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
+  itemImageUrl = 's://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
+  championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
+  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
 
   constructor(private store: StoreService) { }
 
@@ -167,7 +167,7 @@ export class GeneralUtilsService {
 
   getSplashArtChampion(championId: string): any {
     const championPlayed: any = {}
-    const URL = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/`
+    const URL = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/`
 
     this.store.allChampions$.pipe(take(1)).subscribe(champions => {
       const championsArray: any = Object.entries(champions)

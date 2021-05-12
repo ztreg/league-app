@@ -104,7 +104,7 @@ export class RequestUtilities {
       const loggedInStatus: any = await this.req.login(userObject)
       const summonerInfo: any = await this.req.getUserInfoByName(userObject.summonerName)
       summonerInfo.userDetails = loggedInStatus
-      summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
+      summonerInfo.profileIconId = `https://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       sessionStorage.setItem('token', loggedInStatus.token)
       sessionStorage.setItem('user', JSON.stringify(summonerInfo))
       this.storeService.updateCurrentUser(summonerInfo)
@@ -121,7 +121,7 @@ export class RequestUtilities {
   async getUserDataByID(accountId: string): Promise<any> {
     try {
       const summonerInfo: any = await this.req.getUserInfoByID(accountId)
-      summonerInfo.profileIconId = `http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
+      summonerInfo.profileIconId = `https://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       const {id} = summonerInfo
       const rankedInfo = await this.req.getUserRankedInfo(id)
       const data = {
