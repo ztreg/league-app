@@ -24,41 +24,44 @@ export class MatchCardComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.teamInfo) {
+      console.log(this.teamInfo)
+
       this.sortedTeam.Players = []
+      console.log()
 
-      let index = 0
-      for (const player of this.teamInfo.Players) {
+      // let index = 0
+      // for (const player of this.teamInfo.Players) {
 
-        const {lane, role, test} = player.timeline
-        this.sortedTeam.Players[index] = player
-        // TODO: Bugfix roles, sometimes they are not correct
-        // switch (lane) {
-        //   case 'TOP':
-        //     this.sortedTeam.Players[0] = player
-        //     break
-        //   case 'JUNGLE':
-        //     this.sortedTeam.Players[1] = player
-        //     break
-        //   case 'MIDDLE':
+      //   const {lane, role, test} = player.timeline
+      //   this.sortedTeam.Players[index] = player
+      //   // TODO: Bugfix roles, sometimes they are not correct
+      //   // switch (lane) {
+      //   //   case 'TOP':
+      //   //     this.sortedTeam.Players[0] = player
+      //   //     break
+      //   //   case 'JUNGLE':
+      //   //     this.sortedTeam.Players[1] = player
+      //   //     break
+      //   //   case 'MIDDLE':
 
-        //     this.sortedTeam.Players[2] = player
-        //     break
-        //   case 'BOTTOM':
+      //   //     this.sortedTeam.Players[2] = player
+      //   //     break
+      //   //   case 'BOTTOM':
 
-        //   if (role === 'DUO_CARRY') {
-        //     player.timeline.lane = 'ADC'
-        //     this.sortedTeam.Players[3] = player
-        //     }
-        //   if (role === 'DUO_SUPPORT') {
-        //     player.timeline.lane = 'SUPPORT'
-        //     this.sortedTeam.Players[4] = player
-        //     }
-        //   break
-        //   default:
-        //     break
-        // }
-        index++
-      }
+      //   //   if (role === 'DUO_CARRY') {
+      //   //     player.timeline.lane = 'ADC'
+      //   //     this.sortedTeam.Players[3] = player
+      //   //     }
+      //   //   if (role === 'DUO_SUPPORT') {
+      //   //     player.timeline.lane = 'SUPPORT'
+      //   //     this.sortedTeam.Players[4] = player
+      //   //     }
+      //   //   break
+      //   //   default:
+      //   //     break
+      //   // }
+      //   index++
+      // }
       this.sorted = true
     } else {
     }

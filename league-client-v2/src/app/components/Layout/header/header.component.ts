@@ -52,13 +52,12 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.store.updateCurrentUser(null)
-    sessionStorage.removeItem('token')
-    sessionStorage.removeItem('user')
     this.store.updateCurrentProfileData(null)
     this.store.updateCurrentUserLatestMatches([null])
     this.store.updateFollowingData(null)
     this.store.updateMyMatches(null)
-    this.ref.detectChanges()
+    sessionStorage.removeItem('token')
+    sessionStorage.removeItem('user')
     this.router.navigate(['login'])
   }
   onSidenavClick(): void {

@@ -9,15 +9,15 @@
   
   .hero-wrapper {
     box-shadow: 10px 10px 8px var(--highContrastRed);
-    height: 250px;
+    height: 300px;
     background-color: black;
     margin: 20px 0;
     .hero-image {
-      
+      // animation: breathing 5s ease-out infinite normal;
       height: 100%;
       width: 100%;
       background-position: center;
-      background-position-y: 10%;
+      background-position-y: 15%;
       background-repeat: no-repeat;
       background-size:cover;
       position: relative;
@@ -57,6 +57,26 @@
         }
       }
   
+    }
+  }
+
+  @keyframes breathing {
+    0% {
+      -webkit-background-position-y: 15%;
+      -ms-background-position-y: 15%;
+      background-position-y: 15%;
+    }
+  
+    50% {
+      -webkit-background-position-y: 17%;
+      -ms-background-position-y: 17%;
+      background-position-y: 17%;
+    }
+
+    100% {
+      -webkit-background-position-y: 15%;
+      -ms-background-position-y: 15%;
+      background-position-y: 15%;
     }
   }
   

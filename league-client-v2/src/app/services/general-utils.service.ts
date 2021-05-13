@@ -37,7 +37,8 @@ enum division {
 
 
 export class GeneralUtilsService {
-  itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
+
+  itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/'
   championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
   summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
 
@@ -89,13 +90,16 @@ export class GeneralUtilsService {
    */
   getItems(itemsArray: any []): Item[] {
     const itemsURL: Item[] = []
+    let itemURL: any = {}
     this.store.allItems$.pipe(take(1)).subscribe(allItems => {
       if (allItems) {
         for (const id of itemsArray) {
+
           if (id === 0) {
             continue
           }
-          const itemURL = allItems[id]
+
+          itemURL = allItems[id]
           itemsURL.unshift(itemURL)
           itemsURL[0].itemURL = this.itemImageUrl + allItems[id].image.full
         }

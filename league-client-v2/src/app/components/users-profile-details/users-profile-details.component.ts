@@ -26,8 +26,6 @@ export class UsersProfileDetailsComponent implements OnInit {
 
   favChamp = ''
   ngOnInit(): void {
-    console.log(this.userData)
-
     this.store.currentUser$.pipe(take(1)).subscribe(async res => {
       if (res.name === this.userData.summonerInfo.name) {
         this.favChamp = res.favChamp
@@ -51,7 +49,7 @@ export class UsersProfileDetailsComponent implements OnInit {
     if (this.userData.rankedInfo) {
       for (const infoRow of this.userData.rankedInfo) {
         infoRow.emblemPath = this.generalUtils.getRankedEmblems(infoRow.tier)
-        console.log(infoRow.emblemPath)
+        // console.log(infoRow.emblemPath)
       }
     }
   }

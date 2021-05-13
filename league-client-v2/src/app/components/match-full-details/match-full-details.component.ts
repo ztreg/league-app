@@ -76,6 +76,7 @@ export class MatchFullDetailsComponent implements OnInit {
 
       const {item0, item1, item2, item3, item4, item5, item6} = participantINFO.stats
       const playerItems = [item0, item1, item2, item3, item4, item5, item6]
+
       const items = this.generalUtils.getItems(playerItems)
       participantINFO.stats.name = participantIdentity.player.summonerName
       const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)

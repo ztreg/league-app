@@ -7,11 +7,11 @@ import { environment } from 'src/environments/environment'
 })
 export class RequestService {
 
-
-  itemsURL = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/item.json'
-  itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
-  championsURL = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/data/en_US/champion.json'
-  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/data/en_US/summoner.json'
+ // https://ddragon.leagueoflegends.com/cdn/11.9.1/data/en_US/item.json
+  itemsURL = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/data/en_US/item.json'
+  itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/'
+  championsURL = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/data/en_US/champion.json'
+  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/data/en_US/summoner.json'
   // matches = 'lol/match/v4/matches'
 
   // allMatches = 'lol/match/v4/matchlists/by-account'

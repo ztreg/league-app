@@ -6,7 +6,7 @@ import mongoose = require("mongoose");
 let database: mongoose.Connection;
 export const connect = () => {
   // add your own uri below
-  const uri = "mongodb+srv://JonasEx:F*zRT*R@tuF9Ht8@jonasleague.qnofa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  const uri = `mongodb+srv://${process.env.dbstring}?retryWrites=true&w=majority`;
   if (database) {
     console.log(database);
     

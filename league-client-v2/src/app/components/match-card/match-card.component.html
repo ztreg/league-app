@@ -1,15 +1,17 @@
-<mat-card class="example-card" *ngIf="sortedTeam && sortedTeam.Players && sorted">
+<mat-card class="example-card" *ngIf="teamInfo && teamInfo.Players ">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>Team Stats</mat-card-title>
     <mat-card-subtitle></mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content *ngFor="let player of sortedTeam.Players" class="fullPlayerDataBlue">
+  <mat-card-content *ngFor="let player of teamInfo.Players" class="fullPlayerDataBlue">
     <div class="row" *ngIf="champions$ | async as champions">
-      <div class="row-item"> <button class="redirect" mat-button color="primary"(click)="redirect(player.accountId)"> {{ player.name }} </button></div>
-        <img class="row-item" [src]="'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'+champions[player.timeline.championID].image.full" alt="" class="avatar">
-        <img class="avatar-item" src="{{player.summoners.summonersURL1}}" alt="" srcset="">
-        <img class="avatar-item" src="{{player.summoners.summonersURL2}}" alt="" srcset="">
+      <div class="row-item" *ngIf="player"> 
+        <button class="redirect" mat-button color="primary"(click)="redirect(player.accountId)"> {{ player.name }} </button>
+      </div>
+        <img *ngIf="champions[player.timeline.championID].image.full" class="row-item" [src]="'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'+champions[player.timeline.championID].image.full" alt="" class="avatar">
+        <img *ngIf="player.summoners.summonersURL1" class="avatar-item" src="{{player.summoners.summonersURL1}}" alt="" srcset="">
+        <img *ngIf="player.summoners.summonersURL2" class="avatar-item" src="{{player.summoners.summonersURL2}}" alt="" srcset="">
     </div>
 
     <div class="row">
@@ -17,7 +19,7 @@
         {{player.stats.kills}} | {{player.stats.deaths}} | {{player.stats.assists}}
       </div>
       <div class="row-item-item" *ngFor="let item of player.items">
-        <img class="avatar-item" *ngIf="item?.itemURL" src="{{item.itemURL}}" alt="" srcset="">
+        <img class="avatar-item" *ngIf="item && item.itemURL" src="{{item.itemURL}}" alt="" srcset="">
       </div>
     </div>
 
