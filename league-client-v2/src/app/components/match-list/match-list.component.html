@@ -1,4 +1,4 @@
-<div *ngIf="allMatches.length >= 5 && !isInStore">
+<div class="user-games-data" *ngIf="allMatches.length >= 5 && !isInStore">
 
   <h1>Latest matches</h1>
   <div *ngFor="let match of allMatches">
@@ -7,12 +7,12 @@
   </div>
 
 </div>
-<div *ngIf="isInStore">
+<div *ngIf="isInStore" class="user-games-data">
   <div *ngFor="let match of nonMetaMetaches">
     <app-match-list-nonmeta-item [match]="match" ></app-match-list-nonmeta-item>
   </div>
 </div>
-<div *ngIf="allMatches.length >= 5  && !isInStore" class="paginator">
+<div *ngIf="allMatches.length >= 5  && !isInStore" class="user-games-data">
   <div class="pag-items">
     <mat-icon *ngIf="!start" (click)="getPagMatches(false)"> arrow_back </mat-icon>
     Page: {{page}}

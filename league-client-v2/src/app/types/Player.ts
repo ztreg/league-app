@@ -7,6 +7,7 @@ export interface Player {
     accountId: string,
     win?: boolean,
     kda?: any
+    timeAgo?: string
 }
 
 export interface Players {
@@ -25,4 +26,6 @@ export interface Timeline {
     role: string
     lane: string
     championID?: any
+    gameType?: string,
+    isRanked?: boolean
 }

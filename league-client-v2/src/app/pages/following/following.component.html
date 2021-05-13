@@ -1,28 +1,28 @@
 <h1>Following</h1>
-<div class="container-users" *ngIf="followingData$ | async as data">
-  <table *ngIf="data.usersSolo && data.usersSolo.length > 0">
+<div class="container-users" *ngIf="(followingData$ | async) as data">
+  <table *ngIf="(currentUser$ | async) as currentUser">
     <div class="tableType">Solo/Duo Leaderboard</div>
     <tr>
       <th>Summoner</th>
       <th>League</th>
       <th>Games</th>
     </tr>
-    <tr *ngFor="let user of data.usersSolo">
+    <tr *ngFor="let user of data.usersSolo" [ngClass]="{'currentUserHightlight': user?.stats?.id === currentUser.accountId}">
       <td class="link" [routerLink]="['/users', user?.stats?.id]" routerLinkActive="active">{{ user?.name }}</td>
-      <td> {{ user.stats?.tier }} {{ user.stats?.rank }} {{ user.stats?.leaguePoints }} LP </td>
+      <td> {{ user.stats?.tier }} {{ user.stats?.rank }} {{ user.stats?.leaguePoints ? user.stats?.leaguePoints + 'LP' : ''}}  </td>
       <td> {{ user.stats?.wins }} W - {{ user.stats?.losses }} L ({{ user.stats?.wins +  user.stats?.losses }})</td>
     </tr>
   </table>
-  <table *ngIf="data.usersFlex && data.usersFlex.length > 0">
+  <table *ngIf="(currentUser$ | async) as currentUser">
     <div class="tableType">Flex Leaderboard</div>
     <tr>
       <th>Summoner</th>
       <th>League</th>
       <th>Games</th>
     </tr>
-    <tr *ngFor="let user of data.usersFlex">
+    <tr *ngFor="let user of data.usersFlex" [ngClass]="{'currentUserHightlight': user?.stats?.id === currentUser.accountId}">
       <td class="link" [routerLink]="['/users', user?.stats?.id]" routerLinkActive="active" >{{ user?.name }}</td>
-      <td> {{ user.stats?.tier }} {{ user.stats?.rank }} {{ user.stats?.leaguePoints }} LP </td>
+      <td> {{ user.stats?.tier }} {{ user.stats?.rank }} {{ user.stats?.leaguePoints ? user.stats?.leaguePoints + 'LP' : ''}} </td>
       <td> {{ user.stats?.wins }}W | {{ user.stats?.losses }}L ({{ user.stats?.wins +  user.stats?.losses }})</td>
     </tr>
   </table>

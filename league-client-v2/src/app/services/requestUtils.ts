@@ -18,21 +18,31 @@ export class RequestUtilities {
   hasItemsData: boolean | undefined
   currentUserID: string | undefined
 
-  test: boolean | undefined
+  hasMetaData: boolean | undefined
 
+  /**
+   * Gets the loggedin users latest matches. Destructs the meta-data, stores the meta-data in store
+   * and calculates the most played champion of those games. Adds that to the currentUser store.
+   * @param currentUserAccountId id the person logged in
+   * @param start startindex of matches
+   * @param end endindex if matches
+   */
   async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 5): Promise<any> {
     let placeHolderFavoriteChampion: any = {}
     this.storeService.myMatches$.pipe(take(1)).subscribe(myMatches => {
       if (myMatches) {
-        this.test = true
+        this.hasMetaData = true
       }
     })
-    if (!this.test) {
+    if (!this.hasMetaData) {
       try {
         const res = await this.req.getAllMatches(currentUserAccountId, start, end)
         const fullMatchesData: any = res
         const { matches } = fullMatchesData
         placeHolderFavoriteChampion = this.generalUtils.getMostPlayedChampion(matches)
+        for (const match of matches) {
+          match.timestamp = this.generalUtils.timeDifference(match.timestamp)
+        }
         this.storeService.updateMyMatches(matches)
         this.hasMatches = true
       } catch (error) {
@@ -51,6 +61,9 @@ export class RequestUtilities {
   async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
     const result: any = await this.req.getAllMatches(accountId, start || 0, end || 5)
     const { matches } = result
+    for (const match of matches) {
+      match.timestamp = this.generalUtils.timeDifference(match.timestamp)
+    }
     const favChamp = this.generalUtils.getMostPlayedChampion(matches)
     this.storeService.updateProfileMatches(matches)
     return favChamp
@@ -94,7 +107,10 @@ export class RequestUtilities {
     const {summonerName} = userObject
     const summonerInfo: any = await this.req.getUserInfoByName(summonerName)
     if (summonerInfo) {
-      await this.req.signUp(userObject)
+      const res = await this.req.signUp(userObject)
+      const result: any = await this.req.followUser(summonerInfo.accountId, res._id)
+      console.log(result)
+
     } else {
     }
   }
@@ -150,7 +166,7 @@ export class RequestUtilities {
   /**
    * @param accountId ID of the person you want to follow
    * @param currentUser ID of the person who is logged in
-   * @returns Success or Error
+   * @returns Result or Error
    */
   async followUser(accountId: string, currentUser: string): Promise<any> {
 
@@ -180,20 +196,40 @@ export class RequestUtilities {
     const flexBoard = []
     for (const id of followingArray) {
       const res: any = await this.getUserDataByID(id)
-
+      if (res.rankedInfo.length === 0) {
+        res.rankedInfo = [
+          {
+            queueType: 'RANKED_FLEX_SR',
+            tier: 'UNRANKED',
+            wins: '0',
+            losses: '0',
+            id: res.rankedInfo.id,
+          },
+          {
+            tier: 'UNRANKED',
+            wins: '0',
+            losses: '0',
+            id: res.rankedInfo.id,
+          }
+        ]
+      }
+      console.log(res.rankedInfo)
       for (const rankedMatch of res.rankedInfo) {
         const {tier, rank, leaguePoints, wins, losses} = rankedMatch
         const user = {
           name: res.summonerInfo.name,
           stats: {tier, rank, leaguePoints, wins, losses, id}
         }
+
         if (rankedMatch.queueType === 'RANKED_FLEX_SR' ) {
           flexBoard.unshift(user)
         } else {
           soloBoard.unshift(user)
         }
       }
+
     }
+
     const leagues = {
       usersSolo: await this.generalUtils.sortByRank(soloBoard),
       usersFlex: await this.generalUtils.sortByRank(flexBoard)

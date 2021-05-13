@@ -29,6 +29,10 @@ table {
     text-decoration: underline;
     cursor: pointer;
   }
+  .currentUserHightlight {
+    border: 1px solid green;
+    box-shadow: 0 0 5px 5px var(--highContrastRed);
+  }
 }
 
 @media screen and (max-width: 1300px) {

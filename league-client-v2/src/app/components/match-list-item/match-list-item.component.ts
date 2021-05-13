@@ -52,6 +52,8 @@ export class MatchListItemComponent implements OnInit {
   }
 
   async getMatchDetails(): Promise<void> {
+    console.log(this.match)
+
     try {
       const res = await this.req.getMatchDetails(this.match.gameId)
       this.gameData = res
@@ -62,14 +64,16 @@ export class MatchListItemComponent implements OnInit {
         this.store.currentUser$.subscribe(res2 => {
           this.currentUserAccountId = res2.accountId
         })
-        const oldList: any[] = this.store.getCurrentUserLatestMatches()
+        const oldList: any = this.store.getCurrentUserLatestMatches()
 
         let newList = []
-
+        this.gameData.timestamp = this.match.timestamp
         newList = oldList
-        newList.push(res)
+        newList.push(this.gameData)
+        // newList.timestamp = this.match.timestamp
+        console.log(newList)
+
         this.store.updateCurrentUserLatestMatches(newList)
-        this.gameData = res
         for (const participant of this.gameData.participantIdentities) {
             if (participant.player.accountId ===  this.currentUserAccountId) {
               this.myPartId = participant.participantId
@@ -87,7 +91,11 @@ export class MatchListItemComponent implements OnInit {
     } catch (error) {
       console.log(error)
     }
-
+    for (const participant of this.gameData.participantIdentities) {
+      if (participant.player.accountId ===  this.currentUserAccountId) {
+        this.myPartId = participant.participantId
+      }
+    }
 
 
     this.getMatchData()
@@ -101,6 +109,7 @@ getMatchData(): void {
     if (me === -1) {
       me++
     }
+
     const participantIdentity = this.gameData.participantIdentities[me]
     const participantINFO = this.gameData.participants[me]
     const {role, lane} = participantINFO.timeline
@@ -112,6 +121,7 @@ getMatchData(): void {
     // const { imageURL } = this.generalUtils.getSpecificChampion(participantINFO.championId)
 
     const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
+    const isRanked = this.gameData.teams[0].bans.length === 0 ? false : true
 
     const kdaclear = (participantINFO.stats.kills + participantINFO.stats.assists) /
     (participantINFO.stats.deaths > 0 ? participantINFO.stats.deaths : 1)
@@ -125,7 +135,8 @@ getMatchData(): void {
       items,
       win,
       kda,
-      timeline: { lane, role, championID: participantINFO.championId },
+      timeAgo: this.match.timestamp,
+      timeline: { lane, role, championID: participantINFO.championId, gameType: this.gameData.gameMode, isRanked },
       summoners: { summonersURL1, summonersURL2 }
     }
     this.player = playerToAdd

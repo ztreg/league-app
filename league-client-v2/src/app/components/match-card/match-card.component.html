@@ -4,8 +4,8 @@
     <mat-card-title>Team Stats</mat-card-title>
     <mat-card-subtitle></mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content *ngFor="let player of teamInfo.Players" class="fullPlayerDataBlue">
-    <div class="row" *ngIf="champions$ | async as champions">
+  <mat-card-content *ngFor="let player of teamInfo.Players" [ngClass]="{'currentUserHightlight': player.accountId === currentUser}" class="fullPlayerDataBlue">
+    <div class="row"  *ngIf="(champions$ | async) as champions">
       <div class="row-item" *ngIf="player"> 
         <button class="redirect" mat-button color="primary"(click)="redirect(player.accountId)"> {{ player.name }} </button>
       </div>

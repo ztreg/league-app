@@ -15,6 +15,8 @@ export const getUsers = async (req: Request, res: Response) => {
 export const addUser = async (req: Request, res: Response) => {
   try {
     const addedUser = await addUserModel(req.body)
+    console.log(addedUser);
+    
     res.status(201).json(addedUser)
     
   } catch (error) {

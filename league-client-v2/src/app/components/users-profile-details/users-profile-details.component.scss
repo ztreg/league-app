@@ -5,19 +5,20 @@
   flex-wrap: wrap;
   justify-content: space-around;
 
+
   .col1 {
     display: flex;
     flex-wrap: wrap;
     background-color: var(--smoothDark);
     border-radius: 5px;
     width: 400px;
-    margin-top: 10px;
+    margin-top: 30px;
     padding: 20px;
-    min-height: 400px;
-    
+    -webkit-box-shadow: 0 0 60px var(--highContrastRed);
+        box-shadow: 0 0 60px var(--highContrastRed);
+
     .col1-ranks {
       flex: 2;
-    
       .ranked-user {
         font-size: 1.1em;
         width: 90px;
@@ -27,7 +28,6 @@
         .emblems {
           display: block;
           margin: 0 auto;
-          // margin: 5px;
           width: 70px;
           height: 70px;
         }

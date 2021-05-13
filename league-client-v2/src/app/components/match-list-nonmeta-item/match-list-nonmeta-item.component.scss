@@ -1,6 +1,4 @@
 table, th, td {
-  // border: 1px solid blue;
-  // border-collapse: collapse;
   background-color: var(--coolDark);
   color: white;
 }
@@ -15,9 +13,6 @@ th {
   text-align: left;
 }
 td {
-  // :hover, :not(:nth-child) {
-  //   transform: scale(1.05);
-  // }
   text-align: center;
   img {
     width: 30px;
@@ -27,7 +22,10 @@ td {
 
 .match-table {
   margin: 8px;
-  // padding: 20px;
+  .timeStamp {
+    font-size: 11px;
+    font-weight: 50;
+  }
 }
 
 .victory {

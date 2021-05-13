@@ -50,6 +50,11 @@
   border: 1px solid blue;
 }
 
+.currentUserHightlight {
+  border: 1px solid green;
+  box-shadow: 0 0 10px 1px var(--highContrastRed);
+}
+
 .fullPlayerDataRed {
   border: 1px solid red;
 }

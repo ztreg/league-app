@@ -1,9 +1,12 @@
-.paginator {
-  width: 100%;
-  height: 50px;
-  background-color: black;
-  .pag-items {
-    margin: 0 auto;
-    text-align: center;
+.user-games-data {
+  width: 800px;
+  margin: 0 auto;
+  background-color: var(--smoothDark);
+  .paginator {
+    background-color: black;
+    .pag-items {
+      margin: 0 auto;
+      text-align: center;
+    }
   }
 }

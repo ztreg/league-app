@@ -5,6 +5,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs'
   providedIn: 'root'
 })
 export class StoreService {
+  // tslint:disable: variable-name
   private readonly _currentUser = new ReplaySubject<any>(1)
   private readonly _myMatches = new ReplaySubject<any>(1)
   private readonly _currentUserLatestMatches = new BehaviorSubject<any[]>([])
@@ -12,6 +13,7 @@ export class StoreService {
   private readonly _allChampions = new ReplaySubject<any>(1)
   private readonly _allSummoners = new ReplaySubject<any>(1)
   private readonly _allItems = new ReplaySubject<any>(1)
+
 
   private readonly _followingData = new ReplaySubject<any>(1)
 

@@ -1,6 +1,4 @@
 table, th, td {
-  // border: 1px solid blue;
-  // border-collapse: collapse;
   background-color: var(--coolDark);
   color: white;
 }
@@ -15,9 +13,6 @@ th {
   text-align: left;
 }
 td {
-  // :hover, :not(:nth-child) {
-  //   transform: scale(1.05);
-  // }
   text-align: center;
   img {
     width: 30px;
@@ -26,8 +21,18 @@ td {
 }
 
 .match-table {
+  .timeStamp {
+    font-size: 11px;
+    font-weight: 50;
+  }
   margin: 8px;
-  // padding: 20px;
+  .testCenter {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    margin-top: 11%;
+    margin-left: 10%;
+  }
 }
 
 .victory {
@@ -40,10 +45,4 @@ td {
   border-radius: 10px;
 }
 
-.link {
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  align-items: center;
 
-}

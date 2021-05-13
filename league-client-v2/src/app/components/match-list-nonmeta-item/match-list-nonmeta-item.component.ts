@@ -47,6 +47,8 @@ export class MatchListNonmetaItemComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.gameData = this.match
+    console.log(this.gameData)
+
     this.store.currentUser$.pipe(take(1)).subscribe(res2 => {
       this.currentUserAccountId = res2.accountId
     })
@@ -77,7 +79,7 @@ export class MatchListNonmetaItemComponent implements OnInit {
     const { summonersURL1, summonersURL2 } = this.generalUtils.getSummoners(participantINFO.spell1Id, participantINFO.spell2Id)
     const kdaclear = (participantINFO.stats.kills + participantINFO.stats.assists) / participantINFO.stats.deaths
     const kda = kdaclear.toFixed(2)
-
+    const isRanked = this.gameData.teams[0].bans.length === 0 ? false : true
     const playerToAdd: Player = {
       name: participantIdentity.player.summonerName,
       accountId: participantIdentity.player.accountId,
@@ -85,7 +87,8 @@ export class MatchListNonmetaItemComponent implements OnInit {
       items,
       win,
       kda,
-      timeline: { lane, role, championID: participantINFO.championId },
+      timeAgo: this.match.timestamp,
+      timeline: { lane, role, championID: participantINFO.championId, isRanked },
       summoners: { summonersURL1, summonersURL2 }
     }
     this.player = playerToAdd
