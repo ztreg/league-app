@@ -8,3 +8,8 @@ export interface MatchShort {
   season: number
   timestamp: number
 }
+
+export interface GameMetaData {
+  blueside: object
+  redside: object
+}

@@ -4,6 +4,7 @@ import { StoreService } from 'src/app/services/store.service'
 import { Item, Player} from 'src/app/types/Player'
 import { first, single, take, tap } from 'rxjs/operators'
 import { GeneralUtilsService } from 'src/app/services/general-utils.service'
+import { GameMetaData } from 'src/app/types/Match'
 @Component({
   selector: 'app-match-full-details',
   templateUrl: './match-full-details.component.html',
@@ -31,7 +32,7 @@ export class MatchFullDetailsComponent implements OnInit {
 
   teamOne: any = []
   teamTwo: any = []
-
+  gameMetaData: GameMetaData | undefined
   currentUserAccountId!: string
 
   graph = false
@@ -68,6 +69,7 @@ export class MatchFullDetailsComponent implements OnInit {
   getTeamData(): void {
     const teamOnePlayers: any = []
     const teamTwoPlayers: any = []
+    console.log(this.gameData)
 
     for (let i = 0; i < this.gameData.participantIdentities.length; i++) {
       const participantIdentity = this.gameData.participantIdentities[i]
@@ -101,6 +103,10 @@ export class MatchFullDetailsComponent implements OnInit {
     }
     if (teamTwoPlayers.length === 5) {
       this.teamTwo.Players = teamTwoPlayers
+    }
+    this.gameMetaData = {
+      blueside: this.gameData.teams[0],
+      redside: this.gameData.teams[1]
     }
     this.loaded = true
 

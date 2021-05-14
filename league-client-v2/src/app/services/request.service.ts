@@ -6,25 +6,15 @@ import { environment } from 'src/environments/environment'
   providedIn: 'root'
 })
 export class RequestService {
-
- // https://ddragon.leagueoflegends.com/cdn/11.9.1/data/en_US/item.json
   itemsURL = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/data/en_US/item.json'
   itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/'
   championsURL = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/data/en_US/champion.json'
   summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/data/en_US/summoner.json'
-  // matches = 'lol/match/v4/matches'
-
-  // allMatches = 'lol/match/v4/matchlists/by-account'
-  // userByNameURL = 'lol/summoner/v4/summoners/by-name'
-  // userByIdUrl = '/lol/summoner/v4/summoners/by-account'
-  // rankedInfoBySummonerIdURL = 'lol/league/v4/entries/by-summoner'
 
   constructor(private http: HttpClient) { }
 
   getAllMatches(accountId: string, startIndex: number, endIndex: number): Promise<HttpResponse<any>> {
     const indexQuery = `?endIndex=${endIndex}&beginIndex=${startIndex}`
-    console.log(accountId)
-
     console.log('REQ: Matches')
 
     return this.http.get<HttpResponse<any>>(

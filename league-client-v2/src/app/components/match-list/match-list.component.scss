@@ -1,12 +1,22 @@
 .user-games-data {
   width: 800px;
   margin: 0 auto;
-  background-color: var(--smoothDark);
+  background-color: inherit;
   .paginator {
     background-color: black;
     .pag-items {
       margin: 0 auto;
       text-align: center;
     }
+  }
+
+
+}
+
+@media only screen and (max-width: 700px) {
+  .user-games-data  {
+    width: 100%;
+    padding: 0 !important;
+    font-size: 0.9em;
   }
 }

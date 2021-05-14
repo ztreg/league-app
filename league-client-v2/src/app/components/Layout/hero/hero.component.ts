@@ -51,8 +51,6 @@ export class HeroComponent implements OnInit {
   unFollowUser(accountId: string): void {
     this.store.currentUser$.pipe(take(1)).subscribe(async res => {
       const unFollowUserResult = await this.utils.followUser(accountId, res.userDetails.id)
-      console.log(unFollowUserResult)
-
       if (unFollowUserResult.nModified === 1) {
         this.removeUserFromStore(accountId)
       }
@@ -76,8 +74,6 @@ export class HeroComponent implements OnInit {
       const userIndex = following.findIndex((accountId: string) => accountId === id)
       userPlacerholder.userDetails.following.splice(userIndex, 1)
    })
-    console.log(userPlacerholder)
-
     this.store.updateCurrentUser(userPlacerholder)
   }
 }

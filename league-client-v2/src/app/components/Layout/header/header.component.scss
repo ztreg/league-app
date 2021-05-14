@@ -56,7 +56,18 @@
 }
 
 @media screen and (max-width: 650px) {
+  .mat-icon-button {
+    width: 70px !important;
+    height: 40px !important;
+  }
   .nav-item {
     display: none;
+  }
+  .example-icon {
+    font-size: 0.6em;
+  }
+  .header-container {
+    padding: 0;
+    margin: 0;
   }
 }

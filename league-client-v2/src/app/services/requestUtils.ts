@@ -29,8 +29,10 @@ export class RequestUtilities {
    */
   async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 5): Promise<any> {
     let placeHolderFavoriteChampion: any = {}
-    this.storeService.myMatches$.pipe(take(1)).subscribe(myMatches => {
-      if (myMatches) {
+    this.storeService.myMatches$.pipe(take(1)).subscribe(metaDatamyMatches => {
+      if (metaDatamyMatches) {
+        console.log('already has matches')
+
         this.hasMetaData = true
       }
     })
@@ -213,7 +215,6 @@ export class RequestUtilities {
           }
         ]
       }
-      console.log(res.rankedInfo)
       for (const rankedMatch of res.rankedInfo) {
         const {tier, rank, leaguePoints, wins, losses} = rankedMatch
         const user = {

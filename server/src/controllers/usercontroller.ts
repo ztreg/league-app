@@ -15,8 +15,6 @@ export const getUsers = async (req: Request, res: Response) => {
 export const addUser = async (req: Request, res: Response) => {
   try {
     const addedUser = await addUserModel(req.body)
-    console.log(addedUser);
-    
     res.status(201).json(addedUser)
     
   } catch (error) {
@@ -45,12 +43,10 @@ export const updateUserFollow = async (req: Request, res: Response) => {
     }
   }
     try {
-      console.log('npnp');
       const updatedUser = await updateUserFollowModel({id, accountId})
       res.status(200).json(updatedUser)
     } catch (error) {
-      console.log(error);
-      
+      console.log(error);  
       res.status(401).json(error)
     }
 

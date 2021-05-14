@@ -16,6 +16,7 @@ export class AuthService {
       this.store.updateCurrentUser(false)
       this.store.updateCurrentProfileData(false)
       this.store.updateCurrentUserLatestMatches([])
+      this.store.updateProfileMatches(false)
       this.store.updateFollowingData(false)
       this.store.updateMyMatches(false)
       sessionStorage.removeItem('token')

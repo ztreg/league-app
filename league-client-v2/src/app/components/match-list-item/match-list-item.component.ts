@@ -52,8 +52,6 @@ export class MatchListItemComponent implements OnInit {
   }
 
   async getMatchDetails(): Promise<void> {
-    console.log(this.match)
-
     try {
       const res = await this.req.getMatchDetails(this.match.gameId)
       this.gameData = res
@@ -70,9 +68,6 @@ export class MatchListItemComponent implements OnInit {
         this.gameData.timestamp = this.match.timestamp
         newList = oldList
         newList.push(this.gameData)
-        // newList.timestamp = this.match.timestamp
-        console.log(newList)
-
         this.store.updateCurrentUserLatestMatches(newList)
         for (const participant of this.gameData.participantIdentities) {
             if (participant.player.accountId ===  this.currentUserAccountId) {

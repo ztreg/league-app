@@ -5,9 +5,7 @@
       <tr *ngIf="loaded && player.stats">
         <th *ngIf="player.win"><div class="timeStamp">{{player.timeAgo}}</div>Victory</th>
         <th *ngIf="!player.win"><div class="timeStamp">{{player.timeAgo}}</div>Defeat</th>
-       
-        <td *ngIf="player.timeline.lane === 'NONE'">Aram</td>
-        <td *ngIf="player.timeline.lane !== 'NONE'">Ranked</td>
+        <td>{{player.timeline.isRanked ? 'Ranked' : 'Normal' }}</td>
         <td>
           <img src="{{player.summoners.summonersURL1}}" alt="">
           <img src="{{player.summoners.summonersURL2}}" alt="">

@@ -1,14 +1,15 @@
 .example-card {
-  // max-width: 400px;
   background-color: black;
   color: whitesmoke;
-  width: 100%;
+  // width: 100%;
 }
 
 .row {
+  // width: 100px;
   display: flex;
   align-items: center;
   align-self: center;
+  flex: 1;
   .row-item {
     display: flex;
     align-items: center;
@@ -23,11 +24,11 @@
   
   }
   .row-item-item {
-    
     width: 40px;
     height: 40px;
   }
   .redirect {
+    min-width: 200px;
     width: 100%;
     text-decoration: underline;
 
@@ -50,9 +51,15 @@
   border: 1px solid blue;
 }
 
+.blueSideBG {
+  box-shadow: 0 0 10px 1px blue;
+}
+.redSideBG {
+  box-shadow: 0 0 10px 1px red;
+}
 .currentUserHightlight {
   border: 1px solid green;
-  box-shadow: 0 0 10px 1px var(--highContrastRed);
+  box-shadow: 0 0 10px 1px white;
 }
 
 .fullPlayerDataRed {
