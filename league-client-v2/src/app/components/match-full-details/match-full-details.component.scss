@@ -1,11 +1,11 @@
 .whole {
   margin: 0 auto;
+  margin-top: 10px;
+  width: 1000px;
   .card-container {
-    // width: 1000px;
+   
     margin: 0 auto;
     display: flex;
-    align-items: center;
-    align-self: center;
     .middle {
       width: 20px;
       margin: 0 auto;
@@ -23,5 +23,13 @@
     width: 200px;
     text-align: center;
     border-bottom: 1px solid var(--highContrastRed);
+  }
+}
+
+@media screen and(max-width: 900px) {
+  .card-inner {
+    flex-basis: 100%;
+    // display: block;
+    // width: 1000px;
   }
 }

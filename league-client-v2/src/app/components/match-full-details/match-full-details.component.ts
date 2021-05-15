@@ -19,9 +19,9 @@ export class MatchFullDetailsComponent implements OnInit {
   title = 'league-client-v2'
   gameData: any
   expand = false
-  itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/item/'
-  championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
-  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
+  itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/'
+  championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/'
+  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/'
 
   loaded = false
   myPartId = 0
@@ -34,6 +34,7 @@ export class MatchFullDetailsComponent implements OnInit {
   teamTwo: any = []
   gameMetaData: GameMetaData | undefined
   currentUserAccountId!: string
+  matchOverview: any
 
   graph = false
 
@@ -57,8 +58,10 @@ export class MatchFullDetailsComponent implements OnInit {
       })
     } else {
       this.gameData = this.match
-    }
 
+    }
+    const {teams, gameDuration, gameVersion} = this.gameData 
+    this.matchOverview = { teams, gameDuration, gameVersion }
     this.getTeamData()
 
   }

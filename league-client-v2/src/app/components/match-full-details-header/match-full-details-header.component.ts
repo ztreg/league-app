@@ -11,7 +11,7 @@ export class MatchFullDetailsHeaderComponent implements OnInit {
 
   constructor(private store: StoreService) { }
 
-  championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
+  championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/'
   bannedChampions1: any = []
   bannedChampions2: any = []
   loaded = false
@@ -31,18 +31,18 @@ export class MatchFullDetailsHeaderComponent implements OnInit {
   }
 
   getSpecificChampion(championId: string): any {
-    const test: any = {}
+    const specificChamp: any = {}
 
     this.store.allChampions$.subscribe(champions => {
       const championsArray: any = Object.entries(champions)
       for (const [key, item] of championsArray) {
         if (championId.toString() === item.key) {
-          test.imageURL = `${this.championImageUrl}${item.image.full}`
+          specificChamp.imageURL = `${this.championImageUrl}${item.image.full}`
           this.loaded = true
         }
       }
     })
-    return test
+    return specificChamp
   }
 
 }

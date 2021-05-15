@@ -40,8 +40,8 @@ enum division {
 export class GeneralUtilsService {
 
   itemImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/item/'
-  championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.7.1/img/champion/'
-  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/img/spell/'
+  championImageUrl = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/champion/'
+  summonersURL = 'https://ddragon.leagueoflegends.com/cdn/11.9.1/img/spell/'
 
   constructor(private store: StoreService) { }
 
