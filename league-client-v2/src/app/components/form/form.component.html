@@ -2,7 +2,9 @@
   <h4>Signup</h4>
   <app-input type="text" (inputData)="handleEventData($event)" value="user.summonerName" name="summonerName" placeholder="Your summonername Ex: Faker"></app-input>
   <app-input type="password" (inputData)="handleEventData($event)" value="user.password" name="password" placeholder="password..."></app-input>
+  <p *ngIf="statusMsg && page === 'signup'">{{statusMsg}}</p>
   <button mat-button color="warn">Signup</button>
+  <button mat-button color="warn" routerLink="/login" routerLinkActive="active">Login</button>
 </form>
 
 <form (submit)="loginForm($event)" class="add-user-form" *ngIf="page === 'login'">
@@ -11,5 +13,6 @@
   <app-input type="password" (inputData)="handleEventData($event)" value="user.password" name="password" placeholder="password..."></app-input>
   <p *ngIf="errorMsg && page === 'login'">{{errorMsg}}</p>
   <button mat-button color="warn">Login</button>
+  <button mat-button color="warn" routerLink="/signup" routerLinkActive="active">Signup</button>
 </form>
 

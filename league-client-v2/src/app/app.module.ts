@@ -34,7 +34,8 @@ import { FooterComponent } from './components/Layout/footer/footer.component'
 import { NgApexchartsModule } from 'ng-apexcharts'
 import { ChartComponent } from './components/utils/chart/chart.component'
 import { MatchListNonmetaItemComponent } from './components/match-list-nonmeta-item/match-list-nonmeta-item.component'
-import { SearchBarComponent } from './components/Layout/search-bar/search-bar.component'
+import { SearchBarComponent } from './components/Layout/search-bar/search-bar.component';
+import { GenericHeroComponent } from './components/Layout/generic-hero/generic-hero.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,8 @@ import { SearchBarComponent } from './components/Layout/search-bar/search-bar.co
     FooterComponent,
     ChartComponent,
     MatchListNonmetaItemComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    GenericHeroComponent
   ],
   imports: [
     BrowserModule,

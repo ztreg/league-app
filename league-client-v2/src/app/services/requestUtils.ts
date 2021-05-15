@@ -105,16 +105,22 @@ export class RequestUtilities {
     }
   }
 
-  async signUp(userObject: any): Promise<void> {
+  async signUp(userObject: any): Promise<any> {
     const {summonerName} = userObject
-    const summonerInfo: any = await this.req.getUserInfoByName(summonerName)
-    if (summonerInfo) {
-      const res = await this.req.signUp(userObject)
-      const result: any = await this.req.followUser(summonerInfo.accountId, res._id)
-      console.log(result)
-
-    } else {
+    try {
+      const summonerInfo: any = await this.req.getUserInfoByName(summonerName)
+      console.log(summonerInfo);
+      
+      if (!summonerInfo.status) {
+        const res = await this.req.signUp(userObject)
+        const result: any = await this.req.followUser(summonerInfo.accountId, res._id)
+      } 
+      return summonerInfo
+    } catch (error) {
+      console.log(error);
+      return error
     }
+
   }
 
   async login(userObject: any): Promise<any> {

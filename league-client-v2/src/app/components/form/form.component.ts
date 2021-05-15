@@ -11,6 +11,7 @@ import { RequestUtilities } from 'src/app/services/requestUtils'
 export class FormComponent implements OnInit {
   @Input() page!: string
   errorMsg: string | undefined
+  statusMsg: string | undefined
   user: any = {
     summonerName: '',
     password: ''
@@ -25,9 +26,17 @@ export class FormComponent implements OnInit {
     this.user[inputData.key] = inputData.value
   }
 
-  submitForm(event: Event): void {
+  async submitForm(event: Event): Promise<void> {
     event.preventDefault()
-    this.utils.signUp(this.user)
+    const signUpRes = await this.utils.signUp(this.user)
+    console.log(signUpRes);
+    
+    if (signUpRes.status_code == '404') {
+      this.statusMsg = signUpRes.status.message
+    } else {
+      this.statusMsg = 'Signup successfull!'
+    }
+
   }
 
   async loginForm(event: Event): Promise<void> {

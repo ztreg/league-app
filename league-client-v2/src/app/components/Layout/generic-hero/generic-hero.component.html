@@ -1,0 +1,11 @@
+<div *ngIf="!isProfile">
+  <div class="hero-wrapper"> 
+    <div class="hero-image"  [ngStyle]="{'background-image': 'url(https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akali_6.jpg)'}">
+      <div class="hero-text">
+        <div class="profile-username" *ngIf="(currentUser$ | async) as user"> Enjoy your stay {{user.name}}</div>
+        <div class="profile-username" *ngIf="!(currentUser$ | async)"> Welcome to league-book summoner</div>
+        <div class="profile-username" *ngIf="!(currentUser$ | async)"><a  routerLink="/signup" routerLinkActive="active">Sign up</a> to start following! </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@
 
 </div>
 <div *ngIf="isInStore" class="user-games-data">
+  <h1>Latest matches</h1>
   <div *ngFor="let match of nonMetaMetaches">
     <app-match-list-nonmeta-item [match]="match" ></app-match-list-nonmeta-item>
   </div>

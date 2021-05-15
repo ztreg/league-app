@@ -27,9 +27,11 @@
     Leaderboard <mat-icon >leaderboard</mat-icon>
    </button>
 
-   <button (click)="showSearchBar()" *ngIf="!searchBar" mat-icon-button class="example-icon" aria-label="Example icon-button with search icon">
-    Search<mat-icon >search</mat-icon>
-  </button>
+   <div *ngIf="(currentUser$ | async)">
+    <button (click)="showSearchBar()" *ngIf="!searchBar" mat-icon-button class="example-icon" aria-label="Example icon-button with search icon">
+      Search<mat-icon >search</mat-icon>
+    </button>
+   </div>
 
    <button class="header-summoner-icon nav-item" *ngIf="(currentUser$ | async) as currentUser"  mat-icon-button class="example-icon" aria-label="Example icon-button with heart icon" routerLink="/profile" routerLinkActive="active">
     Profile 
@@ -40,7 +42,7 @@
     Login<mat-icon >login</mat-icon>
   </button>
 
-  <button *ngIf="!(currentUser$ | async)" mat-icon-button class="example-icon nav-item" aria-label="Example icon-button with share icon"  routerLink="/signup" routerLinkActive="active">
+  <button *ngIf="!(currentUser$ | async)" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"  routerLink="/signup" routerLinkActive="active">
    SignUp <mat-icon>login</mat-icon>
   </button>
   
@@ -49,7 +51,7 @@
    </button>
 </mat-toolbar>
 
-<mat-toolbar class="header-container" *ngIf="searchBar">
+<mat-toolbar class="header-container" *ngIf="searchBar" >
     <app-search-bar class="searchBar" *ngIf="searchBar"></app-search-bar>
     <button (click)="showSearchBar()" class="example-icon" mat-button matSuffix mat-icon-button aria-label="Clear">
       Close <mat-icon>close</mat-icon>

@@ -51,14 +51,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.store.updateCurrentUser(null)
-    this.store.updateCurrentProfileData(null)
-    this.store.updateCurrentUserLatestMatches([null])
-    this.store.updateFollowingData(null)
-    this.store.updateMyMatches(null)
     sessionStorage.removeItem('token')
     sessionStorage.removeItem('user')
-    this.router.navigate(['login'])
+    window.location.replace(`/login`)
   }
   onSidenavClick(): void {
     this.isMenuOpen = !this.isMenuOpen
