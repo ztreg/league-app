@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpResponse } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
+import { MatchesMetaData } from '../types/Match'
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class RequestService {
 
   constructor(private http: HttpClient) { }
 
-  getAllMatches(accountId: string, startIndex: number, endIndex: number): Promise<HttpResponse<any>> {
+  getAllMatches(accountId: string, startIndex: number, endIndex: number): Promise<MatchesMetaData> {
     const indexQuery = `?endIndex=${endIndex}&beginIndex=${startIndex}`
     console.log('REQ: Matches')
 
-    return this.http.get<HttpResponse<any>>(
+    return this.http.get<MatchesMetaData>(
       `${environment.backendURL}/ritoURL/matches/user/${accountId}${indexQuery}`).toPromise()
   }
 

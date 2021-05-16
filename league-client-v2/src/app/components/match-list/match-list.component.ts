@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { take } from 'rxjs/operators'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
 
@@ -20,12 +21,12 @@ export class MatchListComponent implements OnInit {
   pageSize = 5
 
   once = false
-
   constructor(
     private store: StoreService,
     private utils: RequestUtilities
-  ) { }
+    ) { }
 
+    paginationMetaMatches$ = this.store.pagMetaDataMatches$
   ngOnInit(): void {
     const storeMatches = this.store.getCurrentUserLatestMatches()
     if (storeMatches.length > 0) {
@@ -35,21 +36,32 @@ export class MatchListComponent implements OnInit {
       this.store.myMatches$.subscribe(res => {
         this.allMatches = res
       })
+      this.isInStore = false
     }
+
+    this.paginationMetaMatches$.pipe(take(1)).subscribe(res => {
+      if (res.length > 0) {
+        this.store.updatePagMetaDataMatches([])
+      }
+    })
 
   }
 
-  getPagMatches(option: boolean | string): void {
-    if (typeof option === 'string') {
+getPagMatches(option: boolean | string): void {
+  this.store.currentUser$.pipe(take(1)).subscribe(userData => {
+    this.userAccId = userData.accountId
+  })
+
+  if (typeof option === 'string') {
       this.page = 1
       this.startIndex = 0
       this.endIndex = 5
-      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex)
+      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex, true)
      } else if (option) {
       this.page++
       this.startIndex += 5
       this.endIndex += 5
-      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex)
+      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex, true)
       this.start = false
      } else {
       this.page--
@@ -59,7 +71,7 @@ export class MatchListComponent implements OnInit {
         this.start = true
         this.startIndex = 0
       }
-      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex)
+      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex, true)
     }
   }
 }

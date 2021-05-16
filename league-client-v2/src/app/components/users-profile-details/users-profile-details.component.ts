@@ -23,33 +23,40 @@ export class UsersProfileDetailsComponent implements OnInit {
   nonMetaMetaches: any = []
   isMe = false
   isInStore = false
-
+  emblemsLoaded = false
   favChamp = ''
-  ngOnInit(): void {
-    this.store.currentUser$.pipe(take(1)).subscribe(async res => {
-      if (res.name === this.userData.summonerInfo.name) {
+
+  ranksAsEmblem: any = []
+
+  async ngOnInit(): Promise<void> {
+    this.getRankedEmblems()
+    const userId: any = this.router.snapshot.paramMap.get('id')
+    if (userId) {
+      this.favChamp = await this.utils.getUserMatches(userId, 0, 5)
+      console.log(this.favChamp)
+    } else {
+      const hasMatches = this.store.getCurrentUserLatestMatches()
+      if (hasMatches.length > 1) {
+        this.nonMetaMetaches = hasMatches
+        this.isInStore = true
+      } else {
+        this.isInStore = false
+      }
+      this.store.currentUser$.pipe(take(1)).subscribe( res => {
         this.favChamp = res.favChamp
         this.isMe = true
-        const hasMatches = this.store.getCurrentUserLatestMatches()
-        if (hasMatches.length > 0) {
-          this.nonMetaMetaches = hasMatches
-          this.isInStore = true
-        } else {
-          this.isInStore = false
-        }
-      } else {
-        const userId: any = this.router.snapshot.paramMap.get('id')
-        this.favChamp = await this.utils.getUserMatches(userId, 0, 5)
-      }
-    })
-    this.getRankedEmblems()
+      })
+    }
+
   }
 
   getRankedEmblems(): void {
     if (this.userData.rankedInfo) {
       for (const infoRow of this.userData.rankedInfo) {
-        infoRow.emblemPath = this.generalUtils.getRankedEmblems(infoRow.tier)
-        // console.log(infoRow.emblemPath)
+        if (infoRow.tier) {
+          const emblem = this.generalUtils.getRankedEmblems(infoRow.tier)
+          this.ranksAsEmblem.push(emblem)
+        }
       }
     }
   }

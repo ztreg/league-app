@@ -1,5 +1,5 @@
 .example-card {
-  // display: flex;
+  width: 100%;
   margin: 20px;
   background-color: var(--coolDark);
   color: whitesmoke;
@@ -35,10 +35,11 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    
+      
     }
-  
+    
     .row-item-item {
+      padding: 5px;
       width: 40px;
       height: 40px;
     }
@@ -51,15 +52,15 @@
   }
   
   .avatar {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     margin-right: 30px;
     border-radius: 4px;
   }
   
   .avatar-item {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
   }
   
   .fullPlayerDataBlue {

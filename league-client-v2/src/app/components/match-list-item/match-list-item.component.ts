@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
-import { first, map, take, tap } from 'rxjs/operators'
+import {  map } from 'rxjs/operators'
 import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { Player } from 'src/app/types/Player'
 import { _MatTabGroupBase } from '@angular/material/tabs'
-import { getLocaleWeekEndRange } from '@angular/common'
 import { ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-match-list-item',
@@ -63,18 +62,18 @@ export class MatchListItemComponent implements OnInit {
           this.currentUserAccountId = res2.accountId
         })
         const oldList: any = this.store.getCurrentUserLatestMatches()
-
-        let newList = []
-        this.gameData.timestamp = this.match.timestamp
-        newList = oldList
-        newList.push(this.gameData)
-        this.store.updateCurrentUserLatestMatches(newList)
-        for (const participant of this.gameData.participantIdentities) {
+        if (oldList.length < 5) {
+          let newList = []
+          this.gameData.timestamp = this.match.timestamp
+          newList = oldList
+          newList.push(this.gameData)
+          this.store.updateCurrentUserLatestMatches(newList)
+          for (const participant of this.gameData.participantIdentities) {
             if (participant.player.accountId ===  this.currentUserAccountId) {
               this.myPartId = participant.participantId
             }
           }
-
+        }
       } else {
         this.currentUserAccountId = userId
         for (const participant of this.gameData.participantIdentities) {

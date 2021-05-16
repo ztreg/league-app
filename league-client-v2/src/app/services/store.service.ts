@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
+import { MatchesMetaData, MatchShort } from '../types/Match'
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class StoreService {
   private readonly _allSummoners = new ReplaySubject<any>(1)
   private readonly _allItems = new ReplaySubject<any>(1)
 
+  private readonly _pagMetaDataMatches = new ReplaySubject<MatchShort[]>(1)
 
   private readonly _followingData = new ReplaySubject<any>(1)
 
@@ -27,11 +29,16 @@ export class StoreService {
   readonly allChampions$ = this._allChampions.asObservable()
   readonly allSummoners$ = this._allSummoners.asObservable()
   readonly allItems$ = this._allItems.asObservable()
+  readonly pagMetaDataMatches$ = this._pagMetaDataMatches.asObservable()
 
   readonly followingData$ = this._followingData.asObservable()
 
   private set currentUser(val: any) {
     this._currentUser.next(val)
+  }
+
+  private set pagMetaDataMatches(val: MatchShort[]) {
+    this._pagMetaDataMatches.next(val)
   }
 
   private set currentProfileData(val: any) {
@@ -76,6 +83,10 @@ export class StoreService {
 
   updateCurrentProfileData(val: any): void {
     this.currentProfileData = val
+  }
+
+  updatePagMetaDataMatches(val: MatchShort[]): void {
+    this.pagMetaDataMatches = val
   }
 
   updateFollowingData(val: any): void {

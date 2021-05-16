@@ -42,6 +42,8 @@ export class HeroComponent implements OnInit {
       this.store.currentUser$.pipe(take(1)).subscribe(async res => {
          const followUserResulst = await this.utils.followUser(accountId, res.userDetails.id)
          if (followUserResulst.nModified === 1) {
+           console.log('adding user to follow list')
+
            this.addUserToStore(accountId)
          }
       })
@@ -52,6 +54,7 @@ export class HeroComponent implements OnInit {
     this.store.currentUser$.pipe(take(1)).subscribe(async res => {
       const unFollowUserResult = await this.utils.followUser(accountId, res.userDetails.id)
       if (unFollowUserResult.nModified === 1) {
+        console.log('removing user from follow list')
         this.removeUserFromStore(accountId)
       }
    })
@@ -60,10 +63,12 @@ export class HeroComponent implements OnInit {
   addUserToStore(id: string): void {
     let userPlacerholder: any = {}
     this.store.currentUser$.pipe(take(1)).subscribe(res => {
-      userPlacerholder = res
-      userPlacerholder.userDetails.following.push(id)
+      userPlacerholder = res.userDetails.following
+      userPlacerholder.push(id)
+      console.log(userPlacerholder)
+
    })
-    this.store.updateCurrentUser(userPlacerholder)
+    this.store.updateFollowingData(userPlacerholder)
   }
 
   removeUserFromStore(id: string): void {
@@ -74,6 +79,6 @@ export class HeroComponent implements OnInit {
       const userIndex = following.findIndex((accountId: string) => accountId === id)
       userPlacerholder.userDetails.following.splice(userIndex, 1)
    })
-    this.store.updateCurrentUser(userPlacerholder)
+    this.store.updateFollowingData(userPlacerholder)
   }
 }

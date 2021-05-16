@@ -14,14 +14,16 @@ export class AppComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     // Meta-data about the game
+    console.log('initial stuff')
     this.utils.getAllItemsData()
     this.utils.getAllChampions()
     this.utils.getAllSummoners()
     const storageData: any = sessionStorage.getItem('user')
     const data = JSON.parse(storageData)
     this.store.updateCurrentUser(data)
+
     if (data) {
-      await this.utils.getMyUserMatches(data.accountId, 0, 5)
+      await this.utils.getMyUserMatches(data.accountId, 0, 5, false)
       this.utils.fillFollowerDataToStore()
     }
 

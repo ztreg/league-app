@@ -13,3 +13,10 @@ export interface GameMetaData {
   blueside: object
   redside: object
 }
+
+export interface MatchesMetaData {
+  endIndex: number
+  matches: MatchShort[]
+  startIndex: number
+  totalGames: number
+}

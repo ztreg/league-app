@@ -3,8 +3,8 @@
   <div *ngIf="player.items.length > 0 && (champions$ | async) as champions" > 
     <table [ngClass]="{'victory': player.win, 'defeat': !player.win}">
       <tr *ngIf="loaded && player.stats">
-        <th *ngIf="player.win"><div class="timeStamp">{{player.timeAgo}}</div>Victory</th>
-        <th *ngIf="!player.win"><div class="timeStamp">{{player.timeAgo}}</div>Defeat</th>
+        <th *ngIf="player.win">Victory<div class="timeStamp">{{player.timeAgo}}</div></th>
+        <th *ngIf="!player.win">Defeat<div class="timeStamp">{{player.timeAgo}}</div></th>
         <td>{{player.timeline.isRanked ? 'Ranked' : 'Normal' }}</td>
         <td>
           <img src="{{player.summoners.summonersURL1}}" alt="">
@@ -12,8 +12,8 @@
         </td>
         <td *ngIf="champions[player.timeline.championID].image.full"> <img src="{{championImageUrl}}{{champions[player.timeline.championID].image.full}}" alt=""> </td>
         <td>{{player.kda}}</td>
-        <td mat-icon-button aria-label="Example icon-button with share icon" [routerLink]="['/matches', match.gameId]">
-          View Match <mat-icon>arrow_forward</mat-icon> 
+        <td class="testCenter" mat-icon-button aria-label="Example icon-button with share icon" [routerLink]="['/matches', match.gameId]">
+          Show <mat-icon>arrow_forward</mat-icon> 
         </td>
       </tr>
     </table>

@@ -1,11 +1,15 @@
-<app-hero *ngIf="favChamp" [favChamp]="favChamp" [userData]="userData.summonerInfo"></app-hero>
+<app-hero *ngIf="favChamp && userData.summonerInfo" [favChamp]="favChamp" [userData]="userData.summonerInfo"></app-hero>
 
-<div class="user-profile" *ngIf="userData">
-  <div class="col1" *ngIf="userData && userData.rankedInfo">
+<div class="user-profile" *ngIf="userData && userData.rankedInfo">
+  <div class="col1"*ngIf="userData && userData.rankedInfo && ranksAsEmblem">
     <div *ngFor="let info of userData.rankedInfo" class="col1-ranks">
       <div class="ranked-user">
-        <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_SOLO_5x5'"> Solo/Duo <img class="emblems" [src]="info.emblemPath" alt=""></div>
-        <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_FLEX_SR'"> Flex   <img class="emblems" [src]="info.emblemPath" alt=""> </div>
+        <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_SOLO_5x5'"> Solo/Duo 
+          <img class="emblems" [src]="ranksAsEmblem[0]" alt="">
+        </div>
+        <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_FLEX_SR'"> Flex   
+          <img class="emblems" [src]="ranksAsEmblem[1]" alt="">
+         </div>
         <div> Division: {{info.rank}}</div>
         <div> LP: {{info.leaguePoints}}</div>
         <div> Wins: {{info.wins}} </div>

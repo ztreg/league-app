@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { take, tap } from 'rxjs/operators'
+import { MatchesMetaData } from '../types/Match'
 import { GeneralUtilsService } from './general-utils.service'
 import { RequestService } from './request.service'
 import { StoreService } from './store.service'
@@ -19,7 +20,7 @@ export class RequestUtilities {
   currentUserID: string | undefined
 
   hasMetaData: boolean | undefined
-
+  iconURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon'
   /**
    * Gets the loggedin users latest matches. Destructs the meta-data, stores the meta-data in store
    * and calculates the most played champion of those games. Adds that to the currentUser store.
@@ -27,36 +28,36 @@ export class RequestUtilities {
    * @param start startindex of matches
    * @param end endindex if matches
    */
-  async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 5): Promise<any> {
-    let placeHolderFavoriteChampion: any = {}
+  async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 5, isPagination: boolean | false): Promise<any> {
     this.storeService.myMatches$.pipe(take(1)).subscribe(metaDatamyMatches => {
       if (metaDatamyMatches) {
-        console.log('already has matches')
-
         this.hasMetaData = true
       }
     })
-    if (!this.hasMetaData) {
+    if (!this.hasMetaData || isPagination) {
+      let placeHolderFavoriteChampion: any = {}
       try {
-        const res = await this.req.getAllMatches(currentUserAccountId, start, end)
-        const fullMatchesData: any = res
-        const { matches } = fullMatchesData
-        placeHolderFavoriteChampion = this.generalUtils.getMostPlayedChampion(matches)
+        const res: MatchesMetaData = await this.req.getAllMatches(currentUserAccountId, start, end)
+        const { matches } = res
+
         for (const match of matches) {
           match.timestamp = this.generalUtils.timeDifference(match.timestamp)
         }
-        this.storeService.updateMyMatches(matches)
-        this.hasMatches = true
+        if (isPagination) {
+          let oldPagList: any
+          this.storeService.pagMetaDataMatches$.pipe(take(1)).subscribe(oldPagMetaData => {
+            oldPagList = oldPagMetaData
+          })
+          this.storeService.updatePagMetaDataMatches(matches)
+        } else {
+          placeHolderFavoriteChampion = this.generalUtils.getMostPlayedChampion(matches)
+          this.storeService.updateMyMatches(matches)
+          this.getMyFavChamp(placeHolderFavoriteChampion)
+        }
+
       } catch (error) {
         console.log(error)
-
       }
-      let empty: any = {}
-      this.storeService.currentUser$.pipe(take(1)).subscribe(myData => {
-        empty = myData
-      })
-      empty.favChamp = placeHolderFavoriteChampion
-      this.storeService.updateCurrentUser(empty)
     }
   }
 
@@ -69,6 +70,15 @@ export class RequestUtilities {
     const favChamp = this.generalUtils.getMostPlayedChampion(matches)
     this.storeService.updateProfileMatches(matches)
     return favChamp
+  }
+
+  getMyFavChamp(favChampParam: any): void {
+    let emptyUser: any = {}
+    this.storeService.currentUser$.pipe(take(1)).subscribe(myData => {
+      emptyUser = myData
+    })
+    emptyUser.favChamp = favChampParam
+    this.storeService.updateCurrentUser(emptyUser)
   }
 
 
@@ -109,15 +119,15 @@ export class RequestUtilities {
     const {summonerName} = userObject
     try {
       const summonerInfo: any = await this.req.getUserInfoByName(summonerName)
-      console.log(summonerInfo);
-      
+      console.log(summonerInfo)
+
       if (!summonerInfo.status) {
         const res = await this.req.signUp(userObject)
         const result: any = await this.req.followUser(summonerInfo.accountId, res._id)
-      } 
+      }
       return summonerInfo
     } catch (error) {
-      console.log(error);
+      console.log(error)
       return error
     }
 
@@ -128,11 +138,11 @@ export class RequestUtilities {
       const loggedInStatus: any = await this.req.login(userObject)
       const summonerInfo: any = await this.req.getUserInfoByName(userObject.summonerName)
       summonerInfo.userDetails = loggedInStatus
-      summonerInfo.profileIconId = `https://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
+      summonerInfo.profileIconId = `${this.iconURL}/${summonerInfo.profileIconId}.png`
       sessionStorage.setItem('token', loggedInStatus.token)
       sessionStorage.setItem('user', JSON.stringify(summonerInfo))
       this.storeService.updateCurrentUser(summonerInfo)
-      await this.getMyUserMatches(summonerInfo.accountId, 0, 5)
+      await this.getMyUserMatches(summonerInfo.accountId, 0, 5, false)
       return 'OK'
     } catch (error) {
       console.log(error)
