@@ -33,7 +33,6 @@ export class UsersProfileDetailsComponent implements OnInit {
     const userId: any = this.router.snapshot.paramMap.get('id')
     if (userId) {
       this.favChamp = await this.utils.getUserMatches(userId, 0, 5)
-      console.log(this.favChamp)
     } else {
       const hasMatches = this.store.getCurrentUserLatestMatches()
       if (hasMatches.length > 1) {

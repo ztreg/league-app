@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Item } from '../types/Player'
 import { StoreService } from './store.service'
 import { take } from 'rxjs/operators'
+import { MatchShort } from '../types/Match'
 
 enum ranks {
   CHALLENGER = 1,
@@ -152,7 +153,7 @@ export class GeneralUtilsService {
     return summonerData
   }
 
-  getMostPlayedChampion(test: any): void {
+  getMostPlayedChampion(matches: any): void {
 
     const mostOccurringElement = (array: { [key: string]: number }[]) => {
       let max = array[0].champion
@@ -167,7 +168,7 @@ export class GeneralUtilsService {
       return this.getSplashArtChampion(max.toString())
     }
 
-    return mostOccurringElement(test)
+    return mostOccurringElement(matches)
   }
 
   getSplashArtChampion(championId: string): any {

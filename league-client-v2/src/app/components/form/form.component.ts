@@ -29,11 +29,12 @@ export class FormComponent implements OnInit {
   async submitForm(event: Event): Promise<void> {
     event.preventDefault()
     const signUpRes = await this.utils.signUp(this.user)
-    console.log(signUpRes);
-    
-    if (signUpRes.status_code == '404') {
+    console.log(signUpRes)
+
+    if (signUpRes.status_code === '404' || signUpRes.status_code === '500') {
       this.statusMsg = signUpRes.status.message
     } else {
+      console.log(signUpRes)
       this.statusMsg = 'Signup successfull!'
     }
 

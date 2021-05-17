@@ -22,9 +22,15 @@ export class HeroComponent implements OnInit {
       const {imageURL } = data.favChamp
       data.favChampUrl = `url(${imageURL})`
       const {following} = data.userDetails
+      let i = 0
       for (const follow of following) {
+        i++
         if (follow === this.userData.accountId) {
           this.isFollowed = true
+          continue
+        }
+        if (i === following.length) {
+          this.isFollowed = false
         }
       }
 
@@ -42,8 +48,6 @@ export class HeroComponent implements OnInit {
       this.store.currentUser$.pipe(take(1)).subscribe(async res => {
          const followUserResulst = await this.utils.followUser(accountId, res.userDetails.id)
          if (followUserResulst.nModified === 1) {
-           console.log('adding user to follow list')
-
            this.addUserToStore(accountId)
          }
       })
@@ -54,7 +58,6 @@ export class HeroComponent implements OnInit {
     this.store.currentUser$.pipe(take(1)).subscribe(async res => {
       const unFollowUserResult = await this.utils.followUser(accountId, res.userDetails.id)
       if (unFollowUserResult.nModified === 1) {
-        console.log('removing user from follow list')
         this.removeUserFromStore(accountId)
       }
    })
@@ -63,22 +66,23 @@ export class HeroComponent implements OnInit {
   addUserToStore(id: string): void {
     let userPlacerholder: any = {}
     this.store.currentUser$.pipe(take(1)).subscribe(res => {
-      userPlacerholder = res.userDetails.following
-      userPlacerholder.push(id)
-      console.log(userPlacerholder)
+      userPlacerholder = res
+      userPlacerholder.userDetails.following.push(id)
 
    })
-    this.store.updateFollowingData(userPlacerholder)
+    this.store.updateCurrentUser(userPlacerholder)
+    sessionStorage.setItem('user', JSON.stringify(userPlacerholder))
   }
 
   removeUserFromStore(id: string): void {
     let userPlacerholder: any = {}
     this.store.currentUser$.pipe(take(1)).subscribe(res => {
       userPlacerholder = res
-      const {following} = userPlacerholder.userDetails
+      const following = userPlacerholder.userDetails.following
       const userIndex = following.findIndex((accountId: string) => accountId === id)
       userPlacerholder.userDetails.following.splice(userIndex, 1)
    })
-    this.store.updateFollowingData(userPlacerholder)
+    this.store.updateCurrentUser(userPlacerholder)
+    sessionStorage.setItem('user', JSON.stringify(userPlacerholder))
   }
 }

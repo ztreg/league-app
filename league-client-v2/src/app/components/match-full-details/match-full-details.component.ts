@@ -60,7 +60,7 @@ export class MatchFullDetailsComponent implements OnInit {
       this.gameData = this.match
 
     }
-    const {teams, gameDuration, gameVersion} = this.gameData 
+    const {teams, gameDuration, gameVersion} = this.gameData
     this.matchOverview = { teams, gameDuration, gameVersion }
     this.getTeamData()
 
@@ -72,7 +72,6 @@ export class MatchFullDetailsComponent implements OnInit {
   getTeamData(): void {
     const teamOnePlayers: any = []
     const teamTwoPlayers: any = []
-    console.log(this.gameData)
 
     for (let i = 0; i < this.gameData.participantIdentities.length; i++) {
       const participantIdentity = this.gameData.participantIdentities[i]

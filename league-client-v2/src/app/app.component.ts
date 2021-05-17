@@ -20,9 +20,9 @@ export class AppComponent implements OnInit{
     this.utils.getAllSummoners()
     const storageData: any = sessionStorage.getItem('user')
     const data = JSON.parse(storageData)
-    this.store.updateCurrentUser(data)
 
     if (data) {
+      this.store.updateCurrentUser(data)
       await this.utils.getMyUserMatches(data.accountId, 0, 5, false)
       this.utils.fillFollowerDataToStore()
     }

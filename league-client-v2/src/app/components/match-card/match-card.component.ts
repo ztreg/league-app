@@ -32,7 +32,6 @@ export class MatchCardComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.teamInfo) {
-      console.log(this.gameMetaData)
       this.matchOverview.gameDuration = (this.matchOverview.gameDuration / 60).toFixed(2)
       this.loopTeamBans()
       this.store.currentUser$.pipe(take(1)).subscribe(res => {
