@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 
 @Component({
   selector: 'app-input',
@@ -13,14 +13,14 @@ export class InputComponent implements OnInit {
   @Output() inputData = new EventEmitter()
 
   header!: string
-  
+
   constructor() { }
 
   ngOnInit(): void {
    this.header = this.capitalize(this.name)
   }
 
-  capitalize (name: string): string {
+  capitalize(name: string): string {
     return name[0].toUpperCase() + name.slice(1)
   }
 

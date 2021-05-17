@@ -1,5 +1,5 @@
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface'
-import { Component, Input, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 
@@ -17,7 +17,7 @@ export class FormComponent implements OnInit {
     password: ''
   }
 
-  constructor(private utils: RequestUtilities, private router: Router) { }
+  constructor(private utils: RequestUtilities, private router: Router, private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -26,29 +26,32 @@ export class FormComponent implements OnInit {
     this.user[inputData.key] = inputData.value
   }
 
-  async submitForm(event: Event): Promise<void> {
+  async signUp(event: Event): Promise<void> {
     event.preventDefault()
-    const signUpRes = await this.utils.signUp(this.user)
-    console.log(signUpRes)
-
-    if (signUpRes.status_code === '404' || signUpRes.status_code === '500') {
-      this.statusMsg = signUpRes.status.message
+    if (this.user.summonerName === '') {
+      this.errorMsg = 'Please enter a name...'
     } else {
-      console.log(signUpRes)
-      this.statusMsg = 'Signup successfull!'
+      const signUpRes = await this.utils.signUp(this.user)
+      if (signUpRes.error || signUpRes.status) {
+        this.statusMsg = signUpRes.status.message || signUpRes.error.status.message
+      } else {
+        this.statusMsg = 'Signup successfull. Login to start following!'
+      }
     }
-
   }
 
   async loginForm(event: Event): Promise<void> {
     event.preventDefault()
-    const res = await this.utils.login(this.user)
-    if (res.error) {
-      this.errorMsg = res.error.msg
+    if (this.user.summonerName === '') {
+      this.errorMsg = 'Please enter a name...'
     } else {
-      this.router.navigate(['/matches'])
-      this.utils.fillFollowerDataToStore()
+      const res = await this.utils.login(this.user)
+      if (res.error) {
+        this.errorMsg = res.error.msg
+      } else {
+        this.router.navigate(['/matches'])
+        this.utils.fillFollowerDataToStore()
+      }
     }
   }
-
 }
