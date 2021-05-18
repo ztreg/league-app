@@ -1,4 +1,4 @@
-<mat-card class="example-card" *ngIf="teamInfo && teamInfo.Players" [ngClass]="{'blueSideBG': gameMetaData.teamId === 100, 'redSideBG': gameMetaData.teamId === 200}">
+<mat-card class="example-card" *ngIf="teamInfo && teamInfo.Players && gameMetaData" [ngClass]="{'blueSideBG': gameMetaData.teamId === 100, 'redSideBG': gameMetaData.teamId === 200}">
     <div *ngIf="gameMetaData.teamId === 100" class="statsHeader">
       <h4> Blue side </h4>
       <div *ngFor="let ban of bannedChampions1" class="bans">

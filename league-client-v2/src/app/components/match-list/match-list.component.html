@@ -1,9 +1,9 @@
-<div class="user-games-data" *ngIf="allMatches.length >= 5 && !isInStore">
+<div class="user-games-data" *ngIf="allMatches && allMatches.length >= 5 && !isInStore">
   <h1>Latest matches</h1>
   <div *ngFor="let match of allMatches">
     <app-match-list-item [match]="match"></app-match-list-item>
   </div>
-  <div *ngIf="allMatches.length >= 5 || nonMetaMetaches.length >= 5">
+  <div *ngIf="allMatches.length >= 5 || nonMetaMatches && nonMetaMatches.length >= 5">
     <div class="pag-items" (click)="getPagMatches(true)">
       Show more... <mat-icon >arrow_downward</mat-icon>
     </div>
@@ -17,10 +17,10 @@
 
 <div *ngIf="isInStore" class="user-games-data">
   <h1>Latest matches</h1>
-  <div *ngFor="let match of nonMetaMetaches">
+  <div *ngFor="let match of nonMetaMatches">
     <app-match-list-nonmeta-item [match]="match" ></app-match-list-nonmeta-item>
   </div>
-  <div *ngIf="allMatches.length >= 5 || nonMetaMetaches.length >= 5">
+  <div *ngIf="(allMatches && allMatches.length >= 5) || (nonMetaMatches && nonMetaMatches.length >= 5)">
     <div class="pag-items" (click)="getPagMatches(true)">
       Show more... <mat-icon >arrow_downward</mat-icon>
     </div>

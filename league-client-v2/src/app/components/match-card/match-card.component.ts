@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { lowerFirst } from 'cypress/types/lodash'
 import { first, map, take, tap } from 'rxjs/operators'
 import { StoreService } from 'src/app/services/store.service'
+import { GameMetaData } from 'src/app/types/Match'
 
 @Component({
   selector: 'app-match-card',
@@ -11,7 +12,7 @@ import { StoreService } from 'src/app/services/store.service'
 })
 export class MatchCardComponent implements OnInit {
   @Input() teamInfo: any
-  @Input() gameMetaData: any
+  @Input() gameMetaData: GameMetaData | undefined
   @Input() matchOverview: any
   sortedTeam: any = {}
   sorted = false
@@ -21,6 +22,7 @@ export class MatchCardComponent implements OnInit {
   bannedChampions1: any = []
   bannedChampions2: any = []
   loaded = false
+
   constructor(private router: Router, private store: StoreService) { }
   champions$ = this.store.allChampions$.pipe(
     map(data => {

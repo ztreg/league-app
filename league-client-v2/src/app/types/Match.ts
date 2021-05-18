@@ -12,6 +12,7 @@ export interface MatchShort {
 export interface GameMetaData {
   blueside: object
   redside: object
+  teamId?: number
 }
 
 export interface MatchesMetaData {

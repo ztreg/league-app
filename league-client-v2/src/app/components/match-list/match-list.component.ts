@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { take } from 'rxjs/operators'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
+import { MatchesMetaData, MatchShort } from 'src/app/types/Match'
 
 @Component({
   selector: 'app-match-list',
@@ -9,8 +10,8 @@ import { StoreService } from 'src/app/services/store.service'
   styleUrls: ['./match-list.component.scss']
 })
 export class MatchListComponent implements OnInit {
-  allMatches: any = []
-  nonMetaMetaches: any = []
+  allMatches: MatchesMetaData[] | undefined
+  nonMetaMatches: MatchShort[] | undefined
   isInStore = false
 
   start = true
@@ -19,8 +20,8 @@ export class MatchListComponent implements OnInit {
   page = 1
   startIndex = 0
   pageSize = 5
-
   once = false
+
   constructor(
     private store: StoreService,
     private utils: RequestUtilities
@@ -30,7 +31,7 @@ export class MatchListComponent implements OnInit {
   ngOnInit(): void {
     const storeMatches = this.store.getCurrentUserLatestMatches()
     if (storeMatches.length > 0) {
-      this.nonMetaMetaches = storeMatches
+      this.nonMetaMatches = storeMatches
       this.isInStore = true
     } else {
       this.store.myMatches$.subscribe(res => {
