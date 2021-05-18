@@ -30,3 +30,10 @@ body {
 .apexcharts-toolbar, .apexcharts-menu-icon {
   display: none !important;
 }
+
+@media screen and (max-width: 600px) {
+  .mat-tab-label {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}

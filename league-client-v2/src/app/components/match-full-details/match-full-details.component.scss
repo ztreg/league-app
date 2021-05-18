@@ -1,21 +1,25 @@
 .whole {
   margin: 0 auto;
   margin-top: 10px;
-  width: 1000px;
+  width: 100%;
   .card-container {
-   
-    margin: 0 auto;
     display: flex;
-    .middle {
-      width: 20px;
-      margin: 0 auto;
-      text-align: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    .card-inner {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
+      margin: 50px;
+      
     }
     .progress-bar {
       color: white;
     }
   }
-  
+
   .middle-button {
     display: flex;
     margin: 0 auto;
@@ -25,11 +29,13 @@
     border-bottom: 1px solid var(--highContrastRed);
   }
 }
-
-@media screen and(max-width: 900px) {
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+@media screen and(max-width:500px) {
   .card-inner {
-    flex-basis: 100%;
-    // display: block;
-    // width: 1000px;
+    margin: 0px !important;
+    margin-bottom: 50px !important;
   }
 }

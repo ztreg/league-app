@@ -1,38 +1,43 @@
 <mat-card class="example-card" *ngIf="teamInfo && teamInfo.Players" [ngClass]="{'blueSideBG': gameMetaData.teamId === 100, 'redSideBG': gameMetaData.teamId === 200}">
-  <mat-card-header>
     <div *ngIf="gameMetaData.teamId === 100" class="statsHeader">
-      <mat-card-title >Blue side bans: </mat-card-title>
+      <h4> Blue side </h4>
       <div *ngFor="let ban of bannedChampions1" class="bans">
         <img src="{{ban.imageURL}}" class="img" alt="">
       </div>
     </div>
-    <div *ngIf="gameMetaData.teamId === 200" class="statsHeader">     
-      <mat-card-title >Red side bans: </mat-card-title>
+    <div *ngIf="gameMetaData.teamId === 200" class="statsHeader">
+      <h4> Red side </h4>
       <div *ngFor="let ban of bannedChampions2" class="bans">
       <img src="{{ban.imageURL}}" class="img" alt="">
       </div>
     </div>
-  </mat-card-header>
   <mat-card-content *ngFor="let player of teamInfo.Players"  
   [ngClass]="{'currentUserHightlight': player.accountId === currentUser, 
   'fullPlayerDataBlue':gameMetaData.teamId === 100, 
   'fullPlayerDataRed':gameMetaData.teamId === 200
   }">
-    <div class="row"  *ngIf="(champions$ | async) as champions">
-      <div *ngIf="player"> 
-        <button  class="redirect" mat-button color="primary"(click)="redirect(player.accountId)"> {{ player.name }} </button>
-      </div>
-        <img *ngIf="champions[player.timeline.championID].image.full" class="row-item" [src]="championURL+champions[player.timeline.championID].image.full" alt="" class="avatar">
-        <img *ngIf="player.summoners.summonersURL1" class="avatar-item" src="{{player.summoners.summonersURL1}}" alt="" srcset="">
-        <img *ngIf="player.summoners.summonersURL2" class="avatar-item" src="{{player.summoners.summonersURL2}}" alt="" srcset="">
-    </div>
-    <div class="row">
+    <div class="row" *ngIf="(champions$ | async) as champions">
+      <img *ngIf="champions[player.timeline.championID].image.full" class="row-item" [src]="championURL+champions[player.timeline.championID].image.full" alt="" class="avatar">
+      <button class="row-item redirect" mat-button color="primary"(click)="redirect(player.accountId)"> {{ player.name }} </button>
+
       <div class="row-item">
         {{player.stats.kills}} | {{player.stats.deaths}} | {{player.stats.assists}}
       </div>
-      <div class="row-item-item" *ngFor="let item of player.items">
-        <img class="avatar-item" *ngIf="item && item.itemURL" src="{{item.itemURL}}" alt="" srcset="">
+  
+  
+      
+    </div>
+    <div class="row">
+      <div class="row-item">
+        <img *ngIf="player.summoners.summonersURL1" class="avatar-item" src="{{player.summoners.summonersURL1}}" alt="" srcset="">
+        <img *ngIf="player.summoners.summonersURL2" class="avatar-item" src="{{player.summoners.summonersURL2}}" alt="" srcset="">
       </div>
+      <div class="row-item">
+        <div class="row-item-item" *ngFor="let item of player.items">
+          <img class="avatar-item" *ngIf="item && item.itemURL" src="{{item.itemURL}}" alt="" srcset="">
+        </div>
+      </div>
+   
     </div>
   </mat-card-content>
 </mat-card>

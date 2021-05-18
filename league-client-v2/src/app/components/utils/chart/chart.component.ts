@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core'
-import { ChartOptions } from 'src/app/types/Chart'
+import { ChartOptions, teamChartObject } from 'src/app/types/Chart'
 
 @Component({
   selector: 'app-chart',
@@ -38,7 +38,7 @@ export class ChartComponent implements OnInit {
   }
   fillGraph(): void {
 
-    const teamObject: any = {
+    const teamObject: teamChartObject = {
       names: [],
       data: []
     }
@@ -47,6 +47,8 @@ export class ChartComponent implements OnInit {
       teamObject.names[i] = player.name
       teamObject.data[i] = player.stats[this.chosenStats]
     }
+    console.log(this.teamStats)
+
 
     this.chartOptions = {
       tooltip: {

@@ -1,24 +1,31 @@
 <div class="whole">
-  <!-- <app-match-full-details-header [matchOverview]="matchOverview"></app-match-full-details-header> -->
   <button class="middle-button" mat-button (click)="changeStats()">{{!graph ? 'Show graph' : 'Show stats'}}</button>
   <div class="card-container" *ngIf="!graph">
-      <div *ngIf="teamOne.Players.length > 0 && loaded  && gameMetaData" class="card-inner">
-        <app-match-card [matchOverview]="matchOverview" [teamInfo]="teamOne" [gameMetaData]="gameMetaData?.blueside"></app-match-card>
-      </div>
-      <!-- <div class="middle">VS</div> -->
+    <app-match-card 
+      *ngIf="teamOne.Players.length > 0 && loaded  && gameMetaData"  
+      class="card-inner" [matchOverview]="matchOverview" 
+      [teamInfo]="teamOne" 
+      [gameMetaData]="gameMetaData?.blueside">
+    </app-match-card>
     
-      <div *ngIf="teamTwo.Players.length > 0 && loaded && gameMetaData" class="card-inner">
-        <app-match-card [matchOverview]="matchOverview" [teamInfo]="teamTwo" [gameMetaData]="gameMetaData?.redside"></app-match-card>
-      </div>
+    <app-match-card 
+      *ngIf="teamTwo.Players.length > 0 && loaded && gameMetaData"  
+      class="card-inner" [matchOverview]="matchOverview" 
+      [teamInfo]="teamTwo" 
+      [gameMetaData]="gameMetaData?.redside">
+    </app-match-card>
   </div>
-  
+
   <div class="card-container" *ngIf="graph">
-    <div *ngIf="teamOne.Players.length > 0 && loaded" >
-      <app-chart [teamStats]="teamOne.Players"></app-chart>
-    </div>
-    <!-- <div class="middle">VS</div> -->
-    <div *ngIf="teamTwo.Players.length > 0 && loaded" >
-      <app-chart [teamStats]="teamTwo.Players"></app-chart>
-    </div>
+    <app-chart 
+      *ngIf="teamOne.Players.length > 0 && loaded" 
+      class="card-inner" 
+      [teamStats]="teamOne.Players">
+    </app-chart>
+    <app-chart 
+      *ngIf="teamTwo.Players.length > 0 && loaded" 
+      class="card-inner" 
+      [teamStats]="teamTwo.Players">
+    </app-chart>
   </div>
 </div>

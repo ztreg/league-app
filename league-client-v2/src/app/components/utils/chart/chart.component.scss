@@ -2,7 +2,7 @@
   // width: 600px;
   flex: 2;
   // max-width: 650px;
-  margin: 35px auto;
+  margin: 5px auto;
 }
 
 .mat-tab-group {
@@ -18,4 +18,21 @@
 }
 .apexcharts-toolbar {
   display: none !important;
+}
+
+@media screen and (max-width: 620px) {
+  #chart, .mat-tab-group, .mat-tab-label-container{
+    // flex: 2;
+    // transform: scale(0.8);
+    width: 400px;
+    padding: 0;
+    margin: 0 auto !important;
+    margin: 0;
+  }
+
+  .mat-tab-list, .mat-tab-label {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
 }

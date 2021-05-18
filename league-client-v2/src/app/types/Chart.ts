@@ -25,3 +25,8 @@ export type ChartOptions = {
 export type colors = {
   colors: string[]
 }
+
+export type teamChartObject = {
+  data: number[]
+  names: string[]
+}
