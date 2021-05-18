@@ -36,8 +36,6 @@ export class MatchFullDetailsComponent implements OnInit {
   currentUserAccountId!: string
   matchOverview: any
 
-  graph = false
-
   constructor(
     private req: RequestService,
     private generalUtils: GeneralUtilsService,
@@ -117,7 +115,4 @@ export class MatchFullDetailsComponent implements OnInit {
     this.expand = !this.expand
   }
 
-  changeStats(): void {
-    this.graph = !this.graph
-  }
 }

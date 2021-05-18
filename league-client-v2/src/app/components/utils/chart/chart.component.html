@@ -1,4 +1,4 @@
-<div id="chart" 
+<div  id="chart"
 *ngIf="chartOptions 
   && chartOptions.xaxis
   && chartOptions.plotOptions
@@ -8,9 +8,11 @@
   && chartOptions.fill
   && chartOptions.tooltip
   ">
-  <mat-tab-group mat-align-tabs="start" class="yes" animationDuration="2ms" (selectedTabChange)="changeGraphStat($event)">
+  <mat-tab-group mat-align-tabs="start" class="yes" animationDuration="2ms" 
+  (selectedTabChange)="changeGraphStat($event)" 
+  [ngClass]="{'blueSideBG': gameMetaData.teamId === 100, 'redSideBG': gameMetaData.teamId === 200}">
     <mat-tab [label]="stat.displayName" *ngFor="let stat of avaialbleStats" >  
-      <apx-chart
+      <apx-chart 
       [tooltip]="chartOptions.tooltip"
       [fill]="chartOptions.fill"
       [series]="chartOptions.series"

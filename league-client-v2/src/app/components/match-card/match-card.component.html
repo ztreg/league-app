@@ -12,20 +12,16 @@
       </div>
     </div>
   <mat-card-content *ngFor="let player of teamInfo.Players"  
-  [ngClass]="{'currentUserHightlight': player.accountId === currentUser, 
-  'fullPlayerDataBlue':gameMetaData.teamId === 100, 
-  'fullPlayerDataRed':gameMetaData.teamId === 200
-  }">
+    [ngClass]="{'currentUserHightlight': player.accountId === currentUser, 
+    'fullPlayerDataBlue':gameMetaData.teamId === 100, 
+    'fullPlayerDataRed':gameMetaData.teamId === 200
+    }">
     <div class="row" *ngIf="(champions$ | async) as champions">
       <img *ngIf="champions[player.timeline.championID].image.full" class="row-item" [src]="championURL+champions[player.timeline.championID].image.full" alt="" class="avatar">
       <button class="row-item redirect" mat-button color="primary"(click)="redirect(player.accountId)"> {{ player.name }} </button>
-
       <div class="row-item">
         {{player.stats.kills}} | {{player.stats.deaths}} | {{player.stats.assists}}
       </div>
-  
-  
-      
     </div>
     <div class="row">
       <div class="row-item">
@@ -37,7 +33,6 @@
           <img class="avatar-item" *ngIf="item && item.itemURL" src="{{item.itemURL}}" alt="" srcset="">
         </div>
       </div>
-   
     </div>
   </mat-card-content>
 </mat-card>

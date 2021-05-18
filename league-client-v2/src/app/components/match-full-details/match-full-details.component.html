@@ -1,6 +1,5 @@
 <div class="whole">
-  <button class="middle-button" mat-button (click)="changeStats()">{{!graph ? 'Show graph' : 'Show stats'}}</button>
-  <div class="card-container" *ngIf="!graph">
+  <div class="card-container">
     <app-match-card 
       *ngIf="teamOne.Players.length > 0 && loaded  && gameMetaData"  
       class="card-inner" [matchOverview]="matchOverview" 
@@ -16,15 +15,18 @@
     </app-match-card>
   </div>
 
-  <div class="card-container" *ngIf="graph">
+  <div #target class="card-container" *ngIf="gameMetaData">
     <app-chart 
       *ngIf="teamOne.Players.length > 0 && loaded" 
       class="card-inner" 
-      [teamStats]="teamOne.Players">
+      [gameMetaData]="gameMetaData?.blueside"
+      [teamStats]="teamOne.Players" >
     </app-chart>
+
     <app-chart 
       *ngIf="teamTwo.Players.length > 0 && loaded" 
       class="card-inner" 
+      [gameMetaData]="gameMetaData?.redside"
       [teamStats]="teamTwo.Players">
     </app-chart>
   </div>

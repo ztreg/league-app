@@ -8,6 +8,7 @@ import { ChartOptions, teamChartObject } from 'src/app/types/Chart'
 })
 export class ChartComponent implements OnInit {
   @Input() teamStats: any
+  @Input() gameMetaData: any
   @ViewChild('chart') chart: ChartComponent | undefined
   public chartOptions: Partial<ChartOptions> | undefined
   constructor() {}
@@ -47,8 +48,7 @@ export class ChartComponent implements OnInit {
       teamObject.names[i] = player.name
       teamObject.data[i] = player.stats[this.chosenStats]
     }
-    console.log(this.teamStats)
-
+    const mainColor = this.gameMetaData.teamId === 200 ? 'rgba(233, 52, 52, 0.582)' : 'rgba(84, 84, 236, 0.685)'
 
     this.chartOptions = {
       tooltip: {
@@ -58,7 +58,7 @@ export class ChartComponent implements OnInit {
         text: this.chosenStats
       },
       fill: {
-        colors: ['#e60000']
+        colors: [mainColor]
       },
       series: [
         {
