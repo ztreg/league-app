@@ -1,18 +1,18 @@
 <mat-card class="example-card" *ngIf="teamInfo && teamInfo.Players && gameMetaData" [ngClass]="{'blueSideBG': gameMetaData.teamId === 100, 'redSideBG': gameMetaData.teamId === 200}">
     <div *ngIf="gameMetaData.teamId === 100" class="statsHeader">
-      <h4> Blue side </h4>
+      <h4> Blue side {{matchOverview.teams[0].win === 'Win' ? 'Victory' : 'Defeat'}}</h4>
       <div *ngFor="let ban of bannedChampions1" class="bans">
         <img src="{{ban.imageURL}}" class="img" alt="">
       </div>
     </div>
     <div *ngIf="gameMetaData.teamId === 200" class="statsHeader">
-      <h4> Red side </h4>
+      <h4> Red side {{matchOverview.teams[1].win === 'Win' ? 'Victory' : 'Defeat'}}</h4>
       <div *ngFor="let ban of bannedChampions2" class="bans">
       <img src="{{ban.imageURL}}" class="img" alt="">
       </div>
     </div>
   <mat-card-content *ngFor="let player of teamInfo.Players"  
-    [ngClass]="{'currentUserHightlight': player.accountId === currentUser, 
+    [ngClass]="{'currentUserHightlight': player.accountId === currentUser,
     'fullPlayerDataBlue':gameMetaData.teamId === 100, 
     'fullPlayerDataRed':gameMetaData.teamId === 200
     }">
@@ -20,7 +20,7 @@
       <img *ngIf="champions[player.timeline.championID].image.full" class="row-item" [src]="championURL+champions[player.timeline.championID].image.full" alt="" class="avatar">
       <button class="row-item redirect" mat-button color="primary"(click)="redirect(player.accountId)"> {{ player.name }} </button>
       <div class="row-item">
-        {{player.stats.kills}} | {{player.stats.deaths}} | {{player.stats.assists}}
+        {{player.stats.kills}} / {{player.stats.deaths}} / {{player.stats.assists}}
       </div>
     </div>
     <div class="row">

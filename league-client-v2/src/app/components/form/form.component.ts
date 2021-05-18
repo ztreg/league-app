@@ -32,6 +32,8 @@ export class FormComponent implements OnInit {
       this.errorMsg = 'Please enter a name...'
     } else {
       const signUpRes = await this.utils.signUp(this.user)
+      console.log(signUpRes)
+
       if (signUpRes.error || signUpRes.status) {
         this.statusMsg = signUpRes.status.message || signUpRes.error.status.message
       } else {

@@ -19,21 +19,18 @@ export class HeroComponent implements OnInit {
 
   currentUser$ = this.store.currentUser$.pipe(
     map(data => {
+      let currentCheck = false
       const {imageURL } = data.favChamp
       data.favChampUrl = `url(${imageURL})`
       const {following} = data.userDetails
-      let i = 0
       for (const follow of following) {
-        i++
         if (follow === this.userData.accountId) {
           this.isFollowed = true
-          continue
-        }
-        if (i === following.length) {
-          this.isFollowed = false
+          currentCheck = true
+          console.log('following dis' )
         }
       }
-
+      if (!currentCheck) {this.isFollowed = false}
       return data
     })
   )

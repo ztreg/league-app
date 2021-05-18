@@ -32,7 +32,7 @@ export class MatchFullDetailsComponent implements OnInit {
 
   teamOne: any = []
   teamTwo: any = []
-  gameMetaData: GameMetaData | undefined
+  gameMetaData: GameMetaData | any = {}
   currentUserAccountId!: string
   matchOverview: any
 
@@ -58,8 +58,11 @@ export class MatchFullDetailsComponent implements OnInit {
       this.gameData = this.match
 
     }
+
     const {teams, gameDuration, gameVersion} = this.gameData
     this.matchOverview = { teams, gameDuration, gameVersion }
+    console.log(this.matchOverview)
+
     this.getTeamData()
 
   }
@@ -68,9 +71,23 @@ export class MatchFullDetailsComponent implements OnInit {
    * Gets the needed data for a specific match, includes the items, summoners, players, stats
    */
   getTeamData(): void {
+    const fulltime = (this.matchOverview.gameDuration / 60).toFixed(2)
+    const min = fulltime.split('.')[0]
+    const sec = fulltime.split('.')[1]
+    const newSec = (Number(sec) * 0.6)
+    this.matchOverview.gameDuration = min + '.' + Math.round(newSec)
+    this.addTeamMembers()
+    this.gameMetaData = {
+      blueside: this.gameData.teams[0],
+      redside: this.gameData.teams[1]
+    }
+    this.loaded = true
+
+  }
+
+  addTeamMembers(): void {
     const teamOnePlayers: any = []
     const teamTwoPlayers: any = []
-
     for (let i = 0; i < this.gameData.participantIdentities.length; i++) {
       const participantIdentity = this.gameData.participantIdentities[i]
       const participantINFO = this.gameData.participants[i]
@@ -104,12 +121,6 @@ export class MatchFullDetailsComponent implements OnInit {
     if (teamTwoPlayers.length === 5) {
       this.teamTwo.Players = teamTwoPlayers
     }
-    this.gameMetaData = {
-      blueside: this.gameData.teams[0],
-      redside: this.gameData.teams[1]
-    }
-    this.loaded = true
-
   }
   expandItem(): void {
     this.expand = !this.expand

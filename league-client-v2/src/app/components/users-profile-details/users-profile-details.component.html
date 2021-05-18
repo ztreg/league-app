@@ -16,11 +16,10 @@
         <div> Losses: {{info.losses}} </div>
       </div>
     </div>
-    <div *ngIf="userData.rankedInfo.length === 0" class="ranked-user">
-      <div>Not enough ranked games played</div>
-    </div>
   </div>
-
+  <div *ngIf="userData.rankedInfo.length === 0" class="col1 ranked-user">
+    <div>Not enough ranked games played</div>
+  </div>
   <div *ngIf="!isInStore">
     <div class="user-games-data col2" *ngIf="isMe && (myMatches$ | async) as matches">
       <div *ngFor="let match of matches; index as i">

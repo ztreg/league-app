@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import fetch from 'node-fetch';
+import { getMatchesByUserIdController, getSummonerInfoByNameController } from '../controllers/ritocontroller';
 
 const ritoRouter = Router();
 
@@ -11,38 +12,9 @@ const userByIdUrl = '/lol/summoner/v4/summoners/by-account'
 const matchlistByAccount = 'lol/match/v4/matchlists/by-account'
 const apiQuery = process.env.queryToken
 
-ritoRouter.get('/matches/user/:accountId', async (req, res) => {
-    let emptyParams: any = {}
-    if(req && req.query) {
-      const test = req.query
-      emptyParams = new URLSearchParams(test as any)
-    }
-    const accountId = req.params.accountId
-    
-   const fullString = `${mainURL}/${matchlistByAccount}/${accountId}?${emptyParams.toString()}&api_key=${apiQuery}`
-    await fetch(`${fullString}`)
-    .then((response: any) => response.json())
-      .then(userData =>  {
-        res.status(200).json(userData)
-      }).catch((error: Error) => {
-        console.error('MATCHES: ', error)
-        res.status(500).json(error)
-    })
-})
+ritoRouter.get('/matches/user/:accountId', getMatchesByUserIdController)
 
-ritoRouter.get('/summoner/:accountName', async (req, res) => {
-  const accountName = req.params.accountName
-  const fullString = `${mainURL}/${userNameURL}/${accountName}?api_key=${apiQuery}`
-
-  await fetch(`${fullString}`)
-  .then((response: any) => response.json())
-    .then(userData =>  {
-      res.status(200).json(userData)
-    }).catch((error: Error) => {
-      console.error('USER BY NAME: ', error)
-      res.status(500).json(error)
-  })
-})
+ritoRouter.get('/summoner/:accountName', getSummonerInfoByNameController)
 
 ritoRouter.get('/summonerById/:accountId', async (req, res) => {
   const accountId = req.params.accountId

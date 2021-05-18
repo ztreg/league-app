@@ -14,6 +14,7 @@ export class MatchCardComponent implements OnInit {
   @Input() teamInfo: any
   @Input() gameMetaData: GameMetaData | undefined
   @Input() matchOverview: any
+
   sortedTeam: any = {}
   sorted = false
   currentUser = ''
@@ -34,7 +35,6 @@ export class MatchCardComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.teamInfo) {
-      this.matchOverview.gameDuration = (this.matchOverview.gameDuration / 60).toFixed(2)
       this.loopTeamBans()
       this.store.currentUser$.pipe(take(1)).subscribe(res => {
         this.currentUser = res.accountId

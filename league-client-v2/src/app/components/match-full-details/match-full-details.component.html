@@ -1,17 +1,17 @@
 <div class="whole">
-  <div class="card-container">
+  <div class="middle-button">{{matchOverview.gameDuration}} min</div>
+  <div class="card-container" *ngIf="gameMetaData">
     <app-match-card 
-      *ngIf="teamOne.Players.length > 0 && loaded  && gameMetaData"  
+      *ngIf="teamOne.Players.length > 0 && loaded"  
       class="card-inner" [matchOverview]="matchOverview" 
       [teamInfo]="teamOne" 
-      [gameMetaData]="gameMetaData?.blueside">
+      [gameMetaData]="gameMetaData.blueside">
     </app-match-card>
-    
     <app-match-card 
-      *ngIf="teamTwo.Players.length > 0 && loaded && gameMetaData"  
+      *ngIf="teamTwo.Players.length > 0 && loaded"  
       class="card-inner" [matchOverview]="matchOverview" 
       [teamInfo]="teamTwo" 
-      [gameMetaData]="gameMetaData?.redside">
+      [gameMetaData]="gameMetaData.redside">
     </app-match-card>
   </div>
 
@@ -19,14 +19,14 @@
     <app-chart 
       *ngIf="teamOne.Players.length > 0 && loaded" 
       class="card-inner" 
-      [gameMetaData]="gameMetaData?.blueside"
+      [gameMetaData]="gameMetaData.blueside"
       [teamStats]="teamOne.Players" >
     </app-chart>
 
     <app-chart 
       *ngIf="teamTwo.Players.length > 0 && loaded" 
       class="card-inner" 
-      [gameMetaData]="gameMetaData?.redside"
+      [gameMetaData]="gameMetaData.redside"
       [teamStats]="teamTwo.Players">
     </app-chart>
   </div>

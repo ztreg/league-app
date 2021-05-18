@@ -5,7 +5,6 @@
   flex-wrap: wrap;
   justify-content: space-around;
 
-
   .col1 {
     display: flex;
     flex-wrap: wrap;
@@ -15,7 +14,7 @@
     margin-top: 30px;
     padding: 20px;
     -webkit-box-shadow: 0 0 60px var(--highContrastRed);
-        box-shadow: 0 0 60px var(--highContrastRed);
+    box-shadow: 0 0 60px var(--highContrastRed);
 
     .col1-ranks {
       flex: 2;

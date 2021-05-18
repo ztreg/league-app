@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { addUserModel, getSingleUserModel, getUsersModel, updateFollowingListModel, updateUserFollowModel }  from '../models/usermodel';
 import { User } from '../types/users.types';
+import { validateAddUsersSchema, validateUserId } from '../utils/dataValidation';
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
@@ -22,6 +23,7 @@ export const addUser = async (req: Request, res: Response) => {
     }
   }
   try {
+    await validateAddUsersSchema().validateAsync(req.body)
     const addedUser = await addUserModel(req.body)
     res.status(201).json(addedUser)
     
@@ -34,15 +36,22 @@ export const addUser = async (req: Request, res: Response) => {
 export const updateUserFollow = async (req: Request, res: Response) => {
   const { id } = req.params
   const { accountId } = req.body
-  const currentFollowing: User | any = await getSingleUserModel({_id: id})
-  const testfoll = currentFollowing.following
+  let currentlyFollowingArray = []
 
-  for (let i = 0; i < testfoll.length; i++) {
-    const element = testfoll[i];
+  try {
+    await validateUserId().validateAsync(accountId)
+    const currentUserData: User | any = await getSingleUserModel({_id: id})
+    currentlyFollowingArray = currentUserData.following
+  } catch (error) {
+    return res.status(401).json(error)
+  }
+
+  for (let i = 0; i < currentlyFollowingArray.length; i++) {
+    const element = currentlyFollowingArray[i];
     if(element === accountId) {
-      testfoll.splice(i, 1);
+      currentlyFollowingArray.splice(i, 1);
       const newObject = {
-        id, following: testfoll
+        id, following: currentlyFollowingArray
       }
       const updatedFollowingList = await updateFollowingListModel(newObject)
       return res.status(200).json(updatedFollowingList)
@@ -52,8 +61,7 @@ export const updateUserFollow = async (req: Request, res: Response) => {
     try {
       const updatedUser = await updateUserFollowModel({id, accountId})
       res.status(200).json(updatedUser)
-    } catch (error) {
-      console.log(error);  
+    } catch (error) {  
       res.status(401).json(error)
     }
 
