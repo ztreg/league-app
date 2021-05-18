@@ -28,7 +28,7 @@ export class MatchListItemComponent implements OnInit {
   currentUserAccountId!: string
   loaded = false
   myPartId = 0
-
+  showErrorComp = false
   player: Player | undefined
 
   champions$ = this.store.allChampions$.pipe(
@@ -37,7 +37,6 @@ export class MatchListItemComponent implements OnInit {
       return Object.fromEntries(changedChampions)
     })
   )
-
 
   constructor(
     private req: RequestService,
@@ -54,42 +53,45 @@ export class MatchListItemComponent implements OnInit {
     try {
       const res = await this.req.getMatchDetails(this.match.gameId)
       this.gameData = res
-      const userId = this.router.snapshot.paramMap.get('id')
-
-
-      if (!userId) {
-        this.store.currentUser$.subscribe(res2 => {
-          this.currentUserAccountId = res2.accountId
-        })
-        const oldList: any = this.store.getCurrentUserLatestMatches()
-        if (oldList.length < 5) {
-          let newList = []
-          this.gameData.timestamp = this.match.timestamp
-          newList = oldList
-          newList.push(this.gameData)
-          this.store.updateCurrentUserLatestMatches(newList)
+      if (!this.gameData.participantIdentities) {this.showErrorComp = true}
+      else {
+        const userId = this.router.snapshot.paramMap.get('id')
+        if (!userId) {
+          this.store.currentUser$.subscribe(res2 => {
+            this.currentUserAccountId = res2.accountId
+          })
+          const oldList: any = this.store.getCurrentUserLatestMatches()
+          if (oldList.length < 5) {
+            let newList = []
+            this.gameData.timestamp = this.match.timestamp
+            newList = oldList
+            newList.push(this.gameData)
+            this.store.updateCurrentUserLatestMatches(newList)
+            for (const participant of this.gameData.participantIdentities) {
+              if (participant.player.accountId ===  this.currentUserAccountId) {
+                this.myPartId = participant.participantId
+              }
+            }
+          }
+        } else {
+          this.currentUserAccountId = userId
           for (const participant of this.gameData.participantIdentities) {
-            if (participant.player.accountId ===  this.currentUserAccountId) {
+            if (participant.player.accountId === userId) {
               this.myPartId = participant.participantId
             }
           }
         }
-      } else {
-        this.currentUserAccountId = userId
-        for (const participant of this.gameData.participantIdentities) {
-          if (participant.player.accountId === userId) {
-            this.myPartId = participant.participantId
-          }
-        }
       }
+
     } catch (error) {
+      this.showErrorComp = true
       console.log(error)
     }
-    for (const participant of this.gameData.participantIdentities) {
-      if (participant.player.accountId ===  this.currentUserAccountId) {
-        this.myPartId = participant.participantId
-      }
-    }
+    // for (const participant of this.gameData.participantIdentities) {
+    //   if (participant.player.accountId ===  this.currentUserAccountId) {
+    //     this.myPartId = participant.participantId
+    //   }
+    // }
 
 
     this.getMatchData()

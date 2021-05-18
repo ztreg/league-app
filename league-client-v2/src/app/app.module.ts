@@ -35,7 +35,8 @@ import { NgApexchartsModule } from 'ng-apexcharts'
 import { ChartComponent } from './components/utils/chart/chart.component'
 import { MatchListNonmetaItemComponent } from './components/match-list-nonmeta-item/match-list-nonmeta-item.component'
 import { SearchBarComponent } from './components/Layout/search-bar/search-bar.component';
-import { GenericHeroComponent } from './components/Layout/generic-hero/generic-hero.component'
+import { GenericHeroComponent } from './components/Layout/generic-hero/generic-hero.component';
+import { TooManyComponent } from './components/error/too-many/too-many.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,8 @@ import { GenericHeroComponent } from './components/Layout/generic-hero/generic-h
     ChartComponent,
     MatchListNonmetaItemComponent,
     SearchBarComponent,
-    GenericHeroComponent
+    GenericHeroComponent,
+    TooManyComponent
   ],
   imports: [
     BrowserModule,

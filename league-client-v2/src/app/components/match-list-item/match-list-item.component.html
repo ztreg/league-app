@@ -1,6 +1,5 @@
 
-<div class="match-table" *ngIf="player && player.stats">
-  
+<div class="match-table" *ngIf="player && player.stats && !showErrorComp">
   <div *ngIf="player.items.length > 0 && (champions$ | async) as champions" > 
     <table [ngClass]="{'victory': player.win, 'defeat': !player.win}">
       <tr *ngIf="loaded && player.stats">
@@ -20,3 +19,5 @@
     </table>
   </div>
 </div>
+
+<app-too-many *ngIf="showErrorComp"></app-too-many>

@@ -14,12 +14,7 @@ export const getUsersModel = async () => {
 
 
 export const getSingleUserModel = async(filter: any) => {
-  console.log(filter);
-  
-  const res = await dbFile.User.findOne(filter)
-  console.log(res);
-  return res
-  
+  return await dbFile.User.findOne(filter)
 }
 
 export const addUserModel = async (user: any) => {

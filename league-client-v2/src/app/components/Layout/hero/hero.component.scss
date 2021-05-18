@@ -26,7 +26,7 @@
       text-align: center;
       position: absolute;
       top: 50%;
-      left: 20%;
+      left: 25%;
       transform: translate(-50%, -50%);
       font-size: 1.2em;
     
@@ -80,6 +80,13 @@
   @media screen and (max-width: 400px) {
     .hero-wrapper {
       height: 150px; 
+      .icon-lvl {
+        height: 100px !important;
+        img {
+          height: 80px !important;
+          width: 80px !important;
+        }
+      }
     }
   
   }

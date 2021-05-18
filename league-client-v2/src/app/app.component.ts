@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { RequestUtilities } from './services/requestUtils'
 import { StoreService } from './services/store.service'
+import { MatchesMetaData } from './types/Match'
 
 @Component({
   selector: 'app-root',
@@ -9,24 +10,22 @@ import { StoreService } from './services/store.service'
 })
 export class AppComponent implements OnInit{
   constructor(private utils: RequestUtilities, private store: StoreService) {}
-  currentUserAccountId!: string
-  testID = '22UXnMIItBvFoYv_SJ-O_QnV6GBGPlFu5q-Lu4ZcW9lD1uNqs69xW4Q_'
-
+  showErrorComp = false
   async ngOnInit(): Promise<void> {
     // Meta-data about the game
-    console.log('initial stuff')
     this.utils.getAllItemsData()
     this.utils.getAllChampions()
     this.utils.getAllSummoners()
     const storageData: any = sessionStorage.getItem('user')
     const data = JSON.parse(storageData)
-
     if (data) {
       this.store.updateCurrentUser(data)
-      await this.utils.getMyUserMatches(data.accountId, 0, 5, false)
-      this.utils.fillFollowerDataToStore()
+      const test: MatchesMetaData = await this.utils.getMyUserMatches(data.accountId, 0, 5, false)
+      if (test.status && test.status.status_code === 429) {
+        this.showErrorComp = true
+      } else {
+        this.utils.fillFollowerDataToStore()
+      }
     }
-
   }
-
 }

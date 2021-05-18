@@ -1,7 +1,7 @@
 <app-hero *ngIf="favChamp && userData.summonerInfo" [favChamp]="favChamp" [userData]="userData.summonerInfo"></app-hero>
-
+<app-too-many *ngIf="!favChamp && !userData.summonerInfo && !userData.rankedInfo"></app-too-many>
 <div class="user-profile" *ngIf="userData && userData.rankedInfo">
-  <div class="col1"*ngIf="userData && userData.rankedInfo && ranksAsEmblem">
+  <div class="col1"*ngIf="userData && userData.rankedInfo.length > 0 && ranksAsEmblem">
     <div *ngFor="let info of userData.rankedInfo; index as i" class="col1-ranks">
       <div class="ranked-user">
         <div class="ranksIcon" *ngIf="info.queueType === 'RANKED_SOLO_5x5'"> Solo/Duo 

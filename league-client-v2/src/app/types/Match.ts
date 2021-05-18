@@ -15,6 +15,7 @@ export interface GameMetaData {
 }
 
 export interface MatchesMetaData {
+  status?: any
   endIndex: number
   matches: MatchShort[]
   startIndex: number

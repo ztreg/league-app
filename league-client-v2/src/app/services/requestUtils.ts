@@ -29,6 +29,7 @@ export class RequestUtilities {
    * @param end endindex if matches
    */
   async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 5, isPagination: boolean | false): Promise<any> {
+    let returnObject: any = {}
     this.storeService.myMatches$.pipe(take(1)).subscribe(metaDatamyMatches => {
       if (metaDatamyMatches) {
         this.hasMetaData = true
@@ -38,7 +39,11 @@ export class RequestUtilities {
       let placeHolderFavoriteChampion: any = {}
       try {
         const res: MatchesMetaData = await this.req.getAllMatches(currentUserAccountId, start, end)
+        if (res.status && res.status.status_code === 429) {
+          return returnObject = res
+        }
         const { matches } = res
+        console.log('looping.....')
 
         for (const match of matches) {
           match.timestamp = this.generalUtils.timeDifference(match.timestamp)
@@ -54,11 +59,14 @@ export class RequestUtilities {
           this.storeService.updateMyMatches(matches)
           this.getMyFavChamp(placeHolderFavoriteChampion)
         }
+        returnObject = res
 
       } catch (error) {
         console.log(error)
+        returnObject = error
       }
     }
+    return returnObject
   }
 
   async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
