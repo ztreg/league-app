@@ -158,7 +158,6 @@ export class GeneralUtilsService {
     const mostOccurringElement = (array: { [key: string]: number }[]) => {
       let max = array[0].champion
       const counter: { [key: string]: number } = {}
-
       for (const item of array) {
         if (!counter[item.champion]) { counter[item.champion] = 0 }
         counter[item.champion]++
@@ -179,8 +178,8 @@ export class GeneralUtilsService {
       const championsArray: any = Object.entries(champions)
       for (const [key, item] of championsArray) {
         if (championId.toString() === item.key) {
-          const lastString = '_1.jpg'
-          championPlayed.imageURL = `${URL}${item.id}${lastString}`
+          const jpgString = '_1.jpg'
+          championPlayed.imageURL = `${URL}${item.id}${jpgString}`
         }
       }
     })
