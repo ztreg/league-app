@@ -25,7 +25,9 @@ export class UserComponent implements OnInit {
 
   async getUserDataById(accountId: string): Promise<void> {
     if (accountId) {
-      this.userData = await this.utils.getUserDataByID(accountId)
+      const res = await this.utils.getUserDataByID(accountId)
+      console.log(res)
+      this.userData = res
     }
   }
 }

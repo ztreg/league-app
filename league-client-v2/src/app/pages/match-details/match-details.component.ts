@@ -21,7 +21,7 @@ export class MatchDetailsComponent implements OnInit {
   matchID: string | null | undefined
   match: any
   matchOverview: any
-
+  errorMsg = false
   ngOnInit(): void {
     this.getPathParams()
     this.getMatchDetails()
@@ -31,11 +31,14 @@ export class MatchDetailsComponent implements OnInit {
     this.matchID = this.route.snapshot.paramMap.get('id')
   }
 
-  getMatchDetails(): void {
-    this.req.getMatchDetails(this.matchID || '').then(res => {
-      this.match = res
-      const {teams, gameDuration, gameVersion} = this.match
-      this.matchOverview = { teams, gameDuration, gameVersion }
-    })
+  async getMatchDetails(): Promise<void> {
+    try {
+     const res: any = await this.req.getMatchDetails(this.matchID || '')
+     this.match = res
+     const {teams, gameDuration, gameVersion} = this.match
+     this.matchOverview = { teams, gameDuration, gameVersion }
+    } catch (error) {
+      this.errorMsg = true
+    }
   }
 }

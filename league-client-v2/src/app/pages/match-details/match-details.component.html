@@ -1,3 +1,7 @@
-<div *ngIf="match" class="match-details-page">
+<div *ngIf="match && !errorMsg" class="match-details-page">
   <app-match-full-details [match]="match"></app-match-full-details>
+</div>
+
+<div *ngIf="errorMsg" class="match-details-page">
+  MatchID not found
 </div>

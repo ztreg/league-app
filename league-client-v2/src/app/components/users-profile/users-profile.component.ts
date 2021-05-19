@@ -12,13 +12,21 @@ export class UsersProfileComponent implements OnInit {
 
   constructor(private router: ActivatedRoute, private utils: RequestUtilities) { }
   userData: any
+  errorMsg = ''
   ngOnInit(): void {
     this.getUserDataById()
   }
   async getUserDataById(): Promise<void> {
     const accountId = this.router.snapshot.paramMap.get('id')
     if (accountId) {
-      this.userData = await this.utils.getUserDataByID(accountId)
+      const res = await this.utils.getUserDataByID(accountId)
+      console.log(res)
+
+      if (!res || (res && res.error) ) {
+        this.errorMsg = 'Invalid userId'
+      } else {
+        this.userData = res
+      }
     }
   }
 }

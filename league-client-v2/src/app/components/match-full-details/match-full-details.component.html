@@ -1,4 +1,4 @@
-<div class="whole">
+<div class="whole" *ngIf="!matchError">
   <div class="middle-button">{{matchOverview.gameDuration}} min</div>
   <div class="card-container" *ngIf="gameMetaData">
     <app-match-card 
@@ -30,4 +30,8 @@
       [teamStats]="teamTwo.Players">
     </app-chart>
   </div>
+</div>
+
+<div *ngIf="matchError">
+  MatchID does not exist
 </div>

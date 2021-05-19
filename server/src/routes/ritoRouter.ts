@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {Request, Response, NextFunction} from 'express'
+
 import { 
   getMatchesByUserIdController, 
   getSummonerRankedInfoByIdController, 
@@ -7,20 +7,19 @@ import {
   getSummonerInfoByNameController, 
   getMatchInfoByMatchIdController 
 } from '../controllers/ritocontroller';
+
 import {authMiddleware} from '../utils/auhorization'
 const ritoRouter = Router();
 
+ritoRouter.get('/matches/user/:accountId', authMiddleware, getMatchesByUserIdController)
 
-ritoRouter.get('/matches/user/:accountId', getMatchesByUserIdController)
-
-// No token required here. Is needed for signup and login.
 ritoRouter.get('/summoner/:accountName', getSummonerInfoByNameController)
 
 ritoRouter.get('/summonerById/:accountId', getSummonerInfoByIdController)
 
-ritoRouter.get('/summonerRanked/:summonerId', getSummonerRankedInfoByIdController)
+ritoRouter.get('/summonerRanked/:summonerId', authMiddleware, getSummonerRankedInfoByIdController)
 
-ritoRouter.get('/matches/:matchId', getMatchInfoByMatchIdController)
+ritoRouter.get('/matches/:matchId', authMiddleware, getMatchInfoByMatchIdController)
 
 export default ritoRouter;
   

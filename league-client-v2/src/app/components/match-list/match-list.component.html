@@ -4,8 +4,11 @@
     <app-match-list-item [match]="match"></app-match-list-item>
   </div>
   <div *ngIf="allMatches.length >= 5 || nonMetaMatches && nonMetaMatches.length >= 5">
+    <div *ngIf="page !== 1" class="pag-items" (click)="getPagMatches(false)">
+      Go back... <mat-icon >arrow_upward</mat-icon>
+     </div>
     <div class="pag-items" (click)="getPagMatches(true)">
-      Show more... <mat-icon >arrow_downward</mat-icon>
+      Show more... <mat-icon  (click)="getPagMatches(true)" >arrow_downward</mat-icon>
     </div>
   </div>
   <div *ngIf="(paginationMetaMatches$ | async) as pagMatches"  class="pag-games">
@@ -21,6 +24,9 @@
     <app-match-list-nonmeta-item [match]="match" ></app-match-list-nonmeta-item>
   </div>
   <div *ngIf="(allMatches && allMatches.length >= 5) || (nonMetaMatches && nonMetaMatches.length >= 5)">
+    <div *ngIf="page !== 1" class="pag-items" (click)="getPagMatches(false)">
+     Go back... <mat-icon >arrow_upward</mat-icon>
+    </div>
     <div class="pag-items" (click)="getPagMatches(true)">
       Show more... <mat-icon >arrow_downward</mat-icon>
     </div>

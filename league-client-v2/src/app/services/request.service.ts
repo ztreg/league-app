@@ -19,12 +19,12 @@ export class RequestService {
     const indexQuery = `?endIndex=${endIndex}&beginIndex=${startIndex}`
 
     return this.http.get<MatchesMetaData>(
-      `${environment.backendURL}/ritoURL/matches/user/${accountId}${indexQuery}`).toPromise()
+      `${environment.backendURL}/ritoURL/matches/user/${accountId}${indexQuery}`, setHttpOptions()).toPromise()
   }
 
   getMatchDetails(matchId: string): Promise<HttpResponse<any>> {
     return this.http.get<HttpResponse<any>>(`
-    ${environment.backendURL}/ritoURL/matches/${matchId}`).toPromise()
+    ${environment.backendURL}/ritoURL/matches/${matchId}`, setHttpOptions()).toPromise()
   }
 
   getItems(): Promise<HttpResponse<any>> {
@@ -56,7 +56,7 @@ export class RequestService {
   getUserRankedInfo(summonerId: string): Promise<HttpResponse<any>> {
 
     return this.http.get<HttpResponse<any>>(`
-    ${environment.backendURL}/ritoURL/summonerRanked/${summonerId}`).toPromise()
+    ${environment.backendURL}/ritoURL/summonerRanked/${summonerId}`, setHttpOptions()).toPromise()
   }
 
   signUp(userObject: any): Promise<any> {
@@ -71,7 +71,7 @@ export class RequestService {
 
   followUser(accountId: string, currentUserId: string): Promise<any> {
     return this.http.patch<HttpResponse<any>>(
-      `${environment.backendURL}/users/${currentUserId}`, {accountId}, setHttpOptions()).toPromise()
+      `${environment.backendURL}/users/${currentUserId}`, {accountId}).toPromise()
   }
 
 }

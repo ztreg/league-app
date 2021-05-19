@@ -35,7 +35,7 @@ export class MatchFullDetailsComponent implements OnInit {
   gameMetaData: GameMetaData | any = {}
   currentUserAccountId!: string
   matchOverview: any
-
+  matchError = false
   constructor(
     private req: RequestService,
     private generalUtils: GeneralUtilsService,
@@ -58,11 +58,14 @@ export class MatchFullDetailsComponent implements OnInit {
       this.gameData = this.match
 
     }
+    if (this.gameData && this.gameData.status) {
+      this.matchError = true
+    } else {
+      const {teams, gameDuration, gameVersion} = this.gameData
+      this.matchOverview = { teams, gameDuration, gameVersion }
 
-    const {teams, gameDuration, gameVersion} = this.gameData
-    this.matchOverview = { teams, gameDuration, gameVersion }
-
-    this.getTeamData()
+      this.getTeamData()
+    }
 
   }
 

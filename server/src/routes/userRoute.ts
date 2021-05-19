@@ -5,8 +5,7 @@ import {authMiddleware} from '../utils/auhorization'
 const usersRouter = Router();
 
 usersRouter.post('/', addUser)
-usersRouter.get('/', getUsers);
-usersRouter.patch('/:id', authMiddleware, updateUserFollow);
+usersRouter.patch('/:id', updateUserFollow);
 
 
 export default usersRouter;

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { Item } from '../types/Player'
 import { StoreService } from './store.service'
 import { take } from 'rxjs/operators'
-import { MatchShort } from '../types/Match'
 
 enum ranks {
   CHALLENGER = 1,
@@ -96,7 +95,6 @@ export class GeneralUtilsService {
     this.store.allItems$.pipe(take(1)).subscribe(allItems => {
       if (allItems) {
         for (const id of itemsArray) {
-
           if (id === 0) {
             continue
           }

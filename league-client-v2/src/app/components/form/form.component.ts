@@ -1,6 +1,6 @@
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface'
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, RouterOutlet } from '@angular/router'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 
 @Component({
@@ -17,7 +17,7 @@ export class FormComponent implements OnInit {
     password: ''
   }
 
-  constructor(private utils: RequestUtilities, private router: Router, private ref: ChangeDetectorRef) { }
+  constructor(private utils: RequestUtilities, private router: Router) { }
 
   ngOnInit(): void {
   }

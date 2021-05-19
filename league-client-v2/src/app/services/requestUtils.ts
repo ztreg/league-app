@@ -36,36 +36,39 @@ export class RequestUtilities {
       }
     })
     if (!this.hasMetaData || isPagination) {
-      let placeHolderFavoriteChampion: any = {}
-      try {
-        const res: MatchesMetaData = await this.req.getAllMatches(currentUserAccountId, start, end)
-        if (res.status && res.status.status_code === 429) {
-          return returnObject = res
-        }
-        const { matches } = res
-
-        for (const match of matches) {
-          match.timestamp = this.generalUtils.timeDifference(match.timestamp)
-        }
-        if (isPagination) {
-          let oldPagList: any
-          this.storeService.pagMetaDataMatches$.pipe(take(1)).subscribe(oldPagMetaData => {
-            oldPagList = oldPagMetaData
-          })
-          this.storeService.updatePagMetaDataMatches(matches)
-        } else {
-          placeHolderFavoriteChampion = this.generalUtils.getMostPlayedChampion(matches)
-          this.storeService.updateMyMatches(matches)
-          this.getMyFavChamp(placeHolderFavoriteChampion)
-        }
-        returnObject = res
-
-      } catch (error) {
-        console.log(error)
-        returnObject = error
-      }
+      returnObject = this.addMatchesToStores(currentUserAccountId, start, end, isPagination)
     }
     return returnObject
+  }
+
+  async addMatchesToStores(currentUserAccountId: string, start: number | 0, end: number | 5, isPagination: boolean | false): Promise<any> {
+    let placeHolderFavoriteChampion: any = {}
+    try {
+      const res: MatchesMetaData = await this.req.getAllMatches(currentUserAccountId, start, end)
+      if (res.status && res.status.status_code === 429) {
+        return res
+      }
+      const { matches } = res
+
+      for (const match of matches) {
+        match.timestamp = this.generalUtils.timeDifference(match.timestamp)
+      }
+      if (isPagination) {
+        let oldPagList: any
+        this.storeService.pagMetaDataMatches$.pipe(take(1)).subscribe(oldPagMetaData => {
+          oldPagList = oldPagMetaData
+        })
+        this.storeService.updatePagMetaDataMatches(matches)
+      } else {
+        placeHolderFavoriteChampion = this.generalUtils.getMostPlayedChampion(matches)
+        this.storeService.updateMyMatches(matches)
+        this.getMyFavChamp(placeHolderFavoriteChampion)
+      }
+      return res
+
+    } catch (error) {
+      return error
+    }
   }
 
   async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
@@ -174,7 +177,7 @@ export class RequestUtilities {
 
     } catch (error) {
       console.log(error)
-
+      return error
     }
   }
 

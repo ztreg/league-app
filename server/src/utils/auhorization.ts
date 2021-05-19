@@ -12,9 +12,9 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
     next()
   } catch(error){
     if(error instanceof jsonwebtoken.TokenExpiredError){
-        return res.status(403).json({msg: "You are not logged in"})
+       res.status(403).json({msg: "You are not logged in"})
     } else {
-        return res.status(403).json({error: error})
+      res.status(403).json({error: error})
     }
   }
 }
