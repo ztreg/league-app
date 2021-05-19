@@ -27,8 +27,6 @@ export const loginModel = async (loginObject: any) => {
   } catch (error) {
     console.log(error);
     return error
-    
   }
-
 }
 

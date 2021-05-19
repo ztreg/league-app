@@ -1,6 +1,6 @@
-import {Request, Response} from 'express'
-import { getMatchesByUserIdModel, getSummonerInfoByNameModel } from '../models/ritomodel'
-import { validateSummonerName } from '../utils/dataValidation'
+import {Request, Response, NextFunction} from 'express'
+import { getMatchesByUserIdModel, getMatchInfoByMatchIdModel, getSummonerRankedInfoByIdModel, getSummonerInfoByIdModel, getSummonerInfoByNameModel } from '../models/ritomodel'
+import { validateMatchId, validateSummonerName, validateUserId } from '../utils/dataValidation'
 export const getMatchesByUserIdController = async (req: Request, res: Response) => {
   let emptyParams: any = {}
   if(req && req.query) {
@@ -30,4 +30,35 @@ export const getSummonerInfoByNameController = async (req: Request, res: Respons
     }
 }
 
+export const getSummonerInfoByIdController = async (req: Request, res: Response) => {
+  const accountId = req.params.accountId
+  try {
+    await validateUserId().validateAsync(accountId)
+    const reponse = await getSummonerInfoByIdModel(accountId)
+    res.status(200).json(reponse)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
 
+export const getSummonerRankedInfoByIdController = async (req: Request, res: Response) => {
+  const summonerId = req.params.summonerId
+  try {
+    await validateUserId().validateAsync(summonerId)
+    const reponse = await getSummonerRankedInfoByIdModel(summonerId)
+    res.status(200).json(reponse)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+export const getMatchInfoByMatchIdController = async (req: Request, res: Response) => {
+  const matchId = req.params.matchId
+  try {
+    await validateMatchId().validateAsync(matchId)
+    const reponse = await getMatchInfoByMatchIdModel(matchId)
+    res.status(200).json(reponse)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}

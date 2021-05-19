@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpResponse } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { MatchesMetaData } from '../types/Match'
+import { setHttpOptions } from './requestOptions'
 
 @Injectable({
   providedIn: 'root'
@@ -16,62 +17,61 @@ export class RequestService {
 
   getAllMatches(accountId: string, startIndex: number, endIndex: number): Promise<MatchesMetaData> {
     const indexQuery = `?endIndex=${endIndex}&beginIndex=${startIndex}`
-    console.log('REQ: Matches')
 
     return this.http.get<MatchesMetaData>(
       `${environment.backendURL}/ritoURL/matches/user/${accountId}${indexQuery}`).toPromise()
   }
 
   getMatchDetails(matchId: string): Promise<HttpResponse<any>> {
-    console.log('REQ: MatchDetails')
-    return this.http.get<HttpResponse<any>>(`${environment.backendURL}/ritoURL/matches/${matchId}`).toPromise()
+    return this.http.get<HttpResponse<any>>(`
+    ${environment.backendURL}/ritoURL/matches/${matchId}`).toPromise()
   }
 
   getItems(): Promise<HttpResponse<any>> {
-    console.log('ITEMS')
     return this.http.get<HttpResponse<any>>(this.itemsURL).toPromise()
   }
 
   getItemImage(imageId: string): Promise<HttpResponse<any>> {
-    console.log('ITEM IMAGE')
     return this.http.get<HttpResponse<any>>(`${this.itemImageUrl}${imageId}`).toPromise()
   }
 
   getAllChampions(): Promise<HttpResponse<any>> {
-    console.log('CHAMPIONS')
     return this.http.get<HttpResponse<any>>(this.championsURL).toPromise()
   }
 
   getAllSummoners(): Promise<HttpResponse<any>> {
-    console.log('SUMMONERS')
     return this.http.get<HttpResponse<any>>(this.summonersURL).toPromise()
   }
 
   getUserInfoByName(summonerName: string): Promise<HttpResponse<any>> {
-    console.log('REQ: SUMS')
-    return this.http.get<HttpResponse<any>>(`${environment.backendURL}/ritoURL/summoner/${summonerName}`).toPromise()
+    return this.http.get<HttpResponse<any>>(`
+    ${environment.backendURL}/ritoURL/summoner/${summonerName}`).toPromise()
   }
 
   getUserInfoByID(accountId: string): Promise<HttpResponse<any>> {
-    console.log('REQ: USER INFO BY ID')
-    return this.http.get<HttpResponse<any>>(`${environment.backendURL}/ritoURL/summonerById/${accountId}`).toPromise()
+    return this.http.get<HttpResponse<any>>(`
+    ${environment.backendURL}/ritoURL/summonerById/${accountId}`).toPromise()
   }
 
   getUserRankedInfo(summonerId: string): Promise<HttpResponse<any>> {
+
     return this.http.get<HttpResponse<any>>(`
     ${environment.backendURL}/ritoURL/summonerRanked/${summonerId}`).toPromise()
   }
 
   signUp(userObject: any): Promise<any> {
-    return this.http.post<HttpResponse<any>>(`${environment.backendURL}/users`, userObject).toPromise()
+    return this.http.post<HttpResponse<any>>(`
+    ${environment.backendURL}/users`, userObject).toPromise()
   }
 
   login(userObject: any): Promise<any> {
-    return this.http.post<HttpResponse<any>>(`${environment.backendURL}/auth/login`, userObject).toPromise()
+    return this.http.post<HttpResponse<any>>(`
+    ${environment.backendURL}/auth/login`, userObject).toPromise()
   }
 
   followUser(accountId: string, currentUserId: string): Promise<any> {
-    return this.http.patch<HttpResponse<any>>(`${environment.backendURL}/users/${currentUserId}`, {accountId}).toPromise()
+    return this.http.patch<HttpResponse<any>>(
+      `${environment.backendURL}/users/${currentUserId}`, {accountId}, setHttpOptions()).toPromise()
   }
 
 }

@@ -22,15 +22,47 @@ export const getMatchesByUserIdModel = async (body: any) => {
 }
 
 export const getSummonerInfoByNameModel = async (accountName: string) => {
-  console.log('getting by name pog');
-  
   const fullString = `${mainURL}/${userNameURL}/${accountName}?api_key=${apiQuery}`
-  
   return await fetch(`${fullString}`)
     .then((response: any) => response.json())
-      .then(userData =>  {
-       return userData
-      }).catch((error: Error) => {
+    .then(userData =>  {
+     return userData
+    }).catch((error: Error) => {
       return error
     })
 }
+
+export const getSummonerInfoByIdModel = async (accountId: string) => {
+  const fullString = `${mainURL}/${userByIdUrl}/${accountId}?api_key=${apiQuery}`
+  return await fetch(`${fullString}`)
+  .then((response: any) => response.json())
+  .then(userData =>  {
+    return userData
+  }).catch((error: Error) => {
+    return error
+  })
+}
+
+export const getSummonerRankedInfoByIdModel = async (summonerId: string) => {
+  const fullString = `${mainURL}/${rankedURL}/${summonerId}?api_key=${apiQuery}`
+  return await fetch(`${fullString}`)
+  .then((response: any) => response.json())
+  .then(userData =>  {
+    return userData
+  }).catch((error: Error) => {
+    return error
+  })
+}
+
+export const getMatchInfoByMatchIdModel = async (matchId: string) => {
+  const fullString = `${mainURL}/${matchURL}/${matchId}?api_key=${apiQuery}`
+  return await fetch(`${fullString}`)
+  .then((response: any) => response.json())
+  .then(userData =>  {
+    return userData
+  }).catch((error: Error) => {
+    return error
+  })
+}
+
+

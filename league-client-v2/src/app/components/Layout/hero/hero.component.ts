@@ -27,7 +27,6 @@ export class HeroComponent implements OnInit {
         if (follow === this.userData.accountId) {
           this.isFollowed = true
           currentCheck = true
-          console.log('following dis' )
         }
       }
       if (!currentCheck) {this.isFollowed = false}

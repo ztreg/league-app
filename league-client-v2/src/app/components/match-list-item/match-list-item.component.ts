@@ -87,13 +87,6 @@ export class MatchListItemComponent implements OnInit {
       this.showErrorComp = true
       console.log(error)
     }
-    // for (const participant of this.gameData.participantIdentities) {
-    //   if (participant.player.accountId ===  this.currentUserAccountId) {
-    //     this.myPartId = participant.participantId
-    //   }
-    // }
-
-
     this.getMatchData()
 
 }

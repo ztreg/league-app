@@ -61,7 +61,6 @@ export class MatchFullDetailsComponent implements OnInit {
 
     const {teams, gameDuration, gameVersion} = this.gameData
     this.matchOverview = { teams, gameDuration, gameVersion }
-    console.log(this.matchOverview)
 
     this.getTeamData()
 

@@ -50,8 +50,6 @@ export class UsersProfileDetailsComponent implements OnInit {
   }
 
   getRankedEmblems(): void {
-    console.log(this.userData.rankedInfo)
-
     if (this.userData.rankedInfo.length > 0) {
       for (const infoRow of this.userData.rankedInfo) {
         if (infoRow.tier) {

@@ -15,3 +15,7 @@ export function validateUserId() {
 export function validateSummonerName() {
   return joi.string().min(1).max(20).required()
 }
+
+export function validateMatchId() {
+  return joi.string().min(8).max(12).required()
+}

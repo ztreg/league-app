@@ -43,7 +43,6 @@ export class RequestUtilities {
           return returnObject = res
         }
         const { matches } = res
-        console.log('looping.....')
 
         for (const match of matches) {
           match.timestamp = this.generalUtils.timeDifference(match.timestamp)
@@ -127,7 +126,6 @@ export class RequestUtilities {
     const {summonerName} = userObject
     try {
       const summonerInfo: any = await this.req.getUserInfoByName(summonerName)
-      console.log(summonerInfo)
 
       if (!summonerInfo.status) {
         const res = await this.req.signUp(userObject)
@@ -165,6 +163,7 @@ export class RequestUtilities {
       const summonerInfo: any = await this.req.getUserInfoByID(accountId)
       summonerInfo.profileIconId = `https://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/${summonerInfo.profileIconId}.png`
       const {id} = summonerInfo
+
       const rankedInfo = await this.req.getUserRankedInfo(id)
       const data = {
         summonerInfo,
