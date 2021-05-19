@@ -5,7 +5,6 @@ import { AuthGuardLoggedinService } from './auth/auth-loggedin.service'
 import { MatchListItemComponent } from './components/match-list-item/match-list-item.component'
 import { UsersProfileComponent } from './components/users-profile/users-profile.component'
 import { FollowingComponent } from './pages/following/following.component'
-import { HomeComponent } from './pages/home/home.component'
 import { LoginComponent } from './pages/login/login.component'
 import { MatchDetailsComponent } from './pages/match-details/match-details.component'
 import { MatchesComponent } from './pages/matches/matches.component'
@@ -15,7 +14,7 @@ import { UserComponent } from './pages/user/user.component'
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: MatchesComponent,
     canActivate: [AuthGuard]
   },
   {

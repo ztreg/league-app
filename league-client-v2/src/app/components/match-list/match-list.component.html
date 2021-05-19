@@ -1,14 +1,12 @@
-<div class="user-games-data" *ngIf="allMatches && allMatches.length >= 5 && !isInStore">
+<div class="user-games-data" *ngIf="allMatches && allMatches.length >= 5 && !isInStore && !showErrorComp">
   <h1>Latest matches</h1>
   <div *ngFor="let match of allMatches">
     <app-match-list-item [match]="match"></app-match-list-item>
   </div>
   <div *ngIf="allMatches.length >= 5 || nonMetaMatches && nonMetaMatches.length >= 5">
-    <div *ngIf="page !== 1" class="pag-items" (click)="getPagMatches(false)">
-      Go back... <mat-icon >arrow_upward</mat-icon>
-     </div>
-    <div class="pag-items" (click)="getPagMatches(true)">
-      Show more... <mat-icon  (click)="getPagMatches(true)" >arrow_downward</mat-icon>
+    <div class="pag-items">
+      <div *ngIf="page !== 1" (click)="getPagMatches('less')"> Go back... <mat-icon >arrow_upward</mat-icon></div>
+      <div (click)="getPagMatches('more')">Show more games... <mat-icon >arrow_downward</mat-icon></div> 
     </div>
   </div>
   <div *ngIf="(paginationMetaMatches$ | async) as pagMatches"  class="pag-games">
@@ -18,17 +16,15 @@
   </div>
 </div>
 
-<div *ngIf="isInStore" class="user-games-data">
+<div *ngIf="isInStore && !showErrorComp" class="user-games-data">
   <h1>Latest matches</h1>
   <div *ngFor="let match of nonMetaMatches">
     <app-match-list-nonmeta-item [match]="match" ></app-match-list-nonmeta-item>
   </div>
   <div *ngIf="(allMatches && allMatches.length >= 5) || (nonMetaMatches && nonMetaMatches.length >= 5)">
-    <div *ngIf="page !== 1" class="pag-items" (click)="getPagMatches(false)">
-     Go back... <mat-icon >arrow_upward</mat-icon>
-    </div>
-    <div class="pag-items" (click)="getPagMatches(true)">
-      Show more... <mat-icon >arrow_downward</mat-icon>
+    <div class="pag-items">
+      <div *ngIf="page !== 1" (click)="getPagMatches('less')"> Go back... <mat-icon >arrow_upward</mat-icon></div>
+      <div (click)="getPagMatches('more')">Show more games... <mat-icon >arrow_downward</mat-icon></div> 
     </div>
   </div>
   <div *ngIf="(paginationMetaMatches$ | async) as pagMatches" class="pag-games">
@@ -37,4 +33,4 @@
     </div>
   </div>
 </div>
-
+<app-too-many *ngIf="showErrorComp"></app-too-many>

@@ -1,10 +1,19 @@
 .footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    padding: 40px;
+    background-color: inherit;
+    margin-top: 10px;
+    .footer-text {
+        padding: 5px;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        margin-top: 30px;
+        text-align: center;
+        width: 80%;
+    }
     clear: both;
-    height: 200px;
+    height: auto;
+    margin-top:auto; 
+    position: relative;
+    bottom: 0;
+    clear: both;
     width: 100%;
 }

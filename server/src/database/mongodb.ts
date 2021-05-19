@@ -1,11 +1,8 @@
 
 import mongoose = require("mongoose");
-// import {Mongoose as test} from "mongoose"
 
-// const dbTest = new test()
 let database: mongoose.Connection;
 export const connect = () => {
-  // add your own uri below
   const uri = `mongodb+srv://${process.env.dbstring}?retryWrites=true&w=majority`;
   if (database) {
     console.log(database);
@@ -34,11 +31,7 @@ export const disconnect = () => {
   mongoose.disconnect();
 };
 
-import { Schema } from "mongoose";
 const UserSchema = new mongoose.Schema({
-  username: {
-    type: String
-  },
   summonerName: {
     type: String,
     required: true

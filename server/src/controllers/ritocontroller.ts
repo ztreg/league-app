@@ -1,6 +1,7 @@
 import {Request, Response, NextFunction} from 'express'
 import { getMatchesByUserIdModel, getMatchInfoByMatchIdModel, getSummonerRankedInfoByIdModel, getSummonerInfoByIdModel, getSummonerInfoByNameModel } from '../models/ritomodel'
 import { validateMatchId, validateSummonerName, validateUserId } from '../utils/dataValidation'
+
 export const getMatchesByUserIdController = async (req: Request, res: Response) => {
   let emptyParams: any = {}
   if(req && req.query) {

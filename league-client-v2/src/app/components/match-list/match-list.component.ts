@@ -20,14 +20,13 @@ export class MatchListComponent implements OnInit {
   page = 1
   startIndex = 0
   pageSize = 5
-  once = false
-
+  showErrorComp = false
   constructor(
     private store: StoreService,
     private utils: RequestUtilities
     ) { }
 
-    paginationMetaMatches$ = this.store.pagMetaDataMatches$
+  paginationMetaMatches$ = this.store.pagMetaDataMatches$
   ngOnInit(): void {
     const storeMatches = this.store.getCurrentUserLatestMatches()
     if (storeMatches.length > 0) {
@@ -39,32 +38,32 @@ export class MatchListComponent implements OnInit {
       })
       this.isInStore = false
     }
+    this.resetPaginationMatchesInStore()
+  }
 
+  resetPaginationMatchesInStore(): void {
     this.paginationMetaMatches$.pipe(take(1)).subscribe(res => {
       if (res.length > 0) {
         this.store.updatePagMetaDataMatches([])
       }
     })
-
   }
 
-getPagMatches(option: boolean | string): void {
+async getPagMatches(option: string): Promise<void> {
   this.store.currentUser$.pipe(take(1)).subscribe(userData => {
     this.userAccId = userData.accountId
   })
 
-  if (typeof option === 'string') {
-      this.page = 1
-      this.startIndex = 0
-      this.endIndex = 5
-      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex, true)
-     } else if (option) {
+  if (option === 'more') {
       this.page++
       this.startIndex += 5
       this.endIndex += 5
-      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex, true)
-      this.start = false
-     } else {
+      const res = await this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex, true)
+      if (res && res.status) {
+        this.showErrorComp = true
+      }
+
+     } else if (option === 'less') {
       this.page--
       this.startIndex -= 5
       this.endIndex -= 5
@@ -72,7 +71,11 @@ getPagMatches(option: boolean | string): void {
         this.start = true
         this.startIndex = 0
       }
-      this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex, true)
+      const res = await this.utils.getMyUserMatches(this.userAccId, this.startIndex, this.endIndex, true)
+      if (res && res.status) {
+        this.showErrorComp = true
+      }
+      this.start = false
     }
   }
 }

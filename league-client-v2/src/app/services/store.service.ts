@@ -82,41 +82,53 @@ export class StoreService {
   }
 
   updateCurrentProfileData(val: any): void {
+    console.log(val)
+
     this.currentProfileData = val
   }
 
+
+  // MetaData about the matches that is shown after pagination
   updatePagMetaDataMatches(val: MatchShort[]): void {
     this.pagMetaDataMatches = val
   }
 
+  // Leaderboard Data
   updateFollowingData(val: any): void {
     this.followingData = val
   }
 
+  // Data about the logged in user
   updateCurrentUser(val: any): void {
     this.currentUser = val
   }
 
+  // !MetaData! about the logged in users 5 recent matches
   updateMyMatches(val: any): void {
     this.myMatches = val
   }
 
+  // !ActualData! about the logged in users 5 recent matches
   updateCurrentUserLatestMatches(val: any[]): void {
     this.currentUserLatestMatches = val
   }
 
+  // MetaData about the profile you are visitings 5 recent matches
   updateProfileMatches(val: any): void {
     this.profileMatches = val
   }
 
+  // Massive amount of data about ALL champions in the game
   updateAllChampions(val: any): void {
     this.allChampions = val
   }
 
+  // Massive amount of data about ALL summonerspells in the game
   updateAllSummoners(val: any): void {
     this.allSummoners = val
   }
 
+  // Massive amount of data about ALL items in the game
   updateAllItems(val: any): void {
     this.allItems = val
   }

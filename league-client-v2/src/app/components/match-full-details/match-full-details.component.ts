@@ -1,8 +1,7 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { RequestService } from 'src/app/services/request.service'
 import { StoreService } from 'src/app/services/store.service'
-import { Item, Player} from 'src/app/types/Player'
-import { first, single, take, tap } from 'rxjs/operators'
+import { Player} from 'src/app/types/Player'
 import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { GameMetaData } from 'src/app/types/Match'
 @Component({
@@ -52,21 +51,17 @@ export class MatchFullDetailsComponent implements OnInit {
     if (!this.match) {
       this.req.getMatchDetails(this.match.gameId).then(res2 => {
         this.gameData = res2
-
       })
     } else {
       this.gameData = this.match
-
     }
     if (this.gameData && this.gameData.status) {
       this.matchError = true
     } else {
       const {teams, gameDuration, gameVersion} = this.gameData
       this.matchOverview = { teams, gameDuration, gameVersion }
-
       this.getTeamData()
     }
-
   }
 
   /**

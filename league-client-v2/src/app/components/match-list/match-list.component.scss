@@ -2,13 +2,11 @@
   width: 800px;
   margin: 0 auto;
   background-color: inherit;
-  .paginator {
-    background-color: black;
     .pag-items {
-      margin: 0 auto;
-      text-align: center;
+      display: flex;
+      padding: 20px;
+      justify-items: space-between;
     }
-  }
 
   .pag-games {
     padding: 20px;

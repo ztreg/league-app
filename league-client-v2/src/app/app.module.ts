@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { HomeComponent } from './pages/home/home.component'
 import { MatchesComponent } from './pages/matches/matches.component'
 import { MatchListComponent } from './components/match-list/match-list.component'
 import { MatchListItemComponent } from './components/match-list-item/match-list-item.component'
@@ -34,13 +33,12 @@ import { FooterComponent } from './components/Layout/footer/footer.component'
 import { NgApexchartsModule } from 'ng-apexcharts'
 import { ChartComponent } from './components/utils/chart/chart.component'
 import { MatchListNonmetaItemComponent } from './components/match-list-nonmeta-item/match-list-nonmeta-item.component'
-import { SearchBarComponent } from './components/Layout/search-bar/search-bar.component';
-import { GenericHeroComponent } from './components/Layout/generic-hero/generic-hero.component';
+import { SearchBarComponent } from './components/Layout/search-bar/search-bar.component'
+import { GenericHeroComponent } from './components/Layout/generic-hero/generic-hero.component'
 import { TooManyComponent } from './components/error/too-many/too-many.component'
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     MatchesComponent,
     MatchListComponent,
     MatchListItemComponent,
