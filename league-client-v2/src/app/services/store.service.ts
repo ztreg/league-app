@@ -82,8 +82,6 @@ export class StoreService {
   }
 
   updateCurrentProfileData(val: any): void {
-    console.log(val)
-
     this.currentProfileData = val
   }
 
