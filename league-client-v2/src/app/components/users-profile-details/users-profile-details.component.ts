@@ -4,6 +4,7 @@ import { map, take } from 'rxjs/operators'
 import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
+import { User } from 'src/app/types/User'
 
 @Component({
   selector: 'app-users-profile-details',
@@ -20,7 +21,7 @@ export class UsersProfileDetailsComponent implements OnInit {
   ) { }
   profileMatches$ = this.store.profileMatches$
   myMatches$ = this.store.myMatches$
-  nonMetaMetaches: any = []
+  nonMetaMatches: any = []
   isMe = false
   isInStore = false
   emblemsLoaded = false
@@ -36,7 +37,7 @@ export class UsersProfileDetailsComponent implements OnInit {
     } else {
       const hasMatches = this.store.getCurrentUserLatestMatches()
       if (hasMatches.length > 1) {
-        this.nonMetaMetaches = hasMatches
+        this.nonMetaMatches = hasMatches
         this.isInStore = true
       } else {
         this.isInStore = false
@@ -46,7 +47,6 @@ export class UsersProfileDetailsComponent implements OnInit {
         this.isMe = true
       })
     }
-
   }
 
   getRankedEmblems(): void {

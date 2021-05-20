@@ -6,6 +6,7 @@ import { GeneralUtilsService } from 'src/app/services/general-utils.service'
 import { Player } from 'src/app/types/Player'
 import { _MatTabGroupBase } from '@angular/material/tabs'
 import { ActivatedRoute } from '@angular/router'
+import { MatchShort } from 'src/app/types/Match'
 @Component({
   selector: 'app-match-list-item',
   templateUrl: './match-list-item.component.html',
@@ -15,7 +16,7 @@ import { ActivatedRoute } from '@angular/router'
  * This Component is used when we dont have access to the matches in the store
  */
 export class MatchListItemComponent implements OnInit {
-  @Input() match: any
+  @Input() match!: MatchShort
   itemData: any = []
 
   title = 'league-client-v2'

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { RequestUtilities } from 'src/app/services/requestUtils'
 import { StoreService } from 'src/app/services/store.service'
+import { User } from 'src/app/types/User'
 
 @Component({
   selector: 'app-user',
@@ -9,8 +10,8 @@ import { StoreService } from 'src/app/services/store.service'
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  userData: any
-
+  userData: User | undefined
+  errorMsg = false
   constructor(
     private utils: RequestUtilities,
     private store: StoreService
@@ -24,10 +25,14 @@ export class UserComponent implements OnInit {
   }
 
   async getUserDataById(accountId: string): Promise<void> {
+    // TODO: Add currentUser summonerinfo to store?
     if (accountId) {
       const res = await this.utils.getUserDataByID(accountId)
-      console.log(res)
-      this.userData = res
+      if (!res || (res && res.error)) {
+        this.errorMsg = true
+      } else {
+        this.userData = res
+      }
     }
   }
 }

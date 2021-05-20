@@ -1,4 +1,4 @@
-<div class="user-profile" *ngIf="userData">
+<div class="user-profile" *ngIf="userData && !errorMsg">
   <app-users-profile-details [userData]="userData"></app-users-profile-details>
 </div>
 

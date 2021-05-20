@@ -10,7 +10,9 @@
           <img src="{{player.summoners.summonersURL1}}" alt="">
           <img src="{{player.summoners.summonersURL2}}" alt="">
         </td>
-        <td *ngIf="champions[player.timeline.championID].image.full"> <img src="{{championImageUrl}}{{champions[player.timeline.championID].image.full}}" alt=""> </td>
+        <td *ngIf="champions[player.timeline.championID].image.full"> 
+          <img src="{{championImageUrl}}{{champions[player.timeline.championID].image.full}}" alt=""> 
+        </td>
         <td>{{player.kda}}</td>
         <td class="testCenter" mat-icon-button aria-label="Example icon-button with share icon" [routerLink]="['/matches', match.gameId]">
           Show <mat-icon>arrow_forward</mat-icon> 

@@ -10,7 +10,7 @@ import { MatchesMetaData, MatchShort } from 'src/app/types/Match'
   styleUrls: ['./match-list.component.scss']
 })
 export class MatchListComponent implements OnInit {
-  allMatches: MatchesMetaData[] | undefined
+  allMatches: MatchShort[] | undefined
   nonMetaMatches: MatchShort[] | undefined
   isInStore = false
 
@@ -21,12 +21,14 @@ export class MatchListComponent implements OnInit {
   startIndex = 0
   pageSize = 5
   showErrorComp = false
+
   constructor(
     private store: StoreService,
     private utils: RequestUtilities
     ) { }
 
   paginationMetaMatches$ = this.store.pagMetaDataMatches$
+
   ngOnInit(): void {
     const storeMatches = this.store.getCurrentUserLatestMatches()
     if (storeMatches.length > 0) {

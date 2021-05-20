@@ -28,7 +28,7 @@
   </table>
 </div>
 
-<div class="container-users" *ngIf="!(followingData$ | async)">
+<div class="calculating" *ngIf="!(followingData$ | async)">
   <div class="calculating">Calculating score...</div>
   <mat-progress-bar mode="indeterminate" color="white"></mat-progress-bar>
 </div>

@@ -1,39 +1,47 @@
 table, th, td {
   background-color: var(--coolDark);
   color: white;
+  
 }
 table {
+
   width: 100%;
   max-width: 850px;
   margin: 0 auto;
-}
-
-th {
-  padding: 15px;
-  text-align: left;
-}
-td {
-  text-align: center;
-  img {
-    width: 30px;
-    height: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  th {
+    padding: 15px;
+    text-align: left;
+    width: 80px;
+  }
+  td {
+    text-align: center;
+    width: 70px;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  
+  .match-table {
+    .timeStamp {
+      font-size: 11px;
+      font-weight: 50;
+    }
+    margin-top: 10px;
+    margin-bottom: 10px;
+    .testCenter {
+      display: flex;
+      align-items: center;
+      align-self: center;
+      margin-top: 11%;
+      margin-left: 10%;
+    }
   }
 }
 
-.match-table {
-  .timeStamp {
-    font-size: 11px;
-    font-weight: 50;
-  }
-  margin: 8px;
-  .testCenter {
-    display: flex;
-    align-items: center;
-    align-self: center;
-    margin-top: 11%;
-    margin-left: 10%;
-  }
-}
+
 
 .victory {
   border: 4px solid rgb(77, 233, 77);

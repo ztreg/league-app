@@ -33,9 +33,9 @@ export class MatchListNonmetaItemComponent implements OnInit {
 
   champions$ = this.store.allChampions$.pipe(
     map(data => {
-      const changedChampions = Object.values(data).map((item: any) => [item.key, item])
-      const changed = Object.fromEntries(changedChampions)
-      return changed
+      const allChampions = Object.values(data).map((item: any) => [item.key, item])
+      const changedFormatChampions = Object.fromEntries(allChampions)
+      return changedFormatChampions
     })
   )
 

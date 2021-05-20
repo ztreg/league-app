@@ -1,11 +1,18 @@
 .user-games-data {
   width: 800px;
   margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
   background-color: inherit;
     .pag-items {
       display: flex;
-      padding: 20px;
-      justify-items: space-between;
+      align-items: center;
+      align-self: center;
+      justify-content: space-between;
+      padding: 20px; 
+      >* {
+        cursor: pointer;
+      }
     }
 
   .pag-games {

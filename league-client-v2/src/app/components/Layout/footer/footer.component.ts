@@ -8,17 +8,17 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 })
 export class FooterComponent implements OnInit {
   constructor(private router: Router) { }
-  show = false
+  show = true
 
   ngOnInit(): void {
-    this.router.events.subscribe(changes => {
-      if (changes instanceof NavigationEnd) {
-        this.show = false
-        setTimeout(() => {
-          this.show = true
-        }, 500)
-      }
-    })
+    // this.router.events.subscribe(changes => {
+    //   if (changes instanceof NavigationEnd) {
+    //     this.show = false
+    //     setTimeout(() => {
+    //       this.show = true
+    //     }, 500)
+    //   }
+    // })
 
 
   }

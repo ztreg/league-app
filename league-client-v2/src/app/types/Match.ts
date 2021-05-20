@@ -1,12 +1,12 @@
 export interface MatchShort {
   champion: number
-  gameId: number
+  gameId: string
   lane: string
   platformId: string
   queue: number
   role: string
   season: number
-  timestamp: number
+  timestamp: string
 }
 
 export interface GameMetaData {
@@ -21,4 +21,6 @@ export interface MatchesMetaData {
   matches: MatchShort[]
   startIndex: number
   totalGames: number
+  gameId: string
+  champion: number
 }

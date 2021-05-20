@@ -6,37 +6,38 @@
   justify-content: space-around;
 
   .col1 {
+    height: auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    // align-self: center;
     background-color: var(--smoothDark);
     border-radius: 5px;
     width: 400px;
     margin-top: 30px;
-    padding: 20px;
+    // padding: 20px;
     -webkit-box-shadow: 0 0 60px var(--highContrastRed);
     box-shadow: 0 0 60px var(--highContrastRed);
 
     .col1-ranks {
-      flex: 2;
+      flex: 1;
       .ranked-user {
         font-size: 1.1em;
-        width: 90px;
+        width: 150px;
+        padding: 10px;
         margin: 0 auto;
         background-color: var(--smoothDark);
         text-align: center;
         .emblems {
           display: block;
           margin: 0 auto;
-          width: 70px;
-          height: 70px;
+          width: 150px;
+          height: 150px;
         }
       }
     }
-    .user-games-data {
-      flex: 2;
-      background-color: var(--darkBlue);
-  
-    }
+
   }
 
   .col2 {
@@ -45,6 +46,11 @@
     padding: 20px;
     width: 700px;
     min-height: 500px;
+    .user-games-data {
+      flex: 2;
+      background-color: var(--darkBlue);
+  
+    }
   }
 
  
@@ -63,15 +69,27 @@
       width: 400px;
     }
   }
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 450px) {
 
     .user-profile, .col2, .user-games-data {
       width: 99%;
       padding: 0 !important;
       margin: 0;
       font-size: 0.9em;
+      
     }
-  
+    .col1 {
+      width: 100%;
+      display: flex;
+      .ranked-user {
+        width: 75px !important;
+        .emblems {
+          width: 75px !important;
+          height: 75px !important;
+        }
+      }
+    }
+ 
   }
 }
 

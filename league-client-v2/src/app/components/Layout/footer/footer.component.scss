@@ -1,5 +1,6 @@
 .footer {
-    background-color: inherit;
+    z-index: 1;
+    background-color: var(--coolDark);
     margin-top: 10px;
     .footer-text {
         padding: 5px;
@@ -16,4 +17,18 @@
     bottom: 0;
     clear: both;
     width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .footer {
+        margin-top:auto; 
+        // position: fixed;
+        bottom: 0;
+        font-size: 0.8em;
+        .footer-text {
+            margin-bottom: 8px;
+            margin-top: 8px;
+            // padding: 1px,
+        }
+    }
 }

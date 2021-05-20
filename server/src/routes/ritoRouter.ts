@@ -11,11 +11,12 @@ import {
 import {authMiddleware} from '../utils/auhorization'
 const ritoRouter = Router();
 
-ritoRouter.get('/matches/user/:accountId', authMiddleware, getMatchesByUserIdController)
 
 ritoRouter.get('/summoner/:accountName', getSummonerInfoByNameController)
 
 ritoRouter.get('/summonerById/:accountId', getSummonerInfoByIdController)
+
+ritoRouter.get('/matches/user/:accountId', authMiddleware, getMatchesByUserIdController)
 
 ritoRouter.get('/summonerRanked/:summonerId', authMiddleware, getSummonerRankedInfoByIdController)
 
