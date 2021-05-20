@@ -30,23 +30,31 @@ export class UsersProfileDetailsComponent implements OnInit {
   ranksAsEmblem: any = []
 
   async ngOnInit(): Promise<void> {
+    console.log(this.userData)
     this.getRankedEmblems()
     const userId: any = this.router.snapshot.paramMap.get('id')
-    if (userId) {
-      this.favChamp = await this.utils.getUserMatches(userId, 0, 5)
-    } else {
-      const hasMatches = this.store.getCurrentUserLatestMatches()
-      if (hasMatches.length > 1) {
-        this.nonMetaMatches = hasMatches
-        this.isInStore = true
+    try {
+      if (userId) {
+        this.favChamp = await this.utils.getUserMatches(userId, 0, 5)
       } else {
-        this.isInStore = false
+        const loggedInUserMatches = this.store.getCurrentUserLatestMatches()
+        if (loggedInUserMatches.length > 0) {
+          this.nonMetaMatches = loggedInUserMatches
+          this.isInStore = true
+        } else {
+          this.isInStore = false
+        }
+        this.store.currentUser$.pipe(take(1)).subscribe( res => {
+          this.favChamp = res.favChamp
+          this.isMe = true
+        })
       }
-      this.store.currentUser$.pipe(take(1)).subscribe( res => {
-        this.favChamp = res.favChamp
-        this.isMe = true
-      })
+    } catch (error) {
+      console.log(error)
+
     }
+
+
   }
 
   getRankedEmblems(): void {

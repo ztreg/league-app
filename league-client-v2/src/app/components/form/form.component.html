@@ -2,7 +2,7 @@
   <h4>Signup</h4>
   <app-input type="text" (inputData)="handleEventData($event)" value="user.summonerName" name="summonerName" placeholder="Your summonername Ex: Faker"></app-input>
   <app-input type="password" (inputData)="handleEventData($event)" value="user.password" name="password" placeholder="password..."></app-input>
-  <p *ngIf="statusMsg && (page === 'signup')">{{statusMsg}}</p>
+  <p *ngIf="statusMsg || errorMsg && (page === 'signup')">{{statusMsg || errorMsg}}</p>
   <button mat-button color="warn">Signup</button>
 </form>
 

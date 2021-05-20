@@ -24,7 +24,6 @@
     "@angular/router": "~11.1.0",
     "@auth0/angular-jwt": "^5.0.2",
     "apexcharts": "^3.26.1",
-    "cypress": "^7.1.0",
     "ng-apexcharts": "^1.5.9",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

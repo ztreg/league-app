@@ -22,11 +22,12 @@ export class RequestUtilities {
   hasMetaData: boolean | undefined
   iconURL = 'https://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon'
   /**
-   * Gets the loggedin users latest matches. Destructs the meta-data, stores the meta-data in store
+   * Gets metadata about 5 recent games of the loggedin user if its not already if the observable.
    * and calculates the most played champion of those games. Adds that to the currentUser store.
    * @param currentUserAccountId id the person logged in
    * @param start startindex of matches
    * @param end endindex if matches
+   * @param isPagination checks if we are adding this to the pagination observable or the
    */
   async getMyUserMatches(currentUserAccountId: string, start: number | 0, end: number | 5, isPagination: boolean | false): Promise<any> {
     let returnObject: any = {}
@@ -41,6 +42,14 @@ export class RequestUtilities {
     return returnObject
   }
 
+  /**
+   *
+   * @param currentUserAccountId id the person logged in
+   * @param start startindex of matches
+   * @param end endindex if matches
+   * @param isPagination checks if we are adding this to the pagination observable or the matches observable
+   * @returns 5 matches about metadata or error
+   */
   async addMatchesToStores(currentUserAccountId: string, start: number | 0, end: number | 5, isPagination: boolean | false): Promise<any> {
     let placeHolderFavoriteChampion: any = {}
     try {
@@ -71,15 +80,28 @@ export class RequestUtilities {
     }
   }
 
+  /**
+   * Gets metadata about the last 5 matches and adds to Observable.
+   * @param accountId id of the profile you are visiting
+   * @param start startindex of matches
+   * @param end endindex if matches
+   * @returns id of the champion most played by the user
+   */
   async getUserMatches(accountId: string, start: number, end: number): Promise<any> {
-    const result: any = await this.req.getAllMatches(accountId, start || 0, end || 5)
-    const { matches } = result
-    for (const match of matches) {
-      match.timestamp = this.generalUtils.timeDifference(match.timestamp)
+
+    try {
+      const result: any = await this.req.getAllMatches(accountId, start || 0, end || 5)
+      const { matches } = result
+      for (const match of matches) {
+        match.timestamp = this.generalUtils.timeDifference(match.timestamp)
+      }
+      const favChamp = this.generalUtils.getMostPlayedChampion(matches)
+      this.storeService.updateProfileMatches(matches)
+      return favChamp
+    } catch (error) {
+      return error
     }
-    const favChamp = this.generalUtils.getMostPlayedChampion(matches)
-    this.storeService.updateProfileMatches(matches)
-    return favChamp
+
   }
 
   getMyFavChamp(favChampParam: any): void {
@@ -209,21 +231,29 @@ export class RequestUtilities {
   }
 
   async fillFollowerDataToStore(): Promise<any> {
-    let test = {}
+
+    let followingDataObject = {}
     this.storeService.currentUser$.subscribe(userData => {
       const followingUserIdsArray = userData.userDetails.following || []
       if (followingUserIdsArray.length > 0) {
-        test = this.getMatchesByFollowed(followingUserIdsArray)
+        followingDataObject = this.getMatchesByFollowed(followingUserIdsArray)
       }
     })
-    return test
+    return followingDataObject
   }
 
+  /**
+   *
+   * @param followingArray an array of strings ids
+   * @returns a object containing 2 leaderboards
+   */
   async getMatchesByFollowed(followingArray: string[]): Promise<any> {
     const soloBoard = []
     const flexBoard = []
     for (const id of followingArray) {
       const res: any = await this.getUserDataByID(id)
+      console.log(res)
+
       if (res.rankedInfo.length === 0) {
         res.rankedInfo = [
           {

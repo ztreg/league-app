@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { filter } from 'cypress/types/bluebird'
 import { map } from 'rxjs/operators'
 import { StoreService } from 'src/app/services/store.service'
 

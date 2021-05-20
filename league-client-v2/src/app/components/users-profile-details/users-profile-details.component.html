@@ -1,5 +1,7 @@
 <app-hero *ngIf="favChamp && userData.summonerInfo" [favChamp]="favChamp" [userData]="userData.summonerInfo"></app-hero>
+<app-generic-hero *ngIf="!favChamp && !userData.rankedInfo"></app-generic-hero>
 <app-too-many *ngIf="!favChamp && !userData.summonerInfo && !userData.rankedInfo"></app-too-many>
+
 <div class="user-profile" *ngIf="userData && userData.rankedInfo">
   <div class="col1"*ngIf="userData && userData.rankedInfo.length > 0 && ranksAsEmblem">
     <div *ngFor="let info of userData.rankedInfo; index as i" class="col1-ranks">
@@ -20,6 +22,7 @@
   <div *ngIf="userData.rankedInfo.length === 0" class="col1 ranked-user">
     <div>Not enough ranked games played</div>
   </div>
+  <!--Matches on profile-->
   <div *ngIf="!isInStore">
     <div class="user-games-data col2" *ngIf="isMe && (myMatches$ | async) as matches">
       <div *ngFor="let match of matches; index as i">

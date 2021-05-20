@@ -7,11 +7,8 @@ import { StoreService } from 'src/app/services/store.service'
   styleUrls: ['./following.component.scss']
 })
 export class FollowingComponent implements OnInit {
+  constructor(private store: StoreService) { }
   followingData$ = this.store.followingData$
   currentUser$ = this.store.currentUser$
-  constructor(
-    private store: StoreService
-    ) { }
-
   ngOnInit(): void {}
 }

@@ -133,7 +133,7 @@ export class GeneralUtilsService {
    *
    * @param summoner1Id The first summonerspell the user is using
    * @param summoner2Id The second summonerspell the user is using
-   * @returns An object of data about the summonerspells
+   * @returns An object of imageURLS of the summonerspells
    */
   getSummoners(summoner1Id: string, summoner2Id: string): any {
     const summonerData: any = {}
@@ -151,6 +151,10 @@ export class GeneralUtilsService {
     return summonerData
   }
 
+  /**
+   * @param matches Matches array with metadata, includng 5 championids
+   * @returns URL for splashart to the most played champion
+   */
   getMostPlayedChampion(matches: any): void {
 
     const mostOccurringElement = (array: { [key: string]: number }[]) => {
@@ -185,7 +189,7 @@ export class GeneralUtilsService {
   }
 
 
-  timeDifference(previous: any): any {
+  timeDifference(previous: number): string {
       const current = Date.now()
       const msPerMinute = 60 * 1000
       const msPerHour = msPerMinute * 60

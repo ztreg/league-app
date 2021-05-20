@@ -20,8 +20,8 @@ export class AppComponent implements OnInit{
     const data = JSON.parse(storageData)
     if (data) {
       this.store.updateCurrentUser(data)
-      const test: MatchesMetaData = await this.utils.getMyUserMatches(data.accountId, 0, 5, false)
-      if (test.status && test.status.status_code === 429) {
+      const metaDataResult: MatchesMetaData = await this.utils.getMyUserMatches(data.accountId, 0, 5, false)
+      if (metaDataResult.status && metaDataResult.status.status_code === 429) {
         this.showErrorComp = true
       } else {
         this.utils.fillFollowerDataToStore()

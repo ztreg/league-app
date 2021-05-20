@@ -28,8 +28,8 @@ export class FormComponent implements OnInit {
 
   async signUp(event: Event): Promise<void> {
     event.preventDefault()
-    if (this.user.summonerName === '') {
-      this.errorMsg = 'Please enter a name...'
+    if (this.user.summonerName === '' || this.user.password === '') {
+      this.errorMsg = 'Please enter a name && password'
     } else {
       const signUpRes = await this.utils.signUp(this.user)
 

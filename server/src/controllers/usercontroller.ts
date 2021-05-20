@@ -22,17 +22,26 @@ export const addUser = async (req: Request, res: Response) => {
       }})
     }
   }
+  if(req.body) {
+    req.body.summonerName = req.body.summonerName.toLowerCase()
+  }
   try {
     await validateAddUsersSchema().validateAsync(req.body)
     const addedUser = await addUserModel(req.body)
     res.status(201).json(addedUser)
     
   } catch (error) {
+    console.log(error);
     res.status(401).json(error)
   }
 
 }
-
+/**
+ * Loops through the ids that the user is following, if alrady following, unfollow.
+ * @param req request object
+ * @param res response object
+ * @returns a updated OK or Error
+ */
 export const updateUserFollow = async (req: Request, res: Response) => {
   const { id } = req.params
   const { accountId } = req.body

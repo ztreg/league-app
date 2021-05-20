@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { lowerFirst } from 'cypress/types/lodash'
 import { first, map, take, tap } from 'rxjs/operators'
 import { StoreService } from 'src/app/services/store.service'
 import { GameMetaData } from 'src/app/types/Match'
