@@ -189,7 +189,8 @@ export class GeneralUtilsService {
   }
 
 
-  timeDifference(previous: number): string {
+  timeDifference(previous: string): string {
+      const previousTime = Number(previous)
       const current = Date.now()
       const msPerMinute = 60 * 1000
       const msPerHour = msPerMinute * 60
@@ -197,7 +198,7 @@ export class GeneralUtilsService {
       const msPerMonth = msPerDay * 30
       const msPerYear = msPerDay * 365
 
-      const elapsed = current - previous
+      const elapsed = current - previousTime
 
       if (elapsed < msPerMinute) {
           return Math.round(elapsed / 1000) + 's ago'
