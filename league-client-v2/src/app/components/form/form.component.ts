@@ -31,13 +31,17 @@ export class FormComponent implements OnInit {
     if (this.user.summonerName === '' || this.user.password === '') {
       this.errorMsg = 'Please enter a name && password'
     } else {
-      const signUpRes = await this.utils.signUp(this.user)
-
-      if (signUpRes.error || signUpRes.status) {
-        this.statusMsg = signUpRes.status.message || signUpRes.error.status.message
-      } else {
-        this.statusMsg = 'Signup successfull. Login to start following!'
+      try {
+        const signUpRes = await this.utils.signUp(this.user)
+        if (signUpRes.error || signUpRes.status) {
+          this.statusMsg = signUpRes.status.message || signUpRes.error.status.message
+        } else {
+          this.statusMsg = 'Signup successfull. Login to start following!'
+        }
+      } catch (error) {
+        this.statusMsg = 'Not allowed summonerName or Password'
       }
+
     }
   }
 
