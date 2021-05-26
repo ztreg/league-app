@@ -1,20 +1,20 @@
 <mat-toolbar class="header-container" *ngIf="!searchBar">
-    <button mat-button class="menu-button" [matMenuTriggerFor]="menu" >
-      <mat-icon>{{ isMenuOpen ? 'menu_close' : 'menu' }}</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu" (click)="onSidenavClick()">
-      <div *ngIf="(currentUser$ | async)">
-        <div *ngFor="let menuItem of menuListLoggedIn">
-          <button mat-menu-item routerLink="{{menuItem.link}}" routerLinkActive="active">{{menuItem.name}}</button>
-        </div>
-        <button mat-menu-item (click)="logout()">Logout</button>
+  <button mat-button class="menu-button" [matMenuTriggerFor]="menu" >
+    <mat-icon>{{ isMenuOpen ? 'menu_close' : 'menu' }}</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" (click)="onSidenavClick()">
+    <div *ngIf="(currentUser$ | async)">
+      <div *ngFor="let menuItem of menuListLoggedIn">
+        <button mat-menu-item routerLink="{{menuItem.link}}" routerLinkActive="active">{{menuItem.name}}</button>
       </div>
-      <div *ngIf="!(currentUser$ | async)">
-        <div *ngFor="let menuItem of menuListNotLoggedIn">
-          <button mat-menu-item routerLink="{{menuItem.link}}" routerLinkActive="active">{{menuItem.name}}</button>
-        </div>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </div>
+    <div *ngIf="!(currentUser$ | async)">
+      <div *ngFor="let menuItem of menuListNotLoggedIn">
+        <button mat-menu-item routerLink="{{menuItem.link}}" routerLinkActive="active">{{menuItem.name}}</button>
       </div>
-    </mat-menu>
+    </div>
+  </mat-menu>
 
  
   <a routerLink="/matches" routerLinkActive="active" class="linkBtn nav-item"><span> Home</span></a>

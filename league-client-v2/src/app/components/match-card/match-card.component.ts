@@ -26,9 +26,9 @@ export class MatchCardComponent implements OnInit {
   constructor(private router: Router, private store: StoreService) { }
   champions$ = this.store.allChampions$.pipe(
     map(data => {
-      const hejhej = Object.values(data).map((item: any) => [item.key, item])
-      const awsomeDict = Object.fromEntries(hejhej)
-      return awsomeDict
+      const changedChampions = Object.values(data).map((item: any) => [item.key, item])
+      const championDictionary = Object.fromEntries(changedChampions)
+      return championDictionary
     })
   )
 

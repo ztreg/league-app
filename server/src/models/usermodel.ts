@@ -1,8 +1,5 @@
-import {Application, Request, Response, NextFunction} from 'express'
-import { FilterQuery } from 'mongoose';
 import bcrypt from 'bcryptjs'
 import dbFile from '../database/mongodb'
-import { User } from '../types/users.types';
 
 async function hashPW (password: string) {
   return bcrypt.hashSync(password, 10)

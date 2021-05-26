@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { map } from 'rxjs/operators'
 import { StoreService } from 'src/app/services/store.service'
 
 @Component({

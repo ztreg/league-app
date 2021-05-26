@@ -30,7 +30,6 @@ export class UsersProfileDetailsComponent implements OnInit {
   ranksAsEmblem: any = []
 
   async ngOnInit(): Promise<void> {
-    console.log(this.userData)
     this.getRankedEmblems()
     const userId: any = this.router.snapshot.paramMap.get('id')
     try {
@@ -51,10 +50,7 @@ export class UsersProfileDetailsComponent implements OnInit {
       }
     } catch (error) {
       console.log(error)
-
     }
-
-
   }
 
   getRankedEmblems(): void {

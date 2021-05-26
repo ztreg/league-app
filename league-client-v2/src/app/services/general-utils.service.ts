@@ -93,12 +93,12 @@ export class GeneralUtilsService {
     const itemsURL: Item[] = []
     let itemURL: any = {}
     this.store.allItems$.pipe(take(1)).subscribe(allItems => {
+
       if (allItems) {
         for (const id of itemsArray) {
           if (id === 0) {
             continue
           }
-
           itemURL = allItems[id]
           itemsURL.unshift(itemURL)
           itemsURL[0].itemURL = this.itemImageUrl + allItems[id].image.full
