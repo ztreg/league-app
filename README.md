@@ -1,4 +1,5 @@
 # league-app - League-book.
+### deployed to: https://league-book-jonas.herokuapp.com/login
 ### An application that uses Riot Developer API
 ###### Techics used: Angular, Apexcharts, Express, Jwt, Mongoose, Riot API, Mongodb Atlas
 
