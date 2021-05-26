@@ -3,8 +3,10 @@
 ###### Techics used: Angular, Apexcharts, Express, Jwt, Mongoose, Riot API, Mongodb Atlas
 
 ### Run frontend && backend
-##### cd league-client-v2 -> npm start
-##### cd server -> npm run dev
+```
+  cd league-client-v2 -> npm start
+  cd server -> npm run dev
+```
 
 ### Build and Deploy application to heroku (backend)
 ```
